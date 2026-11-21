@@ -4,6 +4,7 @@ import { formatDate, summarize } from './dashboard-data.js';
 import { Activity, Calendar, Charts, PostLibrary, ScreenTitle, Settings, StatCards, Topics } from './screens.jsx';
 import samplePosts from './posts.json';
 import './panelwork.css';
+import './workspace.css';
 
 const modes = ['system', 'light', 'dark'];
 const languages = document.documentElement.lang || 'en';
@@ -35,12 +36,12 @@ function Sidebar({ route, mode, setMode }) {
             event.currentTarget.querySelector('button').focus();
         }
     }
-    return <header className="pw-sidebar" data-pw-collapsible="" data-pw-open={open ? '' : undefined} onKeyDown={closeWithEscape}>
+    return <header id="panelwork-sidebar" className="pw-sidebar" data-pw-collapsible="" data-pw-open={open ? '' : undefined} onKeyDown={closeWithEscape}>
         <div className="pw-brand-line">
             <a className="pw-brand" href="#overview" onClick={() => setOpen(false)}>Panelwork</a>
-            <button className="pw-menu" type="button" aria-expanded={open} aria-controls="panelwork-sidebar" onClick={() => setOpen(!open)}>Menu</button>
+            <button className="pw-menu" type="button" aria-expanded={open} aria-controls="panelwork-mobile-nav" onClick={() => setOpen(!open)}>Menu</button>
         </div>
-        <div className="pw-rail-panel" id="panelwork-sidebar">
+        <div className="pw-rail-panel" id="panelwork-mobile-nav">
             <nav className="pw-nav" aria-label="Main navigation">
                 {Object.entries(links).map(([group, items]) => <Fragment key={group}>
                     <p className="pw-rail-label pw-nav-label">{group === 'Overview' ? 'Publishing' : group}</p>
@@ -67,6 +68,22 @@ function Article({ post }) {
     </article>;
 }
 
+function Hero() {
+    return <section className="pw-hero">
+        <div>
+            <h1>Publishing overview</h1>
+            <p>See what’s been published, which topics are growing, and what the library covers.</p>
+            <div className="pw-hero-links">
+                <a className="pw-action" href="#library">Open post library ↗</a>
+                <a className="pw-quiet-link" href="#calendar">View calendar</a>
+            </div>
+        </div>
+        <div className="pw-hero-art" aria-hidden="true">
+            <span className="pw-orbit" /><span className="pw-orbit" /><span className="pw-orbit" /><span className="pw-orb" />
+        </div>
+    </section>;
+}
+
 function currentRoute() {
     return location.hash.slice(1) || 'overview';
 }
@@ -75,6 +92,8 @@ function App({ posts }) {
     const [route, setRoute] = useState(currentRoute);
     const [mode, setMode] = usePreference('gonk-panelwork-mode', modes, 'system');
     const [density, setDensity] = usePreference('gonk-panelwork-density', ['comfortable', 'compact'], 'comfortable');
+    const [rail, setRail] = usePreference('gonk-panelwork-rail', ['open', 'hidden'], 'open');
+    const railOpen = rail === 'open';
     const [screen, search] = route.split('?');
     const summary = summarize(posts);
     const params = new URLSearchParams(search);
@@ -98,9 +117,7 @@ function App({ posts }) {
     switch (screen) {
         case 'overview':
             content = <>
-                <ScreenTitle title="Publishing overview" description="A summary of this workspace’s entries, topics, and publishing cadence.">
-                    <a className="pw-action" href="#library">Open post library ↗</a>
-                </ScreenTitle>
+                <Hero />
                 <StatCards summary={summary} />
                 <Charts summary={summary} />
                 <div className="pw-section-grid">
@@ -142,10 +159,23 @@ function App({ posts }) {
 
     return <Fragment>
         <a className="pw-skip" href="#content" onClick={event => { event.preventDefault(); document.getElementById('content').focus(); }}>Skip to content</a>
-        <div className="pw-shell" data-pw-density={density}>
+        <div className="pw-shell pw-react" data-pw-density={density} data-pw-rail={rail}>
             <Sidebar route={screen} mode={mode} setMode={setMode} />
             <main id="content" tabIndex={-1}><div className="pw-wrap pw-content">
-                <div className="pw-top"><p className="pw-top-service">Publishing desk / {screenLabel}</p><p className="pw-top-badge">Example content</p></div>
+                <div className="pw-chrome">
+                    <div className="pw-chrome-group">
+                        <button type="button" className="pw-quiet-link pw-desktop-toggle" aria-expanded={railOpen}
+                            aria-controls="panelwork-sidebar" onClick={() => setRail(railOpen ? 'hidden' : 'open')}>
+                            <span className="pw-toggle-icon" aria-hidden="true" />
+                            {railOpen ? 'Hide sidebar' : 'Show sidebar'}
+                        </button>
+                        <p className="pw-chrome-text">{screenLabel}</p>
+                    </div>
+                    <div className="pw-chrome-actions">
+                        <p className="pw-top-badge">Example content</p>
+                        <a className="pw-quiet-link pw-chrome-link" href="#settings">Preferences</a>
+                    </div>
+                </div>
                 {content}
             </div></main>
             <footer className="pw-footer"><div className="pw-wrap">Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></div></footer>

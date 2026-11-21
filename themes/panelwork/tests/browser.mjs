@@ -16,19 +16,36 @@ try {
             assert.equal(await page.locator('.pw-post-row').count(), target ? 6 : 12);
             assert.equal(await page.locator('.pw-stat').count(), 4);
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+            const panel = page.locator(target ? '#panelwork-mobile-nav' : '#panelwork-sidebar');
             if (width === 390) {
                 const menu = page.getByRole('button', { name: 'Menu', exact: true });
-                assert.equal(await page.locator('#panelwork-sidebar').isVisible(), false);
+                assert.equal(await panel.isVisible(), false);
                 await menu.click();
                 assert.equal(await menu.getAttribute('aria-expanded'), 'true');
                 await page.getByRole('link', { name: 'Overview', exact: true }).focus();
                 await page.keyboard.press('Escape');
-                assert.equal(await page.locator('#panelwork-sidebar').isVisible(), false);
+                assert.equal(await panel.isVisible(), false);
                 await menu.click();
             } else {
                 const side = await page.locator('.pw-sidebar').boundingBox();
                 const content = await page.locator('main').boundingBox();
                 assert(side.x + side.width <= content.x);
+                if (target) {
+                    const toggle = page.getByRole('button', { name: 'Hide sidebar' });
+                    await toggle.click();
+                    assert.equal(await page.locator('.pw-sidebar').isVisible(), false);
+                    const expanded = await page.locator('main').boundingBox();
+                    assert(expanded.width > content.width);
+                    await page.reload();
+                    await page.getByRole('button', { name: 'Show sidebar' }).waitFor();
+                    assert.equal(await page.locator('.pw-sidebar').isVisible(), false);
+                    await page.setViewportSize({ width: 390, height: 900 });
+                    assert(await page.getByRole('button', { name: 'Menu', exact: true }).isVisible());
+                    await page.setViewportSize({ width, height: 900 });
+                    await page.getByRole('button', { name: 'Show sidebar' }).click();
+                    assert(await page.locator('.pw-sidebar').isVisible());
+                    assert.equal(await page.getByRole('button', { name: 'Hide sidebar' }).getAttribute('aria-expanded'), 'true');
+                }
             }
             await page.getByLabel('Appearance', { exact: true }).selectOption('dark');
             assert.equal(await page.locator('html').getAttribute('data-pw-mode'), 'dark');
@@ -91,6 +108,13 @@ try {
             await page.close();
             console.log(`${edition}, ${width}px: sidebar, colour mode, chart, filters and article passed`);
         }
+    }
+    if (process.env.PANELWORK_REACT_SCREENSHOT) {
+        const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, colorScheme: 'light' });
+        await page.goto(base + 'react/');
+        await page.getByRole('heading', { name: 'Publishing overview' }).waitFor();
+        await page.screenshot({ path: process.env.PANELWORK_REACT_SCREENSHOT });
+        await page.close();
     }
     if (process.env.PANELWORK_SCREENSHOT) {
         const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, colorScheme: 'light' });

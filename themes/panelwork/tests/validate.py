@@ -43,9 +43,13 @@ for asset in ("dashboard-data.js", "panelwork.css", "posts.json"):
     assert (root / "shared" / asset).read_bytes() == (react / "src" / asset).read_bytes()
 assert (root / "preview/react/index.html").is_file()
 
-checksums = dict(reversed(line.split("  ", 1)) for line in (releases / "SHA256SUMS.txt").read_text().splitlines())
-expected = {"panelwork-blogger-1.1.0.zip", "panelwork-wordpress-1.1.0.zip", "panelwork-react-1.1.0.zip"}
-assert set(checksums) == expected
+react_version = json.loads((react / "package.json").read_text())["version"]
+react_archive = f"panelwork-react-{react_version}.zip"
+checksums = {}
+for manifest in ("SHA256SUMS.txt", f"SHA256SUMS-react-{react_version}.txt"):
+    checksums.update(dict(reversed(line.split("  ", 1)) for line in (releases / manifest).read_text().splitlines()))
+expected = {"panelwork-blogger-1.1.0.zip", "panelwork-wordpress-1.1.0.zip", react_archive}
+assert expected <= set(checksums)
 for name, digest in checksums.items():
     assert hashlib.sha256((releases / name).read_bytes()).hexdigest() == digest
     with ZipFile(releases / name) as archive:
@@ -58,7 +62,7 @@ for name, digest in checksums.items():
             files = {f"panelwork/{p.relative_to(wp)}": p for p in wp.rglob("*") if p.is_file()}
             assert names == set(files)
             assert all(archive.read(entry) == file.read_bytes() for entry, file in files.items())
-        else:
+        elif name == react_archive:
             files = {p for p in (react / "src").rglob("*") if p.is_file()}
             files.update(react / name for name in ("README.md", "LICENSE", "REACT-LICENSE.txt",
                                                     "index.html", "package.json", "package-lock.json"))

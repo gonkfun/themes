@@ -1,5 +1,7 @@
 """Build the three downloadable ZIPs and stage the compiled React preview."""
+import argparse
 import hashlib
+import json
 import shutil
 import zipfile
 from pathlib import Path
@@ -9,8 +11,13 @@ RELEASES = ROOT / "releases"
 RELEASES.mkdir(exist_ok=True)
 WORDPRESS = ROOT / "wordpress/panelwork"
 REACT = ROOT / "react"
+REACT_VERSION = json.loads((REACT / "package.json").read_text())["version"]
+PARSER = argparse.ArgumentParser(description=__doc__)
+PARSER.add_argument("--react-only", action="store_true", help="Keep existing Blogger and WordPress packages.")
+REACT_ONLY = PARSER.parse_args().react_only
 PREVIEW = ROOT / "preview/react"
-assert (WORDPRESS / "screenshot.png").is_file(), "Create the 1200×900 preview screenshot first."
+if not REACT_ONLY:
+    assert (WORDPRESS / "screenshot.png").is_file(), "Create the 1200×900 preview screenshot first."
 assert (REACT / "dist/index.html").is_file(), "Build the React app before packaging."
 if PREVIEW.exists():
     shutil.rmtree(PREVIEW)
@@ -25,8 +32,10 @@ packages = {
                                     for p in sorted(WORDPRESS.rglob("*")) if p.is_file()],
     "panelwork-blogger-1.1.0.zip": [(ROOT / "blogger/panelwork-blogger.xml", "panelwork-blogger.xml"),
                                   (ROOT / "docs/BLOGGER.md", "INSTALL.md"), (ROOT.parents[1] / "LICENSE", "LICENSE")],
-    "panelwork-react-1.1.0.zip": [(p, Path("panelwork-react") / p.relative_to(REACT)) for p in sorted(react_files)]
+    f"panelwork-react-{REACT_VERSION}.zip": [(p, Path("panelwork-react") / p.relative_to(REACT)) for p in sorted(react_files)]
 }
+if REACT_ONLY:
+    packages = {name: files for name, files in packages.items() if name.startswith("panelwork-react-")}
 checksums = []
 for name, entries in packages.items():
     file = RELEASES / name
@@ -34,4 +43,8 @@ for name, entries in packages.items():
         for source, target in entries:
             archive.write(source, target)
     checksums.append(f"{hashlib.sha256(file.read_bytes()).hexdigest()}  {name}")
-(RELEASES / "SHA256SUMS.txt").write_text("\n".join(checksums) + "\n")
+react_manifest = f"SHA256SUMS-react-{REACT_VERSION}.txt"
+react_checksum = next(line for line in checksums if "panelwork-react-" in line)
+(RELEASES / react_manifest).write_text(react_checksum + "\n")
+if not REACT_ONLY:
+    (RELEASES / "SHA256SUMS.txt").write_text("\n".join(checksums) + "\n")
