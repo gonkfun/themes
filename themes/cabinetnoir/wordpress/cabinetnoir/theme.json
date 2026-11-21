@@ -1,0 +1,83 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1152px"
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "paper",
+          "name": "Paper",
+          "color": "#f3eee5"
+        },
+        {
+          "slug": "panel",
+          "name": "Panel",
+          "color": "#faf7f0"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#2b211f"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted",
+          "color": "#63544e"
+        },
+        {
+          "slug": "accent",
+          "name": "Accent",
+          "color": "#7c3035"
+        },
+        {
+          "slug": "line",
+          "name": "Line",
+          "color": "#d9c9bc"
+        },
+        {
+          "slug": "on-accent",
+          "name": "On-Accent",
+          "color": "#fff7f3"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|paper",
+      "text": "var:preset|color|ink"
+    },
+    "spacing": {
+      "blockGap": "0"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|accent",
+          "text": "var:preset|color|on-accent"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ]
+}

@@ -5,7 +5,10 @@
     "version": "1.0.0",
     "category": "Solana editorial",
     "description": "A charcoal-and-blue journal for Solana communities, with native publishing, responsive reading layouts and original artwork.",
-    "platforms": ["Blogger", "WordPress"],
+    "platforms": [
+      "Blogger",
+      "WordPress"
+    ],
     "cover": "assets/epoch.png"
   },
   {
@@ -14,7 +17,54 @@
     "version": "1.0.0",
     "category": "Nature journal",
     "description": "A paper-and-ink field journal for naturalists, gardeners and walkers: specimen-card entries, margin notes, a season strip and hand-drawn line artwork. Designed by Claude.",
-    "platforms": ["Blogger", "WordPress"],
+    "platforms": [
+      "Blogger",
+      "WordPress"
+    ],
     "cover": "assets/fieldnote.png"
+  },
+  {
+    "id": "relaygrid",
+    "name": "Relaygrid",
+    "category": "Developer project",
+    "description": "A lightweight project homepage with technical updates, a roadmap and a compact documentation layout.",
+    "version": "1.0.0",
+    "platforms": [
+      "WordPress"
+    ],
+    "cover": "assets/relaygrid.png"
+  },
+  {
+    "id": "cabinetnoir",
+    "name": "Cabinet Noir",
+    "category": "Collectible catalogue",
+    "description": "A museum-style gallery with an oversized exhibit lead, a specimen grid and dedicated collection notes.",
+    "version": "1.0.0",
+    "platforms": [
+      "WordPress"
+    ],
+    "cover": "assets/cabinetnoir.png"
+  },
+  {
+    "id": "signalatelier",
+    "name": "Signal Atelier",
+    "category": "Creative studio",
+    "description": "A bold studio portfolio with an oversized opening, a structured service list and case-study templates.",
+    "version": "1.0.0",
+    "platforms": [
+      "WordPress"
+    ],
+    "cover": "assets/signalatelier.png"
+  },
+  {
+    "id": "longweekend",
+    "name": "Long Weekend",
+    "category": "Community events",
+    "description": "A lively event theme with a poster-style entrance, an editable agenda and room for speaker or venue updates.",
+    "version": "1.0.0",
+    "platforms": [
+      "WordPress"
+    ],
+    "cover": "assets/longweekend.png"
   }
 ]

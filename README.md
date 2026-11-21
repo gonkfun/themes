@@ -1,6 +1,6 @@
 # Gonk Themes
 
-Original, free Blogger and WordPress themes for crypto communities. Built one design at a time.
+Free, original Blogger and WordPress themes for publishers, studios and communities.
 
 **[Browse themes and live previews](https://gonkfun.github.io/)** · **[Download releases](https://github.com/gonkfun/themes/releases)** · [gonk.fun](https://gonk.fun/)
 
@@ -10,6 +10,10 @@ Original, free Blogger and WordPress themes for crypto communities. Built one de
 |---|---|---|---|---|
 | **Epoch** | Solana editorial and community publishing | Blogger / WordPress | [Files and guides](themes/epoch) | [Epoch v1.0.0](https://github.com/gonkfun/themes/releases/tag/epoch-v1.0.0) |
 | **Fieldnote** | Nature journals: naturalists, gardeners, birdwatchers, walkers | Blogger / WordPress | [Files and guides](themes/fieldnote) | [Fieldnote v1.0.0](https://github.com/gonkfun/themes/releases/tag/fieldnote-v1.0.0) |
+| **Relaygrid** | Developer project | WordPress | [Files and guides](themes/relaygrid) | [Relaygrid v1.0.0](https://github.com/gonkfun/themes/releases/tag/relaygrid-v1.0.0) |
+| **Cabinet Noir** | Collectible catalogue | WordPress | [Files and guides](themes/cabinetnoir) | [Cabinet Noir v1.0.0](https://github.com/gonkfun/themes/releases/tag/cabinetnoir-v1.0.0) |
+| **Signal Atelier** | Creative studio | WordPress | [Files and guides](themes/signalatelier) | [Signal Atelier v1.0.0](https://github.com/gonkfun/themes/releases/tag/signalatelier-v1.0.0) |
+| **Long Weekend** | Community events | WordPress | [Files and guides](themes/longweekend) | [Long Weekend v1.0.0](https://github.com/gonkfun/themes/releases/tag/longweekend-v1.0.0) |
 
 ![Epoch — charcoal and blue editorial theme](themes/epoch/wordpress/epoch/screenshot.png)
 
@@ -23,6 +27,10 @@ Original, free Blogger and WordPress themes for crypto communities. Built one de
 The themes are free. A WordPress.com free plan does not permit custom theme uploads; use compatible hosting or local WordPress for testing. GitHub Pages serves static design previews, not a PHP WordPress installation.
 
 ## Credits and ownership
+
+- [amoghacloud](https://github.com/amoghacloud) leads the project and manages releases.
+- [Codex](https://github.com/codex) built the four WordPress collection themes and contributed catalogue and testing work.
+- [Claude](https://github.com/claude) designed and built Fieldnote.
 
 Each theme includes a discreet **Powered by gonk.fun** footer link, qualified `nofollow`. You may edit or remove it. No encrypted credit, forced redirect, anti-removal code, tracking script, wallet connection or trading integration is included.
 
@@ -50,6 +58,15 @@ build-site.py         # Builds the public catalogue and preview copies
 5. Publish versioned ZIPs as a GitHub release, using `<slug>-v<version>` tags. Verify the download and preview links.
 
 Colour-only variations are not listed as separate designs. No copied premium themes or unlicensed assets.
+
+The four WordPress collection themes share the builders in `scripts/` and use separate layouts. Run these commands from the repository root after editing their source:
+
+```sh
+python3 scripts/build-wordpress-collection.py
+python3 scripts/package-wordpress-collection.py
+python3 scripts/validate-wordpress-collection.py
+python3 build-site.py
+```
 
 ## Licence
 

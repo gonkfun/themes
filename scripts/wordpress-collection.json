@@ -1,0 +1,74 @@
+[
+  {
+    "id": "relaygrid",
+    "name": "Relaygrid",
+    "category": "Developer project",
+    "description": "A lightweight project homepage with technical updates, a roadmap and a compact documentation layout.",
+    "label": "Open infrastructure",
+    "headline": "Build in the open.",
+    "intro": "A home for open projects, clear documentation and everything you ship along the way.",
+    "action": "Explore the roadmap",
+    "section": "Roadmap",
+    "updates": "Latest releases",
+    "colors": ["#101628", "#181f35", "#f3f5ff", "#b9c4e2", "#bad2ff", "#35436a", "#10213e"],
+    "entries": [
+      ["01", "First stable release", "Give builders a clear starting point with versioned examples and a short setup guide."],
+      ["02", "Integration guides", "Document the workflows contributors use most, from local setup to their first test."],
+      ["03", "Community tooling", "Make the work easier to follow with release notes, public milestones and contribution guides."]
+    ]
+  },
+  {
+    "id": "cabinetnoir",
+    "name": "Cabinet Noir",
+    "category": "Collectible catalogue",
+    "description": "A museum-style gallery with an oversized exhibit lead, a specimen grid and dedicated collection notes.",
+    "label": "The collection",
+    "headline": "Objects worth a closer look.",
+    "intro": "An independent catalogue for small editions, rare objects and the stories behind them.",
+    "action": "View the collection",
+    "section": "From the cabinet",
+    "updates": "Collection notes",
+    "colors": ["#f3eee5", "#faf7f0", "#2b211f", "#63544e", "#7c3035", "#d9c9bc", "#fff7f3"],
+    "entries": [
+      ["01", "Folded form", "A study in edges, light and the space inside a folded object."],
+      ["02", "Red vessel", "An object shaped around one simple curve and a quiet glaze."],
+      ["03", "Blue fragment", "A small piece selected for its grain, colour and irregular edge."]
+    ]
+  },
+  {
+    "id": "signalatelier",
+    "name": "Signal Atelier",
+    "category": "Creative studio",
+    "description": "A bold studio portfolio with an oversized opening, a structured service list and case-study templates.",
+    "label": "Independent design & engineering",
+    "headline": "Good work. Plain language.",
+    "intro": "A studio portfolio for teams that build, explain and ship the hard things.",
+    "action": "See what we do",
+    "section": "What we do",
+    "updates": "Selected work",
+    "colors": ["#eeeae2", "#f9f6ee", "#171815", "#4e5048", "#354625", "#9b9c89", "#fffceb"],
+    "entries": [
+      ["01", "Product design", "Make a complicated product easier to learn, use and explain."],
+      ["02", "Engineering", "Take focused ideas from a clear prototype to a maintainable release."],
+      ["03", "Editorial systems", "Build useful sites for teams that publish and document their work."]
+    ]
+  },
+  {
+    "id": "longweekend",
+    "name": "Long Weekend",
+    "category": "Community events",
+    "description": "A lively event theme with a poster-style entrance, an editable agenda and room for speaker or venue updates.",
+    "label": "Independent community gathering",
+    "headline": "Make time to meet.",
+    "intro": "A place for the schedule, the people and the practical details behind your next community event.",
+    "action": "See the programme",
+    "section": "Programme",
+    "updates": "Event updates",
+    "colors": ["#0e302c", "#19443d", "#fff3da", "#d0e5d6", "#ffbc82", "#427060", "#39220f"],
+    "entries": [
+      ["10:00", "Doors open", "Collect your welcome pack and find a seat before the first session."],
+      ["11:30", "Working session", "Bring a question or a project for a small-group discussion."],
+      ["15:00", "Community showcase", "A chance to share what you made and meet the people behind the work."]
+    ]
+  }
+]

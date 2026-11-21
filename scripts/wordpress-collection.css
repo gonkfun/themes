@@ -1,0 +1,55 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+a { color: inherit; text-underline-offset: .24em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+img { max-width: 100%; height: auto; }
+h1, h2, h3 { line-height: 1.05; text-wrap: balance; }
+.gc-wrap { width: min(1152px, calc(100% - 3rem)); margin-inline: auto; }
+.gc-header { border-bottom: 1px solid var(--line); }
+.gc-header .gc-wrap { min-height: 82px; display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+.gc-brand, .gc-header .wp-block-site-title { font-size: 1.24rem; letter-spacing: -.04em; font-weight: 800; }
+.gc-brand, .gc-header a { text-decoration: none; }
+.gc-header nav { display: flex; align-items: center; gap: 1.25rem; font-size: .9rem; }
+.gc-header a, .gc-header button { display: inline-flex; align-items: center; min-height: 44px; }
+.gc-header .wp-block-navigation__responsive-container.is-menu-open { background: var(--paper); color: var(--ink); }
+.gc-hero { margin-block: 1.75rem 0; padding: clamp(2rem, 6vw, 5.5rem); display: grid; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; background: var(--panel); }
+.gc-hero h1 { font-size: clamp(3.2rem, 7.6vw, 7.2rem); margin: .2em 0; letter-spacing: -.071em; }
+.gc-label { margin: 0; font: 700 .75rem/1.35 ui-monospace, monospace; letter-spacing: .11em; text-transform: uppercase; color: var(--accent); }
+.gc-intro { max-width: 39ch; color: var(--muted); font-size: clamp(1.02rem, 1.8vw, 1.25rem); margin: 0 0 1.45rem; }
+.gc-action, .gc-action .wp-block-button__link { min-height: 46px; display: inline-flex; align-items: center; padding: .55rem 1.1rem; background: var(--accent); color: var(--on); text-decoration: none; font-weight: 700; }
+.wp-block-button.gc-action { background: none; padding: 0; }
+.gc-content { margin-block: clamp(2.9rem, 8vw, 6rem); scroll-margin-top: 1.5rem; }
+.gc-section-title { font-size: clamp(2.2rem, 4.8vw, 4.55rem); letter-spacing: -.063em; margin: 0 0 .55em; }
+.gc-card h3 { font-size: clamp(1.36rem, 2.7vw, 2.3rem); margin: .3em 0; letter-spacing: -.035em; }
+.gc-card p:not(.gc-label), .gc-item p { margin: .5rem 0 0; color: var(--muted); }
+.gc-art { overflow: hidden; min-height: 13rem; position: relative; background: var(--art-background, var(--accent)); }
+.gc-art::before, .gc-art::after { content: ""; position: absolute; }
+.gc-updates { border-top: 1px solid var(--line); padding-block: 3rem 4rem; }
+.gc-updates .wp-block-post-template, .gc-update-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5rem; list-style: none; padding: 0; }
+.gc-item, .gc-updates .wp-block-post { border-top: 1px solid var(--line); padding-top: 1rem; min-width: 0; overflow-wrap: anywhere; }
+.gc-item h3, .wp-block-post-title { margin: .5em 0; }
+.gc-updates img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; }
+.gc-footer { border-top: 1px solid var(--line); padding-block: 2rem; color: var(--muted); font-size: .9rem; }
+.gc-footer .gc-wrap { display: flex; flex-wrap: wrap; gap: .75rem 2rem; justify-content: space-between; }
+.gc-article { width: min(760px, calc(100% - 3rem)); margin: 4rem auto; overflow-wrap: anywhere; }
+.gc-article h1 { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -.06em; }
+.gc-article .wp-block-post-content { font-size: 1.12rem; }
+.gc-article pre { overflow: auto; }
+.gc-search { margin-block: 1.5rem; }
+.gc-search .wp-block-search__inside-wrapper { flex-wrap: wrap; }
+.gc-search input { min-width: 0; }
+.gc-search input, .gc-search button { min-height: 44px; }
+.gc-paging { margin-top: 2rem; }
+.gc-skip { position: absolute; top: 0; left: 1rem; transform: translateY(-110%); background: var(--accent); color: var(--on); padding: .75rem; z-index: 10; }
+.gc-skip:focus { transform: none; }
+@media(max-width: 720px) {
+  .gc-wrap, .gc-article { width: calc(100% - 2rem); }
+  .gc-header .gc-wrap { min-height: 66px; gap: .4rem; }
+  .gc-header nav { gap: .65rem; }
+  .gc-updates .wp-block-post-template, .gc-update-grid { grid-template-columns: 1fr; }
+  .gc-hero { margin-top: 1rem; padding: 1.65rem; }
+}
+@media print {
+  .gc-header nav, .gc-footer, .gc-action { display: none !important; }
+  body { background: white; color: black; }
+}
