@@ -1,0 +1,19 @@
+# Panelwork
+
+A publishing dashboard with a compact left sidebar, a post activity chart, topic counts and a filterable library. It includes a plain article view and a System, Light, or Dark appearance setting.
+
+- [Native theme preview](https://gonkfun.github.io/themes/panelwork/)
+- [React demo](https://gonkfun.github.io/themes/panelwork/react/)
+- [Blogger, WordPress and React downloads](https://github.com/gonkfun/themes/releases/tag/panelwork-v1.0.0)
+
+**WordPress:** Upload the WordPress ZIP from **Appearance → Themes → Add New → Upload Theme**. Activate it and set **Settings → Reading → Your latest posts** for the publishing dashboard. The chart and topic counts use the public posts shown on that page.
+
+**Blogger:** Restore the XML inside the Blogger ZIP. See the [Blogger setup guide](docs/BLOGGER.md).
+
+**React:** Extract the React source ZIP, then run `npm ci` and `npm run dev`. See the [starter guide](react/README.md) for the data format and production build.
+
+The demos use fictional posts. Installed themes do not measure traffic or collect reader data. The appearance choice is stored locally.
+
+To rebuild in this repository, run `python3 themes/panelwork/build.py`, install the React dependencies with `npm ci --prefix themes/panelwork/react`, and run `npm run build --prefix themes/panelwork/react`. Run `python3 themes/panelwork/package.py` to package the themes and stage the React demo. Keep the 1200 × 900 screenshot current with the preview.
+
+Free to use and modify under GPL-2.0-or-later. The discreet, nofollow Gonk footer credit is removable.

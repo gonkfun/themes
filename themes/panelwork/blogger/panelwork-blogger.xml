@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html b:version="2" class="v2" expr:dir="data:blog.languageDirection"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
+      xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <b:include data="blog" name="all-head-content"/>
+  <title><data:blog.pageTitle/></title>
+  <b:skin><![CDATA[
+:root {
+    color-scheme: light;
+    --pw-bg: #eff2fa; --pw-card: #fff; --pw-soft: #f5f7fc;
+    --pw-ink: #17213a; --pw-muted: #56627a; --pw-line: #dbe1ee;
+    --pw-rail: #18223a; --pw-rail-ink: #f4f7ff; --pw-rail-muted: #b7c3db;
+    --pw-active: #354872; --pw-accent: #4658b8; --pw-accent-soft: #e9edff;
+    --pw-teal: #136851; --pw-teal-soft: #dcf2e9;
+    --pw-coral: #9a442f; --pw-coral-soft: #fcebe3;
+    --pw-shadow: 0 3px 10px #2734510a;
+}
+@media(prefers-color-scheme: dark) {
+    :root:not([data-pw-mode]) {
+        color-scheme: dark;
+        --pw-bg: #11192a; --pw-card: #1b2540; --pw-soft: #202d49;
+        --pw-ink: #eef1ff; --pw-muted: #b9c4df; --pw-line: #3c4b6c;
+        --pw-rail: #10182b; --pw-rail-ink: #f4f7ff; --pw-rail-muted: #b7c3db;
+        --pw-active: #354872; --pw-accent: #aab7ff; --pw-accent-soft: #32416f;
+        --pw-teal: #9de5c8; --pw-teal-soft: #264c48;
+        --pw-coral: #ffc1ae; --pw-coral-soft: #573b47; --pw-shadow: none;
+    }
+}
+:root[data-pw-mode="dark"] {
+    color-scheme: dark;
+    --pw-bg: #11192a; --pw-card: #1b2540; --pw-soft: #202d49;
+    --pw-ink: #eef1ff; --pw-muted: #b9c4df; --pw-line: #3c4b6c;
+    --pw-rail: #10182b; --pw-rail-ink: #f4f7ff; --pw-rail-muted: #b7c3db;
+    --pw-active: #354872; --pw-accent: #aab7ff; --pw-accent-soft: #32416f;
+    --pw-teal: #9de5c8; --pw-teal-soft: #264c48;
+    --pw-coral: #ffc1ae; --pw-coral-soft: #573b47; --pw-shadow: none;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body, body.panelwork-theme { margin: 0; color: var(--pw-ink); background: var(--pw-bg); font: 1rem/1.55 system-ui, sans-serif; }
+a { color: inherit; text-underline-offset: .2em; }
+a:hover { color: var(--pw-accent); }
+:focus-visible { outline: 2px solid var(--pw-accent); outline-offset: 3px; }
+img { max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; line-height: 1.17; letter-spacing: -.035em; overflow-wrap: anywhere; }
+h1 { font-size: clamp(1.9rem,4vw,3.3rem); }
+h2 { font-size: clamp(1.14rem,2.5vw,1.45rem); }
+p { margin: .5em 0; }
+button, select, input { font: inherit; }
+.pw-sr, .pw-skip { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.pw-skip:focus { width:auto; height:auto; padding:.6rem 1rem; background:var(--pw-card); clip-path:none; top:.75rem; left:.75rem; z-index:5; }
+.pw-shell { display:grid; grid-template:"rail content" 1fr "rail footer" auto / 234px minmax(0,1fr); min-height:100vh; }
+.pw-shell > :first-child { grid-area:rail; min-width:0; background:var(--pw-rail); }
+.pw-shell > main { grid-area:content; min-width:0; }
+.pw-shell > :last-child { grid-area:footer; min-width:0; }
+.pw-sidebar { position:sticky; top:0; max-height:100svh; overflow:auto; padding:1.25rem 1rem; background:var(--pw-rail); color:var(--pw-rail-ink); }
+.pw-sidebar :focus-visible { outline-color:#cbd4ff; }
+.pw-brand-line { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.pw-brand, .pw-sidebar .wp-block-site-title { display:inline-flex; align-items:center; gap:.62rem; min-height:44px; font-size:1.12rem; font-weight:760; letter-spacing:-.03em; text-decoration:none; overflow-wrap:anywhere; }
+.pw-brand::before, .pw-sidebar .wp-block-site-title::before { content:''; width:20px; height:20px; flex:0 0 20px; border-radius:5px; background:linear-gradient(90deg,#adbcff 0 39%,transparent 40% 53%,#adbcff 54%),linear-gradient(#7e96ed 0 64%,transparent 65%); }
+.pw-sidebar a:hover { color:#fff; }
+.pw-rail-panel { display:grid; gap:.9rem; margin-top:1.65rem; }
+.pw-nav, .pw-sidebar .wp-block-navigation__container, .pw-sidebar .wp-block-page-list, .pw-sidebar .widget ul { display:grid; gap:.18rem; list-style:none; padding:0; margin:0; width:100%; }
+.pw-nav a, .pw-sidebar .wp-block-navigation-item__content, .pw-side-topics a { display:flex; align-items:center; min-height:44px; padding:.45rem .65rem; border-radius:.55rem; text-decoration:none; color:var(--pw-rail-ink); font-size:.88rem; overflow-wrap:anywhere; }
+.pw-nav a[aria-current], .pw-sidebar a[aria-current], .pw-nav a:hover, .pw-sidebar .wp-block-navigation-item__content:hover, .pw-side-topics a:hover { background:var(--pw-active); }
+.pw-rail-label, .pw-side-topics h2 { margin:0; color:var(--pw-rail-muted); font:700 .73rem/1.3 system-ui,sans-serif; padding:.6rem; letter-spacing:.1em; text-transform:uppercase; }
+.pw-side-topics { border-top:1px solid #43536e; padding-top:.55rem; }
+.pw-side-topics ul { list-style:none; padding:0; margin:0; }
+.pw-mode { display:grid; gap:.35rem; color:var(--pw-rail-muted); font-size:.82rem; }
+.pw-mode select, .pw-menu { color:var(--pw-rail-ink); background:var(--pw-rail); border:1px solid #65769a; min-height:44px; border-radius:.55rem; padding:.4rem .55rem; }
+.pw-menu { display:none; cursor:pointer; }
+.pw-wrap { width:min(1360px,calc(100% - 3rem)); margin-inline:auto; }
+.pw-content { padding-block:1.65rem 2rem; }
+.pw-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:56px; padding-bottom:.85rem; border-bottom:1px solid var(--pw-line); }
+.pw-top p { color:var(--pw-muted); margin:0; font-size:.9rem; }
+.pw-summary { padding:1.65rem 0 1.15rem; }
+.pw-summary p { color:var(--pw-muted); max-width:70ch; }
+.pw-kicker { color:var(--pw-accent); font-size:.78rem; font-weight:730; letter-spacing:.06em; text-transform:uppercase; }
+.pw-card { border:1px solid var(--pw-line); border-radius:.9rem; background:var(--pw-card); box-shadow:var(--pw-shadow); min-width:0; }
+.pw-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin:0 0 1rem; }
+.pw-stat { padding:1.05rem 1.1rem; }
+.pw-stat dt { color:var(--pw-muted); font-size:.84rem; font-weight:650; }
+.pw-stat dd { margin:.2rem 0 0; font-size:clamp(1.35rem,3.1vw,2.35rem); line-height:1.1; letter-spacing:-.05em; font-weight:740; overflow-wrap:anywhere; }
+.pw-stat-mark { display:block; width:29px; height:29px; margin-bottom:.7rem; border-radius:8px; background:var(--pw-accent-soft); color:var(--pw-accent); }
+.pw-stat-mark::after { content:''; display:block; position:relative; inset:8px; width:13px; height:13px; border:2px solid currentColor; border-radius:2px; }
+.pw-stat:nth-child(2) .pw-stat-mark { color:var(--pw-teal); background:var(--pw-teal-soft); }
+.pw-stat:nth-child(2) .pw-stat-mark::after { border-radius:50%; }
+.pw-stat:nth-child(3) .pw-stat-mark { color:var(--pw-coral); background:var(--pw-coral-soft); }
+.pw-stat:nth-child(3) .pw-stat-mark::after { transform:rotate(45deg) scale(.8); }
+.pw-charts { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(0,1fr); gap:1rem; margin-bottom:1rem; }
+.pw-chart { padding:1.05rem; }
+.pw-card-heading { display:flex; align-items:start; flex-wrap:wrap; justify-content:space-between; gap:.55rem; margin-bottom:.95rem; }
+.pw-card-heading p { color:var(--pw-muted); margin:.25rem 0 0; font-size:.85rem; }
+.pw-select, .pw-filter input, .pw-site-search input, .pw-site-search button, .pw-clear {
+    min-height:44px; border:1px solid var(--pw-line); border-radius:.55rem; color:var(--pw-ink); background:var(--pw-soft); padding:.4rem .65rem; font-size:.85rem;
+}
+.pw-clear, .pw-site-search button { cursor:pointer; }
+.pw-bars { display:flex; gap:clamp(.3rem,1.7vw,1rem); margin:0; padding:0; list-style:none; }
+.pw-bars li { flex:1; min-width:0; display:grid; grid-template-rows:1.4rem 124px 1.45rem; gap:.2rem; text-align:center; font-size:.76rem; color:var(--pw-muted); }
+.pw-bar-area { display:flex; align-items:end; justify-content:center; border-radius:.4rem; background:var(--pw-soft); overflow:hidden; }
+.pw-bar { width:100%; height:var(--value); border-radius:.45rem .45rem 0 0; background:var(--pw-accent); }
+.pw-bars li strong { color:var(--pw-ink); }
+.pw-topics { list-style:none; padding:0; margin:0; display:grid; gap:.7rem; }
+.pw-topic-label { display:flex; justify-content:space-between; gap:.45rem; font-size:.88rem; overflow-wrap:anywhere; }
+.pw-topic-track { margin-top:.25rem; height:7px; overflow:hidden; border-radius:10px; background:var(--pw-soft); }
+.pw-topic-fill { display:block; width:var(--value); height:100%; border-radius:10px; background:var(--pw-teal); }
+.pw-list { padding:1.05rem; }
+.pw-list .pw-card-heading { margin-block-end:.65rem; }
+.pw-filter, .pw-site-search, .pw-site-search .wp-block-search__inside-wrapper { display:flex; flex-wrap:wrap; gap:.5rem; }
+.pw-filter input, .pw-site-search input { flex:1 1 8rem; min-width:0; }
+.pw-columns, .pw-post-row { display:grid; grid-template-columns:minmax(0,2.2fr) minmax(0,1.1fr) minmax(100px,.7fr); gap:.8rem; align-items:center; }
+.pw-columns { color:var(--pw-muted); background:var(--pw-soft); border-radius:.5rem; padding:.55rem .65rem; font-size:.8rem; font-weight:650; }
+.pw-post-rows, .pw-list .wp-block-post-template { list-style:none; padding:0; margin:0; }
+.pw-post-row { padding:.72rem .65rem; border-bottom:1px solid var(--pw-line); overflow-wrap:anywhere; }
+.pw-post-row h2, .pw-post-row h3, .pw-post-row .wp-block-post-title { font-size:.94rem; margin:0; font-weight:660; letter-spacing:0; }
+.pw-post-row h2 a, .pw-post-row h3 a, .pw-post-row .wp-block-post-title a { text-decoration:none; }
+.pw-post-row h2 a:hover, .pw-post-row h3 a:hover, .pw-post-row .wp-block-post-title a:hover { text-decoration:underline; }
+.pw-post-date { color:var(--pw-muted); font-size:.8rem; }
+.pw-post-topics { display:flex; flex-wrap:wrap; gap:.26rem; color:var(--pw-muted); font-size:.78rem; }
+.pw-post-topics a, .pw-post-topics span { border-radius:.35rem; background:var(--pw-accent-soft); color:var(--pw-accent); padding:.15rem .38rem; text-decoration:none; }
+.pw-paging { margin-block:1rem; display:flex; flex-wrap:wrap; gap:.8rem; }
+.pw-paging a { display:inline-flex; min-height:44px; align-items:center; }
+.pw-empty { color:var(--pw-muted); padding:.8rem 0; }
+.pw-article { width:min(760px,100%); margin:1.5rem auto; padding:clamp(1rem,4vw,2.2rem); overflow-wrap:anywhere; }
+.pw-article h1 { margin:.3rem 0 .55rem; }
+.pw-article p, .pw-prose ul, .pw-prose ol { margin-block:.95rem; }
+.pw-prose a { color:var(--pw-accent); }
+.pw-prose pre, .pw-prose table { display:block; overflow:auto; }
+.pw-prose iframe { max-width:100%; }
+.pw-footer { color:var(--pw-muted); font-size:.85rem; }
+.pw-footer .pw-wrap { padding:1.15rem 0; border-top:1px solid var(--pw-line); }
+.pw-blogger .widget { margin:0; }
+.pw-blogger #navbar, .pw-blogger #navbar-iframe, .pw-blogger .widget.Attribution, .pw-blogger .widget.Header, .pw-blogger .widget.ReportAbuse, .pw-blogger .widget.Profile { display:none; }
+body#layout .pw-shell { display:block; height:auto; }
+body#layout .pw-sidebar { position:static; }
+@media(max-width:1040px) and (min-width:761px) { .pw-shell { grid-template-columns:192px minmax(0,1fr); } .pw-wrap { width:calc(100% - 2rem); } }
+@media(max-width:760px) {
+    .pw-shell { grid-template:"rail" auto "content" 1fr "footer" auto / minmax(0,1fr); }
+    .pw-sidebar { position:static; max-height:none; overflow:visible; padding:.6rem 1rem; }
+    .pw-rail-panel { margin-top:.65rem; }
+    .pw-menu { display:inline-flex; align-items:center; }
+    .pw-sidebar[data-pw-collapsible]:not([data-pw-open]) .pw-rail-panel { display:none; }
+    .pw-wrap { width:calc(100% - 1.75rem); }
+    .pw-content { padding-top:.75rem; }
+    .pw-charts { grid-template-columns:1fr; }
+    .pw-stat { padding:.75rem; }
+}
+@media(max-width:530px) {
+    .pw-stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
+    .pw-stat:last-child { grid-column:1/-1; }
+    .pw-top { flex-wrap:wrap; }
+    .pw-columns { display:none; }
+    .pw-post-row { grid-template-columns:minmax(0,1fr) auto; gap:.25rem .6rem; padding-inline:0; }
+    .pw-post-row h2, .pw-post-row h3 { grid-column:1/-1; }
+    .pw-bars li { grid-template-rows:1.3rem 100px 1.4rem; }
+}
+
+  ]]></b:skin>
+  <script type="text/javascript">//<![CDATA[
+(() => {
+'use strict';
+// Pure calculations shared by the native themes and the React starter.
+function summarize(posts) {
+    const topics = new Map();
+    const byMonth = new Map();
+    let newest = '';
+    for (const post of posts) {
+        for (const topic of new Set(post.topics)) {
+            topics.set(topic, (topics.get(topic) || 0) + 1);
+        }
+        const date = post.date?.match(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/)?.[0];
+        if (!date) continue;
+        if (date > newest) newest = date;
+        const month = date.slice(0, 7);
+        byMonth.set(month, (byMonth.get(month) || 0) + 1);
+    }
+    return {
+        newest,
+        count: posts.length,
+        topics: [...topics].sort(([a, left], [b, right]) => right - left || a.localeCompare(b)),
+        byMonth
+    };
+}
+
+function timeline(summary, count) {
+    if (!summary.newest) return [];
+    const [year, month] = summary.newest.split('-').map(Number);
+    const months = [];
+    for (let offset = count - 1; offset >= 0; offset--) {
+        const date = new Date(Date.UTC(year, month - 1 - offset, 1));
+        const key = date.toISOString().slice(0, 7);
+        months.push({ key, date, count: summary.byMonth.get(key) || 0 });
+    }
+    return months;
+}
+
+function formatDate(date, language) {
+    if (!date) return '—';
+    return new Intl.DateTimeFormat(language || undefined, {
+        dateStyle: 'medium', timeZone: 'UTC'
+    }).format(new Date(date.slice(0, 10) + 'T00:00:00Z'));
+}
+
+function matches(post, query, topic) {
+    const text = [post.title, ...post.topics].join(' ').toLowerCase();
+    return text.includes(query.trim().toLowerCase()) && (!topic || post.topics.includes(topic));
+}
+(() => {
+    const root = document.documentElement;
+    const language = root.lang || undefined;
+    const modeKey = 'gonk-panelwork-mode';
+    const modes = ['system', 'light', 'dark'];
+    let current = 'system';
+    try {
+        const saved = localStorage.getItem(modeKey);
+        if (modes.includes(saved)) current = saved;
+    } catch {
+        // The appearance still works for the current page.
+    }
+
+    function applyMode(mode) {
+        if (mode === 'system') root.removeAttribute('data-pw-mode');
+        else root.setAttribute('data-pw-mode', mode);
+    }
+    applyMode(current);
+
+    function navigation() {
+        document.querySelectorAll('[data-pw-mode-select]').forEach(control => {
+            control.closest('.pw-mode').hidden = false;
+            control.value = current;
+            control.addEventListener('change', () => {
+                current = control.value;
+                applyMode(current);
+                try { localStorage.setItem(modeKey, current); } catch { /* Current page only. */ }
+            });
+        });
+        const button = document.querySelector('[data-pw-menu]');
+        if (!button) return;
+        const sidebar = button.closest('.pw-sidebar');
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        if (!sidebar?.contains(panel)) return;
+        sidebar.setAttribute('data-pw-collapsible', '');
+        button.hidden = false;
+        const setOpen = open => {
+            button.setAttribute('aria-expanded', String(open));
+            sidebar.toggleAttribute('data-pw-open', open);
+        };
+        button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+        sidebar.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && sidebar.hasAttribute('data-pw-open')) {
+                setOpen(false);
+                button.focus();
+            }
+        });
+    }
+
+    function dashboard() {
+        const list = document.querySelector('[data-pw-list]');
+        if (!list) return;
+        const posts = [...list.querySelectorAll('.pw-post-row')].map(row => ({
+            element: row.closest('li.wp-block-post') || row.closest('li') || row,
+            title: row.querySelector('h2, h3')?.textContent.trim() || '',
+            date: row.querySelector('time')?.getAttribute('datetime') || '',
+            topics: [...row.querySelectorAll('.pw-post-topics a, .pw-post-topics span')].map(link => link.textContent.trim()).filter(Boolean)
+        }));
+        const metrics = document.querySelector('[data-pw-metrics]');
+        if (metrics) renderMetrics(metrics, summarize(posts));
+        if (!posts.length) return;
+        const filter = list.querySelector('[data-pw-filter]');
+        filter.hidden = false;
+        const query = filter.querySelector('input');
+        const topic = filter.querySelector('select');
+        const message = list.querySelector('[data-pw-results]');
+        const empty = list.querySelector('[data-pw-empty]');
+        for (const [name] of summarize(posts).topics) topic.add(new Option(name, name));
+        function update() {
+            let visible = 0;
+            for (const post of posts) {
+                const show = matches(post, query.value, topic.value);
+                post.element.hidden = !show;
+                if (show) visible++;
+            }
+            empty.hidden = visible !== 0;
+            message.textContent = visible === posts.length ? `${visible} posts on this page` : `${visible} of ${posts.length} posts on this page`;
+        }
+        query.addEventListener('input', update);
+        topic.addEventListener('change', update);
+        filter.querySelector('button').addEventListener('click', () => {
+            query.value = '';
+            topic.value = '';
+            update();
+            query.focus();
+        });
+        update();
+    }
+
+    function fill(className, value) {
+        const bar = document.createElement('span');
+        bar.className = className;
+        bar.style.setProperty('--value', `${value}%`);
+        bar.setAttribute('aria-hidden', 'true');
+        return bar;
+    }
+
+    function renderMetrics(metrics, summary) {
+        metrics.hidden = false;
+        metrics.querySelector('[data-pw-count]').textContent = summary.count;
+        metrics.querySelector('[data-pw-topic-count]').textContent = summary.topics.length;
+        metrics.querySelector('[data-pw-newest]').textContent = formatDate(summary.newest, language);
+        const range = metrics.querySelector('[data-pw-range]');
+        const bars = metrics.querySelector('.pw-bars');
+        const noDates = metrics.querySelector('[data-pw-no-dates]');
+        const label = new Intl.DateTimeFormat(language, { month: 'short', timeZone: 'UTC' });
+        const full = new Intl.DateTimeFormat(language, { month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+        function draw() {
+            const months = timeline(summary, Number(range.value));
+            bars.replaceChildren();
+            noDates.hidden = months.length > 0;
+            range.disabled = months.length === 0;
+            const maximum = Math.max(1, ...months.map(month => month.count));
+            for (const month of months) {
+                const item = document.createElement('li');
+                const count = document.createElement('strong');
+                const column = document.createElement('span');
+                const name = document.createElement('span');
+                count.textContent = month.count;
+                column.className = 'pw-bar-area';
+                column.append(fill('pw-bar', 100 * month.count / maximum));
+                name.textContent = label.format(month.date);
+                item.setAttribute('aria-label', `${full.format(month.date)}: ${month.count} posts`);
+                item.append(count, column, name);
+                bars.append(item);
+            }
+        }
+        draw();
+        range.addEventListener('change', draw);
+        const topics = metrics.querySelector('.pw-topics');
+        const maximum = summary.topics[0]?.[1] || 1;
+        metrics.querySelector('[data-pw-no-topics]').hidden = !!summary.topics.length;
+        for (const [name, count] of summary.topics.slice(0, 5)) {
+            const item = document.createElement('li');
+            const heading = document.createElement('span');
+            const title = document.createElement('span');
+            const number = document.createElement('strong');
+            const track = document.createElement('div');
+            heading.className = 'pw-topic-label';
+            title.textContent = name;
+            number.textContent = count;
+            heading.append(title, number);
+            track.className = 'pw-topic-track';
+            track.append(fill('pw-topic-fill', 100 * count / maximum));
+            item.append(heading, track);
+            topics.append(item);
+        }
+    }
+
+    function ready() {
+        navigation();
+        dashboard();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready, { once: true });
+    else ready();
+})();
+
+})();
+
+  //]]></script>
+</head>
+<body class="pw-blogger">
+  <a class="pw-skip" href="#content">Skip to content</a>
+  <div class="pw-shell">
+    <header class="pw-sidebar">
+      <div class="pw-brand-line"><a class="pw-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a><button type="button" class="pw-menu" aria-controls="panelwork-sidebar" aria-expanded="false" data-pw-menu="" hidden="hidden">Menu</button></div>
+      <div class="pw-rail-panel" id="panelwork-sidebar">
+        <nav class="pw-nav" aria-label="Main navigation">
+          <a expr:href="data:blog.homepageUrl">Overview</a>
+          <a expr:href='data:blog.homepageUrl + "search"'>Post library</a>
+        </nav>
+        <div class="pw-side-topics">
+          <b:section id="sidebar" class="sidebar" showaddelement="yes">
+            <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+            <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+          </b:section>
+        </div>
+        <label class="pw-mode" hidden="hidden">Appearance
+    <select aria-label="Appearance" data-pw-mode-select=""><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select>
+</label>
+      </div>
+    </header>
+    <main id="content" tabindex="-1"><div class="pw-wrap pw-content">
+      <div class="pw-top"><p><data:blog.description/></p><form class="pw-site-search" role="search" method="get" expr:action='data:blog.homepageUrl + "search"'>
+    <label class="pw-sr" for="pw-site-search">Search all posts</label>
+    <input id="pw-site-search" type="search" name="q" placeholder="Search all posts"/>
+    <button type="submit">Search</button>
+</form></div>
+      <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
+        <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
+          <b:includable id="main" var="top">
+            <b:if cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+              <b:loop values="data:posts" var="post">
+                <article class="pw-card pw-article">
+                  <b:include name="panelworkLabels" data="post"/>
+                  <h1><data:post.title/></h1>
+                  <b:if cond='data:blog.pageType == "item"'>
+                    <time class="pw-post-date" expr:datetime="data:post.timestampISO8601"><data:post.timestamp/></time>
+                  </b:if>
+                  <div class="pw-prose post-body entry-content" expr:id='"post-body-" + data:post.id'><data:post.body/></div>
+                  <b:if cond="data:post.allowComments"><b:include name="panelworkComments" data="post"/></b:if>
+                </article>
+              </b:loop>
+            <b:else/>
+              <b:if cond="data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl">
+                <div class="pw-summary"><h1>Publishing overview</h1><p>Publishing activity and topics from the posts on this page.</p></div>
+                <div data-pw-metrics="" hidden="hidden">
+  <dl class="pw-stats">
+    <div class="pw-card pw-stat"><dt><span class="pw-stat-mark" aria-hidden="true"></span>Posts on this page</dt><dd data-pw-count="">—</dd></div>
+    <div class="pw-card pw-stat"><dt><span class="pw-stat-mark" aria-hidden="true"></span>Topics represented</dt><dd data-pw-topic-count="">—</dd></div>
+    <div class="pw-card pw-stat"><dt><span class="pw-stat-mark" aria-hidden="true"></span>Latest publication</dt><dd data-pw-newest="">—</dd></div>
+  </dl>
+  <div class="pw-charts">
+    <section class="pw-card pw-chart">
+      <div class="pw-card-heading">
+        <div><h2>Publishing activity</h2><p>Post dates on this page, ending at the newest month.</p></div>
+        <label><span class="pw-sr">Months shown</span><select class="pw-select" data-pw-range="">
+          <option value="6">6 months</option><option value="3">3 months</option>
+        </select></label>
+      </div>
+      <ul class="pw-bars" aria-label="Posts by month"></ul>
+      <p data-pw-no-dates="" hidden="hidden">No dated posts on this page.</p>
+    </section>
+    <section class="pw-card pw-chart">
+      <div class="pw-card-heading"><div><h2>Top topics</h2><p>Most used topics in this list.</p></div></div>
+      <ul class="pw-topics" aria-label="Posts by topic"></ul>
+      <p data-pw-no-topics="" hidden="hidden">No topics on this page yet.</p>
+    </section>
+  </div>
+</div>
+
+              <b:else/>
+                <div class="pw-summary"><h1>
+                  <b:if cond="data:blog.searchLabel"><data:blog.searchLabel/>
+                  <b:elseif cond="data:blog.searchQuery"/>Search: <data:blog.searchQuery/>
+                  <b:elseif cond='data:blog.pageType == "error_page"'/>Page not found
+                  <b:else/>Post archive</b:if>
+                </h1></div>
+              </b:if>
+              <section class="pw-card pw-list" data-pw-list="">
+                <div class="pw-card-heading">
+  <div><h2>Post library</h2><p data-pw-results="" aria-live="polite"></p></div>
+  <div class="pw-filter" data-pw-filter="" hidden="hidden">
+    <label class="pw-sr" for="pw-query">Filter titles and topics</label>
+    <input id="pw-query" type="search" placeholder="Filter this page"/>
+    <label class="pw-sr" for="pw-topic">Filter by topic</label>
+    <select id="pw-topic" class="pw-select"><option value="">All topics</option></select>
+    <button type="button" class="pw-clear">Clear</button>
+  </div>
+</div>
+<div class="pw-columns" aria-hidden="true"><span>Post</span><span>Topics</span><span>Published</span></div>
+<p class="pw-empty" data-pw-empty="" hidden="hidden">No posts match these filters.</p>
+
+                <ul class="pw-post-rows">
+                  <b:loop values="data:posts" var="post">
+                    <li><div class="pw-post-row">
+                      <h3><a expr:href="data:post.url"><data:post.title/></a></h3>
+                      <b:include name="panelworkLabels" data="post"/>
+                      <time class="pw-post-date" expr:datetime="data:post.timestampISO8601"><data:post.timestamp/></time>
+                    </div></li>
+                  </b:loop>
+                </ul>
+                <b:if cond="data:posts.empty"><p>No posts found.</p></b:if>
+                <nav class="pw-paging" aria-label="Pagination">
+                  <b:if cond="data:newerPageUrl"><a expr:href="data:newerPageUrl">← Newer posts</a></b:if>
+                  <b:if cond="data:olderPageUrl"><a expr:href="data:olderPageUrl">Older posts →</a></b:if>
+                </nav>
+              </section>
+            </b:if>
+          </b:includable>
+          <b:includable id="panelworkLabels" var="post">
+            <div class="pw-post-topics"><b:loop values="data:post.labels" var="label">
+              <a expr:href="data:label.url"><data:label.name/></a>
+            </b:loop></div>
+          </b:includable>
+          <b:includable id="panelworkComments" var="post">
+            <section id="comments"><h2>Comments</h2>
+              <b:loop values="data:post.comments" var="comment">
+                <p><strong><data:comment.author/></strong></p><div><data:comment.body/></div>
+              </b:loop>
+              <b:if cond="data:post.addCommentUrl"><a expr:href="data:post.addCommentUrl">Leave a comment</a></b:if>
+            </section>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div></main>
+    <footer class="pw-footer"><div class="pw-wrap">Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></div></footer>
+  </div>
+</body>
+</html>

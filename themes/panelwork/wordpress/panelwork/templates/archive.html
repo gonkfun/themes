@@ -1,0 +1,63 @@
+<!-- wp:group {"layout":{"type":"default"},"className":"pw-shell"} -->
+<div class="wp-block-group pw-shell"><!-- wp:template-part {"slug":"header","tagName":"div"} /-->
+<!-- wp:group {"layout":{"type":"default"},"tagName":"main"} -->
+<main class="wp-block-group"><!-- wp:group {"layout":{"type":"default"},"className":"pw-wrap pw-content"} -->
+<div class="wp-block-group pw-wrap pw-content"><!-- wp:group {"layout":{"type":"default"},"className":"pw-top"} -->
+<div class="wp-block-group pw-top"><!-- wp:site-tagline /-->
+<!-- wp:search {"label":"Search all posts","showLabel":false,"placeholder":"Search all posts","buttonText":"Search","className":"pw-site-search"} /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"layout":{"type":"default"},"className":"pw-summary"} -->
+<div class="wp-block-group pw-summary"><!-- wp:query-title {"type":"archive","showPrefix":false,"level":1} /-->
+<!-- wp:term-description /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"layout":{"type":"default"},"className":"pw-card pw-list","anchor":"post-library"} -->
+<div id="post-library" class="wp-block-group pw-card pw-list"><!-- wp:html -->
+<div class="pw-card-heading">
+  <div><h2>Post library</h2><p data-pw-results="" aria-live="polite"></p></div>
+  <div class="pw-filter" data-pw-filter="" hidden="hidden">
+    <label class="pw-sr" for="pw-query">Filter titles and topics</label>
+    <input id="pw-query" type="search" placeholder="Filter this page"/>
+    <label class="pw-sr" for="pw-topic">Filter by topic</label>
+    <select id="pw-topic" class="pw-select"><option value="">All topics</option></select>
+    <button type="button" class="pw-clear">Clear</button>
+  </div>
+</div>
+<div class="pw-columns" aria-hidden="true"><span>Post</span><span>Topics</span><span>Published</span></div>
+<p class="pw-empty" data-pw-empty="" hidden="hidden">No posts match these filters.</p>
+
+<!-- /wp:html -->
+<!-- wp:query {"queryId":0,"query":{"inherit":true}} -->
+<div class="wp-block-query"><!-- wp:post-template -->
+<!-- wp:group {"layout":{"type":"default"},"className":"pw-post-row"} -->
+<div class="wp-block-group pw-post-row"><!-- wp:post-title {"level":3,"isLink":true} /-->
+<!-- wp:post-terms {"term":"category","className":"pw-post-topics","separator":" "} /-->
+<!-- wp:post-date {"className":"pw-post-date","format":"M j, Y"} /-->
+</div>
+<!-- /wp:group -->
+
+<!-- /wp:post-template -->
+<!-- wp:query-pagination {"className":"pw-paging","layout":{"type":"flex"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+
+<!-- /wp:query-pagination -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>No posts found.</p>
+<!-- /wp:paragraph -->
+
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->
+</div>
+<!-- /wp:group -->

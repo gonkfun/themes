@@ -82,5 +82,18 @@
       "WordPress"
     ],
     "cover": "assets/lumen.png"
+  },
+  {
+    "id": "panelwork",
+    "name": "Panelwork",
+    "version": "1.0.0",
+    "category": "Publishing dashboard",
+    "description": "A dashboard with a collapsible sidebar, publishing charts, a filterable post library and an optional React starter.",
+    "platforms": [
+      "Blogger",
+      "WordPress",
+      "React"
+    ],
+    "cover": "assets/panelwork.png"
   }
 ]

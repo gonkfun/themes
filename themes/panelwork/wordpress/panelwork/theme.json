@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1360px"
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "midnight",
+          "name": "Midnight",
+          "color": "#18223a"
+        },
+        {
+          "slug": "iris",
+          "name": "Iris",
+          "color": "#4658b8"
+        },
+        {
+          "slug": "mint",
+          "name": "Mint",
+          "color": "#dcf2e9"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "spacing": {
+      "blockGap": "0"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ]
+}

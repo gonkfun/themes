@@ -1,0 +1,14 @@
+[
+  {"id":"release-notes","title":"Release notes for the November edition","date":"2026-11-19","topics":["Updates"],"summary":"A clearer archive, better navigation on small screens, and a simpler way to find previously published notes."},
+  {"id":"field-guide","title":"A field guide to better documentation","date":"2026-11-12","topics":["Guides","Research"],"summary":"Start from a job the reader needs to finish, and make each step easy to verify."},
+  {"id":"handoff","title":"How we write a project handoff","date":"2026-11-05","topics":["Guides"],"summary":"Leave enough context for the next person to pick up the work without guessing."},
+  {"id":"roadmap","title":"Opening the roadmap","date":"2026-10-24","topics":["Updates"],"summary":"What is in progress, what is ready to try, and the questions we are still deciding."},
+  {"id":"accessibility","title":"A practical accessibility review","date":"2026-10-13","topics":["Research"],"summary":"Check what happens with keyboard navigation, narrow viewports, and a high text zoom level."},
+  {"id":"archive","title":"Keeping an archive readable","date":"2026-10-08","topics":["Guides"],"summary":"A few ways to group older work without making readers learn your taxonomy."},
+  {"id":"notes","title":"Notes from a small design review","date":"2026-10-02","topics":["Research"],"summary":"The most useful feedback named a concrete action and described what got in the way."},
+  {"id":"contributors","title":"What first-time contributors ask","date":"2026-09-18","topics":["Community"],"summary":"Make the first contribution small enough to complete, and explain how it gets reviewed."},
+  {"id":"changes","title":"Writing a changelog people can scan","date":"2026-09-02","topics":["Guides"],"summary":"Group changes by their impact on readers and link directly to the parts they need."},
+  {"id":"month","title":"A month of small improvements","date":"2026-08-21","topics":["Updates"],"summary":"A release roundup that gives context to the work visitors may have missed."},
+  {"id":"listening","title":"Listening to readers without a survey","date":"2026-07-12","topics":["Community","Research"],"summary":"Look for repeated questions and use them to make your next revision clearer."},
+  {"id":"intro","title":"Welcome to the publishing desk","date":"2026-06-17","topics":["Updates"],"summary":"The purpose of this publication and how we plan to organise it."}
+]

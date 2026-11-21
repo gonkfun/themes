@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html b:version="2" class="v2" expr:dir="data:blog.languageDirection"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
+      xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <b:include data="blog" name="all-head-content"/>
+  <title><data:blog.pageTitle/></title>
+  <b:skin><![CDATA[
+$styles
+  ]]></b:skin>
+  <script type="text/javascript">//<![CDATA[
+$script
+  //]]></script>
+</head>
+<body class="pw-blogger">
+  <a class="pw-skip" href="#content">Skip to content</a>
+  <div class="pw-shell">
+    <header class="pw-sidebar">
+      <div class="pw-brand-line"><a class="pw-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>$menu</div>
+      <div class="pw-rail-panel" id="panelwork-sidebar">
+        <nav class="pw-nav" aria-label="Main navigation">
+          <a expr:href="data:blog.homepageUrl">Overview</a>
+          <a expr:href='data:blog.homepageUrl + "search"'>Post library</a>
+        </nav>
+        <div class="pw-side-topics">
+          <b:section id="sidebar" class="sidebar" showaddelement="yes">
+            <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+            <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+          </b:section>
+        </div>
+        $mode
+      </div>
+    </header>
+    <main id="content" tabindex="-1"><div class="pw-wrap pw-content">
+      <div class="pw-top"><p><data:blog.description/></p>$search</div>
+      <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
+        <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
+          <b:includable id="main" var="top">
+            <b:if cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+              <b:loop values="data:posts" var="post">
+                <article class="pw-card pw-article">
+                  <b:include name="panelworkLabels" data="post"/>
+                  <h1><data:post.title/></h1>
+                  <b:if cond='data:blog.pageType == "item"'>
+                    <time class="pw-post-date" expr:datetime="data:post.timestampISO8601"><data:post.timestamp/></time>
+                  </b:if>
+                  <div class="pw-prose post-body entry-content" expr:id='"post-body-" + data:post.id'><data:post.body/></div>
+                  <b:if cond="data:post.allowComments"><b:include name="panelworkComments" data="post"/></b:if>
+                </article>
+              </b:loop>
+            <b:else/>
+              <b:if cond="data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl">
+                <div class="pw-summary"><h1>Publishing overview</h1><p>Publishing activity and topics from the posts on this page.</p></div>
+                $metrics
+              <b:else/>
+                <div class="pw-summary"><h1>
+                  <b:if cond="data:blog.searchLabel"><data:blog.searchLabel/>
+                  <b:elseif cond="data:blog.searchQuery"/>Search: <data:blog.searchQuery/>
+                  <b:elseif cond='data:blog.pageType == "error_page"'/>Page not found
+                  <b:else/>Post archive</b:if>
+                </h1></div>
+              </b:if>
+              <section class="pw-card pw-list" data-pw-list="">
+                $filter
+                <ul class="pw-post-rows">
+                  <b:loop values="data:posts" var="post">
+                    <li><div class="pw-post-row">
+                      <h3><a expr:href="data:post.url"><data:post.title/></a></h3>
+                      <b:include name="panelworkLabels" data="post"/>
+                      <time class="pw-post-date" expr:datetime="data:post.timestampISO8601"><data:post.timestamp/></time>
+                    </div></li>
+                  </b:loop>
+                </ul>
+                <b:if cond="data:posts.empty"><p>No posts found.</p></b:if>
+                <nav class="pw-paging" aria-label="Pagination">
+                  <b:if cond="data:newerPageUrl"><a expr:href="data:newerPageUrl">← Newer posts</a></b:if>
+                  <b:if cond="data:olderPageUrl"><a expr:href="data:olderPageUrl">Older posts →</a></b:if>
+                </nav>
+              </section>
+            </b:if>
+          </b:includable>
+          <b:includable id="panelworkLabels" var="post">
+            <div class="pw-post-topics"><b:loop values="data:post.labels" var="label">
+              <a expr:href="data:label.url"><data:label.name/></a>
+            </b:loop></div>
+          </b:includable>
+          <b:includable id="panelworkComments" var="post">
+            <section id="comments"><h2>Comments</h2>
+              <b:loop values="data:post.comments" var="comment">
+                <p><strong><data:comment.author/></strong></p><div><data:comment.body/></div>
+              </b:loop>
+              <b:if cond="data:post.addCommentUrl"><a expr:href="data:post.addCommentUrl">Leave a comment</a></b:if>
+            </section>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div></main>
+    <footer class="pw-footer"><div class="pw-wrap">$credit</div></footer>
+  </div>
+</body>
+</html>
