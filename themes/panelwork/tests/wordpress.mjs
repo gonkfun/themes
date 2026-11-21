@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
-const base = process.env.PANELWORK_WP_URL || 'http://127.0.0.1:9462/';
+const base = process.env.PANELWORK_WP_URL || 'http://127.0.0.1:9463/';
 const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN });
 try {
     for (const width of [390, 1440]) {
@@ -16,11 +16,20 @@ try {
                 await page.locator('[data-pw-metrics]').waitFor();
                 const rows = await page.locator('.pw-post-row').count();
                 assert(rows > 0);
+                assert.equal(await page.locator('.pw-stat').count(), 4);
+                assert(await page.locator('[data-pw-activity]').isVisible());
+                assert(await page.locator('.pw-donut').isVisible());
                 assert.equal(await page.locator('[data-pw-count]').textContent(), String(rows));
                 assert.equal(await page.locator('.pw-bars li').count(), 6);
                 assert.notEqual(await page.locator('[data-pw-newest]').textContent(), '—');
                 await page.getByLabel('Months shown').selectOption('3');
                 assert.equal(await page.locator('.pw-bars li').count(), 3);
+                const chartButton = page.locator('.pw-bars button').last();
+                await chartButton.click();
+                assert.equal(await chartButton.getAttribute('aria-pressed'), 'true');
+                await page.getByLabel('Sort posts').selectOption('title');
+                const titles = await page.locator('.pw-post-row h3').allTextContents();
+                assert.deepEqual(titles, [...titles].sort((a,b) => a.localeCompare(b)));
                 await page.getByLabel('Filter titles and topics').fill('sparrow');
                 assert.equal(await page.locator('.pw-post-row:visible').count(), 1);
                 await page.getByLabel('Filter titles and topics').fill('missing title');

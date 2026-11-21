@@ -1,6 +1,6 @@
 # Panelwork React
 
-A dashboard starter built with React and Vite. It includes a responsive sidebar, light/dark modes, cards, two charts, filters and a post detail view.
+A dashboard starter built with React and Vite. It includes Overview, Post Library, Topics, Calendar, Activity and Settings. Charts drill into a date range, and the library supports sorting, filters, pagination and CSV export. The sidebar, appearance, row density and components are editable.
 
 Use Node 22.12+ (or Node 20.19+).
 

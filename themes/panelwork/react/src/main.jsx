@@ -1,32 +1,30 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { formatDate, matches, summarize, timeline } from './dashboard-data.js';
+import { formatDate, summarize } from './dashboard-data.js';
+import { Activity, Calendar, Charts, PostLibrary, ScreenTitle, Settings, StatCards, Topics } from './screens.jsx';
 import samplePosts from './posts.json';
 import './panelwork.css';
 
 const modes = ['system', 'light', 'dark'];
-const modeKey = 'gonk-panelwork-mode';
-const language = document.documentElement.lang || 'en';
-const shortMonth = new Intl.DateTimeFormat(language, { month: 'short', timeZone: 'UTC' });
-const fullMonth = new Intl.DateTimeFormat(language, { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const languages = document.documentElement.lang || 'en';
+const links = {
+    Overview: [['overview', 'Overview', '◈'], ['library', 'Post library', '≡'], ['topics', 'Topics', '◇']],
+    Workspace: [['calendar', 'Calendar', '▦'], ['activity', 'Activity', '∙'], ['settings', 'Settings', '◌']]
+};
 
-function readMode() {
-    try {
-        const stored = localStorage.getItem(modeKey);
-        return modes.includes(stored) ? stored : 'system';
-    } catch {
-        return 'system';
-    }
-}
-
-function useAppearance() {
-    const [mode, setMode] = useState(readMode);
+function usePreference(key, choices, fallback) {
+    const [value, setValue] = useState(() => {
+        try {
+            const stored = localStorage.getItem(key);
+            return choices.includes(stored) ? stored : fallback;
+        } catch {
+            return fallback;
+        }
+    });
     useEffect(() => {
-        if (mode === 'system') document.documentElement.removeAttribute('data-pw-mode');
-        else document.documentElement.setAttribute('data-pw-mode', mode);
-        try { localStorage.setItem(modeKey, mode); } catch { /* Current page only. */ }
-    }, [mode]);
-    return [mode, setMode];
+        try { localStorage.setItem(key, value); } catch { /* Current page only. */ }
+    }, [key, value]);
+    return [value, setValue];
 }
 
 function Sidebar({ route, mode, setMode }) {
@@ -44,8 +42,12 @@ function Sidebar({ route, mode, setMode }) {
         </div>
         <div className="pw-rail-panel" id="panelwork-sidebar">
             <nav className="pw-nav" aria-label="Main navigation">
-                <a href="#overview" aria-current={route === 'overview' ? 'page' : undefined} onClick={() => setOpen(false)}>Overview</a>
-                <a href="#library" aria-current={route === 'library' ? 'page' : undefined} onClick={() => setOpen(false)}>Post library</a>
+                {Object.entries(links).map(([group, items]) => <Fragment key={group}>
+                    <p className="pw-rail-label pw-nav-label">{group === 'Overview' ? 'Publishing' : group}</p>
+                    {items.map(([id, label, glyph]) => <a key={id} className="pw-nav-link" href={`#${id}`} aria-current={id === route ? 'page' : undefined} onClick={() => setOpen(false)}>
+                        <span className="pw-nav-glyph" aria-hidden="true">{glyph}</span>{label}
+                    </a>)}
+                </Fragment>)}
             </nav>
             <label className="pw-mode">Appearance
                 <select aria-label="Appearance" value={mode} onChange={event => setMode(event.target.value)}>
@@ -56,91 +58,12 @@ function Sidebar({ route, mode, setMode }) {
     </header>;
 }
 
-function StatCards({ summary }) {
-    const metrics = [
-        ['Posts in this dataset', summary.count],
-        ['Topics represented', summary.topics.length],
-        ['Latest publication', formatDate(summary.newest, language)]
-    ];
-    return <dl className="pw-stats">
-        {metrics.map(([label, value]) => <div key={label} className="pw-card pw-stat">
-            <dt><span aria-hidden="true" className="pw-stat-mark"></span>{label}</dt><dd>{value}</dd>
-        </div>)}
-    </dl>;
-}
-
-function Charts({ summary }) {
-    const [range, setRange] = useState(6);
-    const months = timeline(summary, range);
-    const maximum = Math.max(1, ...months.map(month => month.count));
-    const topicMaximum = summary.topics[0]?.[1] || 1;
-    return <div className="pw-charts">
-        <section className="pw-card pw-chart">
-            <div className="pw-card-heading">
-                <div><h2>Publishing activity</h2><p>Post dates in the dataset, ending at the newest month.</p></div>
-                <label><span className="pw-sr">Months shown</span>
-                    <select className="pw-select" value={range} onChange={event => setRange(Number(event.target.value))} disabled={!months.length}>
-                        <option value={6}>6 months</option><option value={3}>3 months</option>
-                    </select>
-                </label>
-            </div>
-            {months.length ? <ul className="pw-bars" aria-label="Posts by month">
-                {months.map(month => <li key={month.key} aria-label={`${fullMonth.format(month.date)}: ${month.count} posts`}>
-                    <strong>{month.count}</strong>
-                    <span className="pw-bar-area" aria-hidden="true"><span className="pw-bar" style={{ '--value': `${100 * month.count / maximum}%` }} /></span>
-                    <span>{shortMonth.format(month.date)}</span>
-                </li>)}
-            </ul> : <p>No dated posts in this dataset.</p>}
-        </section>
-        <section className="pw-card pw-chart">
-            <div className="pw-card-heading"><div><h2>Top topics</h2><p>Most used topics in this dataset.</p></div></div>
-            {summary.topics.length ? <ul className="pw-topics" aria-label="Posts by topic">
-                {summary.topics.slice(0, 5).map(([topic, count]) => <li key={topic}>
-                    <span className="pw-topic-label"><span>{topic}</span><strong>{count}</strong></span>
-                    <div className="pw-topic-track" aria-hidden="true"><span className="pw-topic-fill" style={{ '--value': `${100 * count / topicMaximum}%` }} /></div>
-                </li>)}
-            </ul> : <p>No topics in this dataset.</p>}
-        </section>
-    </div>;
-}
-
-function PostLibrary({ posts, topics }) {
-    const [query, setQuery] = useState('');
-    const [topic, setTopic] = useState('');
-    const filtered = posts.filter(post => matches(post, query, topic));
-    return <section className="pw-card pw-list">
-        <div className="pw-card-heading">
-            <div><h2>Post library</h2><p aria-live="polite">{filtered.length} of {posts.length} posts</p></div>
-            <div className="pw-filter">
-                <label className="pw-sr" htmlFor="pw-query">Filter titles and topics</label>
-                <input id="pw-query" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Filter titles and topics" />
-                <label className="pw-sr" htmlFor="pw-topic">Filter by topic</label>
-                <select id="pw-topic" className="pw-select" value={topic} onChange={event => setTopic(event.target.value)}>
-                    <option value="">All topics</option>
-                    {topics.map(([name]) => <option value={name} key={name}>{name}</option>)}
-                </select>
-                <button className="pw-clear" type="button" onClick={() => { setQuery(''); setTopic(''); }}>Clear</button>
-            </div>
-        </div>
-        <div className="pw-columns" aria-hidden="true"><span>Post</span><span>Topics</span><span>Published</span></div>
-        {filtered.length ? <ul className="pw-post-rows">
-            {filtered.map(post => <li key={post.id}><div className="pw-post-row">
-                <h3><a href={`#post/${encodeURIComponent(post.id)}`}>{post.title}</a></h3>
-                <div className="pw-post-topics">{post.topics.map(name => <span key={name}>{name}</span>)}</div>
-                <time className="pw-post-date" dateTime={post.date}>{formatDate(post.date, language)}</time>
-            </div></li>)}
-        </ul> : <p className="pw-empty">No posts match these filters.</p>}
-    </section>;
-}
-
 function Article({ post }) {
     return <article className="pw-card pw-article">
         <a href="#library">← Post library</a>
         <h1>{post.title}</h1>
-        <time className="pw-post-date" dateTime={post.date}>{formatDate(post.date, language)}</time>
-        <div className="pw-prose"><p>{post.summary}</p>
-            {post.body && <p>{post.body}</p>}
-        </div>
+        <time className="pw-post-date" dateTime={post.date}>{formatDate(post.date, languages)}</time>
+        <div className="pw-prose"><p>{post.summary}</p>{post.body && <p>{post.body}</p>}</div>
     </article>;
 }
 
@@ -150,9 +73,13 @@ function currentRoute() {
 
 function App({ posts }) {
     const [route, setRoute] = useState(currentRoute);
-    const [mode, setMode] = useAppearance();
+    const [mode, setMode] = usePreference('gonk-panelwork-mode', modes, 'system');
+    const [density, setDensity] = usePreference('gonk-panelwork-density', ['comfortable', 'compact'], 'comfortable');
+    const [screen, search] = route.split('?');
     const summary = summarize(posts);
-    const post = route.startsWith('post/') ? posts.find(entry => encodeURIComponent(entry.id) === route.slice(5)) : undefined;
+    const params = new URLSearchParams(search);
+    const post = screen.startsWith('post/') ? posts.find(entry => encodeURIComponent(entry.id) === screen.slice(5)) : undefined;
+    const screenLabel = Object.values(links).flat().find(([id]) => id === screen)?.[1] || (post ? 'Article' : 'Workspace');
 
     useEffect(() => {
         function navigate() {
@@ -162,29 +89,63 @@ function App({ posts }) {
         window.addEventListener('hashchange', navigate);
         return () => window.removeEventListener('hashchange', navigate);
     }, []);
+    useEffect(() => {
+        if (mode === 'system') document.documentElement.removeAttribute('data-pw-mode');
+        else document.documentElement.setAttribute('data-pw-mode', mode);
+    }, [mode]);
 
     let content;
-    if (route === 'overview') {
-        content = <Fragment>
-            <section className="pw-summary"><h1>Publishing overview</h1><p>Activity and topics from the posts in your dataset.</p></section>
-            <StatCards summary={summary} />
-            <Charts summary={summary} />
-            <PostLibrary posts={posts} topics={summary.topics} />
-        </Fragment>;
-    } else if (route === 'library') {
-        content = <Fragment><section className="pw-summary"><h1>Archive</h1></section><PostLibrary posts={posts} topics={summary.topics} /></Fragment>;
-    } else if (post) {
-        content = <Article post={post} />;
-    } else {
-        content = <section className="pw-summary"><h1>Page not found</h1><a href="#overview">Back to overview</a></section>;
+    switch (screen) {
+        case 'overview':
+            content = <>
+                <ScreenTitle title="Publishing overview" description="A summary of this workspace’s entries, topics, and publishing cadence.">
+                    <a className="pw-action" href="#library">Open post library ↗</a>
+                </ScreenTitle>
+                <StatCards summary={summary} />
+                <Charts summary={summary} />
+                <div className="pw-section-grid">
+                    <Activity posts={posts} limit={4}/>
+                    <section className="pw-card">
+                        <div className="pw-card-heading"><div><h2>Library coverage</h2><p>How entries are organized.</p></div></div>
+                        <dl className="pw-distribution">
+                            <div><dt>Entries with labels</dt><dd>{posts.filter(entry => entry.topics.length).length}</dd></div>
+                            <div><dt>Entries without labels</dt><dd>{posts.filter(entry => !entry.topics.length).length}</dd></div>
+                            <div><dt>Entries with a date</dt><dd>{posts.filter(entry => entry.date).length}</dd></div>
+                        </dl>
+                        <a className="pw-quiet-link" href="#topics">Explore topics</a>
+                    </section>
+                </div>
+                <PostLibrary key={route} posts={posts} topics={summary.topics} preview />
+            </>;
+            break;
+        case 'library':
+            content = <><ScreenTitle title="Post library" description="Find, sort, and export entries from the workspace." />
+                <PostLibrary key={route} posts={posts} topics={summary.topics} initialTopic={params.get('topic') || ''}
+                    initialMonth={/^\d{4}-(0[1-9]|1[0-2])$/.test(params.get('month')) ? params.get('month') : ''}
+                    initialDate={formatDate(params.get('date'), languages) !== '—' ? params.get('date') : ''} /></>;
+            break;
+        case 'topics':
+            content = <><ScreenTitle title="Topics" description="Browse the labels used across published entries."/><Topics summary={summary} /></>;
+            break;
+        case 'calendar':
+            content = <><ScreenTitle title="Publishing calendar" description="Select a date with posts to open those entries."/><Calendar posts={posts} newest={summary.newest} /></>;
+            break;
+        case 'activity':
+            content = <><ScreenTitle title="Activity" description="Publication history for this workspace."/><Activity posts={posts} title="Publication timeline" /></>;
+            break;
+        case 'settings':
+            content = <><ScreenTitle title="Settings" description="Preferences apply to this browser."/><Settings mode={mode} setMode={setMode} density={density} setDensity={setDensity} /></>;
+            break;
+        default:
+            content = post ? <Article post={post}/> : <ScreenTitle title="Page not found"><a className="pw-action" href="#overview">Back to overview</a></ScreenTitle>;
     }
 
     return <Fragment>
         <a className="pw-skip" href="#content" onClick={event => { event.preventDefault(); document.getElementById('content').focus(); }}>Skip to content</a>
-        <div className="pw-shell">
-            <Sidebar route={route} mode={mode} setMode={setMode} />
+        <div className="pw-shell" data-pw-density={density}>
+            <Sidebar route={screen} mode={mode} setMode={setMode} />
             <main id="content" tabIndex={-1}><div className="pw-wrap pw-content">
-                <div className="pw-top"><p>Publishing desk</p><p>Example content</p></div>
+                <div className="pw-top"><p className="pw-top-service">Publishing desk / {screenLabel}</p><p className="pw-top-badge">Example content</p></div>
                 {content}
             </div></main>
             <footer className="pw-footer"><div className="pw-wrap">Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></div></footer>

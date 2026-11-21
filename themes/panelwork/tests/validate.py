@@ -44,7 +44,7 @@ for asset in ("dashboard-data.js", "panelwork.css", "posts.json"):
 assert (root / "preview/react/index.html").is_file()
 
 checksums = dict(reversed(line.split("  ", 1)) for line in (releases / "SHA256SUMS.txt").read_text().splitlines())
-expected = {"panelwork-blogger-1.0.0.zip", "panelwork-wordpress-1.0.0.zip", "panelwork-react-1.0.0.zip"}
+expected = {"panelwork-blogger-1.1.0.zip", "panelwork-wordpress-1.1.0.zip", "panelwork-react-1.1.0.zip"}
 assert set(checksums) == expected
 for name, digest in checksums.items():
     assert hashlib.sha256((releases / name).read_bytes()).hexdigest() == digest

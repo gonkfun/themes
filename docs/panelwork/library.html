@@ -10,14 +10,14 @@
 <div class="pw-shell">
   <header class="pw-sidebar"><div class="pw-brand-line"><a class="pw-brand" href="./">Panelwork</a><button type="button" class="pw-menu" aria-controls="panelwork-sidebar" aria-expanded="false" data-pw-menu="" hidden="hidden">Menu</button></div>
     <div class="pw-rail-panel" id="panelwork-sidebar">
-      <nav class="pw-nav" aria-label="Main navigation"><a href="./">Overview</a><a href="library.html" aria-current="page">Post library</a></nav>
+      <nav class="pw-nav" aria-label="Main navigation"><a href="./">Overview</a><a href="library.html" aria-current="page">Post library</a><a href="react/">React workspace</a></nav>
       <label class="pw-mode" hidden="hidden">Appearance
     <select aria-label="Appearance" data-pw-mode-select=""><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select>
 </label>
     </div>
   </header>
   <main id="content" tabindex="-1"><div class="pw-wrap pw-content">
-    <div class="pw-top"><p>Publishing desk</p><p>Example content</p></div>
+    <div class="pw-top"><p class="pw-top-service">Publishing desk · Example content</p><a class="pw-quiet-link" href="react/">Open React workspace ↗</a></div>
     <header class="pw-summary"><h1>Archive</h1></header><section class="pw-card pw-list" data-pw-list=""><div class="pw-card-heading">
   <div><h2>Post library</h2><p data-pw-results="" aria-live="polite"></p></div>
   <div class="pw-filter" data-pw-filter="" hidden="hidden">
@@ -25,6 +25,11 @@
     <input id="pw-query" type="search" placeholder="Filter this page"/>
     <label class="pw-sr" for="pw-topic">Filter by topic</label>
     <select id="pw-topic" class="pw-select"><option value="">All topics</option></select>
+    <label class="pw-sr" for="pw-sort">Sort posts</label>
+    <select id="pw-sort" class="pw-select">
+      <option value="default">Site order</option><option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option><option value="title">Title A–Z</option>
+    </select>
     <button type="button" class="pw-clear">Clear</button>
   </div>
 </div>

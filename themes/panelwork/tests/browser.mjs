@@ -13,7 +13,8 @@ try {
             assert.equal((await page.goto(url)).status(), 200);
             await page.getByRole('heading', { name: 'Publishing overview' }).waitFor();
             assert.equal(await page.locator('.pw-bars li').count(), 6);
-            assert.equal(await page.locator('.pw-post-row').count(), 12);
+            assert.equal(await page.locator('.pw-post-row').count(), target ? 6 : 12);
+            assert.equal(await page.locator('.pw-stat').count(), 4);
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
             if (width === 390) {
                 const menu = page.getByRole('button', { name: 'Menu', exact: true });
@@ -36,13 +37,56 @@ try {
             assert.equal(await page.locator('html').getAttribute('data-pw-mode'), 'dark');
             await page.getByLabel('Months shown').selectOption('3');
             assert.equal(await page.locator('.pw-bars li').count(), 3);
+            const month = page.getByRole('button', { name: 'October 2026: 4 posts' });
+            await month.click();
+            assert.equal(await month.getAttribute('aria-pressed'), 'true');
+            if (target) {
+                await page.getByRole('link', { name: 'View entries', exact: true }).click();
+                await page.getByRole('heading', { name: 'Post library', level: 1 }).waitFor();
+                assert.equal(await page.locator('.pw-post-row').count(), 4);
+                await page.goto(url);
+            } else {
+                assert(await page.getByText('October 2026: 4 posts', { exact: true }).isVisible());
+            }
             await page.getByLabel('Filter by topic').selectOption('Community');
             assert.equal(await page.locator('.pw-post-row:visible').count(), 2);
             await page.getByLabel('Filter titles and topics').fill('nonexistent post');
             assert(await page.getByText('No posts match these filters.').isVisible());
             await page.getByRole('button', { name: 'Clear', exact: true }).click();
-            await page.getByRole('link', { name: 'Release notes for the November edition' }).click();
+            await page.locator('.pw-list').getByRole('link', { name: 'Release notes for the November edition' }).click();
             await page.getByRole('heading', { name: 'Release notes for the November edition', exact: true }).waitFor();
+            assert.deepEqual(errors, []);
+            if (target) {
+                await page.goto(url + '#calendar');
+                await page.getByRole('heading', { name: 'Publishing calendar' }).waitFor();
+                await page.getByRole('button', { name: 'Previous month' }).click();
+                assert(await page.getByRole('heading', { name: 'October 2026', exact: true }).isVisible());
+                await page.getByRole('link', { name: 'Oct 24, 2026: 1 entry' }).click();
+                await page.getByRole('heading', { name: 'Post library', level: 1 }).waitFor();
+                assert.equal(await page.locator('.pw-post-row').count(), 1);
+                await page.goto(url + '#topics');
+                await page.getByRole('link', { name: 'Browse Community' }).click();
+                await page.getByRole('heading', { name: 'Post library', level: 1 }).waitFor();
+                assert.equal(await page.locator('.pw-post-row').count(), 2);
+                const [download] = await Promise.all([
+                    page.waitForEvent('download'),
+                    page.getByRole('button', { name: 'Export CSV' }).click()
+                ]);
+                assert.equal(download.suggestedFilename(), 'panelwork-posts.csv');
+                await page.goto(url + '#library');
+                await page.getByLabel('Sort posts').selectOption('oldest');
+                assert.match(await page.locator('.pw-post-row').first().innerText(), /Welcome to the publishing desk/);
+                await page.getByRole('button', { name: 'Next', exact: true }).click();
+                assert(await page.getByText('Page 2 of 2', { exact: true }).isVisible());
+                await page.goto(url + '#activity');
+                await page.getByRole('heading', { name: 'Publication timeline' }).waitFor();
+                assert.equal(await page.locator('.pw-timeline li').count(), 12);
+                await page.goto(url + '#settings');
+                await page.getByRole('radio', { name: 'Compact' }).check();
+                await page.reload();
+                await page.getByRole('heading', { name: 'Settings', exact: true }).waitFor();
+                assert.equal(await page.locator('.pw-shell').getAttribute('data-pw-density'), 'compact');
+            }
             assert.deepEqual(errors, []);
             await page.close();
             console.log(`${edition}, ${width}px: sidebar, colour mode, chart, filters and article passed`);

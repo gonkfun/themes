@@ -15,7 +15,7 @@ Free, original Blogger and WordPress themes and React starters for publishers, s
 | **Signal Atelier** | Creative studio | Blogger / WordPress | [Files and guides](themes/signalatelier) | [Signal Atelier v1.0.0](https://github.com/gonkfun/themes/releases/tag/signalatelier-v1.0.0) |
 | **Long Weekend** | Community events | Blogger / WordPress | [Files and guides](themes/longweekend) | [Long Weekend v1.0.0](https://github.com/gonkfun/themes/releases/tag/longweekend-v1.0.0) |
 | **Lumen** | Essays, reading notes and research journals | Blogger / WordPress | [Files and guides](themes/lumen) | [Lumen v1.1.0](https://github.com/gonkfun/themes/releases/tag/lumen-v1.1.0) |
-| **Panelwork** | Publishing dashboard and post library | Blogger / WordPress / React | [Files and guides](themes/panelwork) | [Panelwork v1.0.0](https://github.com/gonkfun/themes/releases/tag/panelwork-v1.0.0) |
+| **Panelwork** | Publishing dashboard and post library | Blogger / WordPress / React | [Files and guides](themes/panelwork) | [Panelwork v1.1.0](https://github.com/gonkfun/themes/releases/tag/panelwork-v1.1.0) |
 
 ![Epoch — charcoal and blue editorial theme](themes/epoch/wordpress/epoch/screenshot.png)
 

@@ -34,13 +34,38 @@ export function timeline(summary, count) {
 }
 
 export function formatDate(date, language) {
-    if (!date) return '—';
+    if (!date || !/^\d{4}-\d{2}-\d{2}/.test(date)) return '—';
+    const day = new Date(date.slice(0, 10) + 'T00:00:00Z');
+    if (!Number.isFinite(day.getTime())) return '—';
     return new Intl.DateTimeFormat(language || undefined, {
         dateStyle: 'medium', timeZone: 'UTC'
-    }).format(new Date(date.slice(0, 10) + 'T00:00:00Z'));
+    }).format(day);
 }
 
 export function matches(post, query, topic) {
     const text = [post.title, ...post.topics].join(' ').toLowerCase();
     return text.includes(query.trim().toLowerCase()) && (!topic || post.topics.includes(topic));
+}
+
+export function comparePosts(left, right, order) {
+    if (order === 'title') return left.title.localeCompare(right.title);
+    if (!left.date || !right.date) return Number(!left.date) - Number(!right.date);
+    return order === 'oldest' ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date);
+}
+
+export function latestPosts(posts, limit = 5) {
+    return posts.filter(post => post.date).sort((a, b) => comparePosts(a, b, 'newest')).slice(0, limit);
+}
+
+export function topicSegments(topics) {
+    const total = topics.reduce((sum, [, count]) => sum + count, 0);
+    const colors = ['var(--pw-accent)', 'var(--pw-teal)', 'var(--pw-coral)', '#7889c8', '#a98bce', '#98a5bc'];
+    let position = 0;
+    const shown = topics.slice(0, 5);
+    if (topics.length > 5) shown.push(['Other topics', total - shown.reduce((sum, [, count]) => sum + count, 0)]);
+    return shown.map(([topic, count], index) => {
+        const start = position;
+        position += 100 * count / total;
+        return { topic, count, color: colors[index], start, end: position };
+    });
 }

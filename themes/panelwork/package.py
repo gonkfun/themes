@@ -21,11 +21,11 @@ react_files = [REACT / name for name in ("README.md", "LICENSE", "REACT-LICENSE.
                                          "package.json", "package-lock.json")]
 react_files.extend(p for p in (REACT / "src").rglob("*") if p.is_file())
 packages = {
-    "panelwork-wordpress-1.0.0.zip": [(p, Path("panelwork") / p.relative_to(WORDPRESS))
+    "panelwork-wordpress-1.1.0.zip": [(p, Path("panelwork") / p.relative_to(WORDPRESS))
                                     for p in sorted(WORDPRESS.rglob("*")) if p.is_file()],
-    "panelwork-blogger-1.0.0.zip": [(ROOT / "blogger/panelwork-blogger.xml", "panelwork-blogger.xml"),
+    "panelwork-blogger-1.1.0.zip": [(ROOT / "blogger/panelwork-blogger.xml", "panelwork-blogger.xml"),
                                   (ROOT / "docs/BLOGGER.md", "INSTALL.md"), (ROOT.parents[1] / "LICENSE", "LICENSE")],
-    "panelwork-react-1.0.0.zip": [(p, Path("panelwork-react") / p.relative_to(REACT)) for p in sorted(react_files)]
+    "panelwork-react-1.1.0.zip": [(p, Path("panelwork-react") / p.relative_to(REACT)) for p in sorted(react_files)]
 }
 checksums = []
 for name, entries in packages.items():

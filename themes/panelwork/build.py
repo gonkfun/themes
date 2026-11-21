@@ -13,6 +13,7 @@ DATA = (SHARED / "dashboard-data.js").read_text()
 SCRIPT = "(() => {\n'use strict';\n" + DATA.replace("export function ", "function ") + (SHARED / "panelwork.js").read_text() + "\n})();\n"
 METRICS = (SHARED / "metrics.html").read_text()
 FILTER = (SHARED / "filter.html").read_text()
+ACTIVITY = (SHARED / "activity.html").read_text()
 POSTS = json.loads((SHARED / "posts.json").read_text())
 COPY = "Publishing activity and topics from the posts on this page."
 CREDIT = 'Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a>'
@@ -88,7 +89,7 @@ Theme URI: https://gonkfun.github.io/themes/panelwork/
 Author: Gonk Themes
 Author URI: https://gonk.fun/
 Description: A publishing dashboard with a sidebar, activity charts, reader filters and a calm reading view.
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -153,7 +154,7 @@ add_filter( 'body_class', 'panelwork_body_class' );
     posts = group(raw(FILTER) + native_listing(), "pw-card pw-list", anchor="post-library")
     home = (site_bar + group(title("Publishing overview") + block("paragraph", content=f"<p>{COPY}</p>"), "pw-summary")
             + raw(METRICS) + posts)
-    template("home", home)
+    template("home", home + raw(ACTIVITY))
     template("index", site_bar + group(title("Post archive"), "pw-summary") + posts)
     template("archive", site_bar + group(block("query-title", {"type": "archive", "showPrefix": False, "level": 1}) +
                                         block("term-description"), "pw-summary") + posts)
@@ -175,7 +176,7 @@ Contributors: amoghacloud
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -216,12 +217,12 @@ def demo(title_text, body, active=""):
 <div class="pw-shell">
   <header class="pw-sidebar"><div class="pw-brand-line"><a class="pw-brand" href="./">Panelwork</a>{MENU}</div>
     <div class="pw-rail-panel" id="panelwork-sidebar">
-      <nav class="pw-nav" aria-label="Main navigation"><a href="./"{current('home')}>Overview</a><a href="library.html"{current('library')}>Post library</a></nav>
+      <nav class="pw-nav" aria-label="Main navigation"><a href="./"{current('home')}>Overview</a><a href="library.html"{current('library')}>Post library</a><a href="react/">React workspace</a></nav>
       {MODE}
     </div>
   </header>
   <main id="content" tabindex="-1"><div class="pw-wrap pw-content">
-    <div class="pw-top"><p>Publishing desk</p><p>Example content</p></div>
+    <div class="pw-top"><p class="pw-top-service">Publishing desk · Example content</p><a class="pw-quiet-link" href="react/">Open React workspace ↗</a></div>
     {body}
   </div></main>
   <footer class="pw-footer"><div class="pw-wrap">{CREDIT}</div></footer>
@@ -238,7 +239,7 @@ def preview():
     rows = ''.join(map(post_row, POSTS))
     list_view = f'<section class="pw-card pw-list" data-pw-list="">{FILTER}<ul class="pw-post-rows">{rows}</ul></section>'
     intro = f'<section class="pw-summary"><h1>Publishing overview</h1><p>{COPY}</p></section>'
-    write(directory / "index.html", demo("Publishing overview", intro + METRICS + list_view, "home"))
+    write(directory / "index.html", demo("Publishing overview", intro + METRICS + list_view + ACTIVITY, "home"))
     write(directory / "library.html", demo("Archive", '<header class="pw-summary"><h1>Archive</h1></header>' + list_view, "library"))
     for post in POSTS:
         article = (f'<article class="pw-card pw-article"><a href="library.html">← Post library</a><h1>{escape(post["title"])}</h1>'
@@ -251,7 +252,7 @@ def preview():
 def blogger():
     xml = Template((SHARED / "blogger.xml").read_text())
     write(ROOT / "blogger/panelwork-blogger.xml", xml.substitute(
-        styles=CSS, script=SCRIPT, menu=MENU, mode=MODE, metrics=METRICS, filter=FILTER, search=SEARCH, credit=CREDIT))
+        styles=CSS, script=SCRIPT, menu=MENU, mode=MODE, metrics=METRICS, activity=ACTIVITY, filter=FILTER, search=SEARCH, credit=CREDIT))
 
 
 def react_sources():

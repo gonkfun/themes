@@ -80,6 +80,7 @@ $script
                   <b:if cond="data:olderPageUrl"><a expr:href="data:olderPageUrl">Older posts →</a></b:if>
                 </nav>
               </section>
+              <b:if cond="data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl">$activity</b:if>
             </b:if>
           </b:includable>
           <b:includable id="panelworkLabels" var="post">

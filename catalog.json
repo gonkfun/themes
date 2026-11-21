@@ -86,9 +86,9 @@
   {
     "id": "panelwork",
     "name": "Panelwork",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "category": "Publishing dashboard",
-    "description": "A dashboard with a collapsible sidebar, publishing charts, a filterable post library and an optional React starter.",
+    "description": "A publishing dashboard with interactive charts, a sortable library and a full React workspace with topics, calendar, activity and settings.",
     "platforms": [
       "Blogger",
       "WordPress",
