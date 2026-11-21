@@ -7,5 +7,14 @@
     "description": "A charcoal-and-blue journal for Solana communities, with native publishing, responsive reading layouts and original artwork.",
     "platforms": ["Blogger", "WordPress"],
     "cover": "assets/epoch.png"
+  },
+  {
+    "id": "fieldnote",
+    "name": "Fieldnote",
+    "version": "1.0.0",
+    "category": "Nature journal",
+    "description": "A paper-and-ink field journal for naturalists, gardeners and walkers: specimen-card entries, margin notes, a season strip and hand-drawn line artwork. Designed by Claude.",
+    "platforms": ["Blogger", "WordPress"],
+    "cover": "assets/fieldnote.png"
   }
 ]

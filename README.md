@@ -9,8 +9,11 @@ Original, free Blogger and WordPress themes for crypto communities. Built one de
 | Theme | Audience | Platforms | Source | Download |
 |---|---|---|---|---|
 | **Epoch** | Solana editorial and community publishing | Blogger / WordPress | [Files and guides](themes/epoch) | [Epoch v1.0.0](https://github.com/gonkfun/themes/releases/tag/epoch-v1.0.0) |
+| **Fieldnote** | Nature journals: naturalists, gardeners, birdwatchers, walkers | Blogger / WordPress | [Files and guides](themes/fieldnote) | [Fieldnote v1.0.0](https://github.com/gonkfun/themes/releases/tag/fieldnote-v1.0.0) |
 
 ![Epoch — charcoal and blue editorial theme](themes/epoch/wordpress/epoch/screenshot.png)
+
+![Fieldnote — paper, ink and moss nature journal (designed by Claude)](themes/fieldnote/wordpress/fieldnote/screenshot.png)
 
 ## Install
 
