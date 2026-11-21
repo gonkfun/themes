@@ -2,7 +2,7 @@
 
 Original, free Blogger and WordPress themes for crypto communities. Built one design at a time.
 
-**[Browse themes and live previews](https://gonkfun.github.io/themes/)** · **[Download releases](https://github.com/gonkfun/themes/releases)** · [gonk.fun](https://gonk.fun/)
+**[Browse themes and live previews](https://gonkfun.github.io/)** · **[Download releases](https://github.com/gonkfun/themes/releases)** · [gonk.fun](https://gonk.fun/)
 
 ## Available themes
 
@@ -54,3 +54,5 @@ Colour-only variations are not listed as separate designs. No copied premium the
 ## Licence
 
 [GPL-2.0-or-later](LICENSE).
+
+The organisation homepage is generated with `python3 sync-root-site.py /path/to/gonkfun.github.io-checkout`. Commit and push that separate checkout when adding a theme. Existing `/themes/<slug>/` previews remain valid.
