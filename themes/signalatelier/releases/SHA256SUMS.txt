@@ -1,1 +1,2 @@
+bb2e359e95121bbb92332f70e3ae785dbf5e04e8498a443108d794925c382436  signalatelier-blogger-1.0.0.zip
 741c8dadf74fdb91d7cebe704b6bd43ccf76fa5537c20ba0853cf297210f8f56  signalatelier-wordpress-1.0.0.zip

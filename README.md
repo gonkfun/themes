@@ -10,10 +10,10 @@ Free, original Blogger and WordPress themes for publishers, studios and communit
 |---|---|---|---|---|
 | **Epoch** | Solana editorial and community publishing | Blogger / WordPress | [Files and guides](themes/epoch) | [Epoch v1.0.0](https://github.com/gonkfun/themes/releases/tag/epoch-v1.0.0) |
 | **Fieldnote** | Nature journals: naturalists, gardeners, birdwatchers, walkers | Blogger / WordPress | [Files and guides](themes/fieldnote) | [Fieldnote v1.0.0](https://github.com/gonkfun/themes/releases/tag/fieldnote-v1.0.0) |
-| **Relaygrid** | Developer project | WordPress | [Files and guides](themes/relaygrid) | [Relaygrid v1.0.0](https://github.com/gonkfun/themes/releases/tag/relaygrid-v1.0.0) |
-| **Cabinet Noir** | Collectible catalogue | WordPress | [Files and guides](themes/cabinetnoir) | [Cabinet Noir v1.0.0](https://github.com/gonkfun/themes/releases/tag/cabinetnoir-v1.0.0) |
-| **Signal Atelier** | Creative studio | WordPress | [Files and guides](themes/signalatelier) | [Signal Atelier v1.0.0](https://github.com/gonkfun/themes/releases/tag/signalatelier-v1.0.0) |
-| **Long Weekend** | Community events | WordPress | [Files and guides](themes/longweekend) | [Long Weekend v1.0.0](https://github.com/gonkfun/themes/releases/tag/longweekend-v1.0.0) |
+| **Relaygrid** | Developer project | Blogger / WordPress | [Files and guides](themes/relaygrid) | [Relaygrid v1.0.0](https://github.com/gonkfun/themes/releases/tag/relaygrid-v1.0.0) |
+| **Cabinet Noir** | Collectible catalogue | Blogger / WordPress | [Files and guides](themes/cabinetnoir) | [Cabinet Noir v1.0.0](https://github.com/gonkfun/themes/releases/tag/cabinetnoir-v1.0.0) |
+| **Signal Atelier** | Creative studio | Blogger / WordPress | [Files and guides](themes/signalatelier) | [Signal Atelier v1.0.0](https://github.com/gonkfun/themes/releases/tag/signalatelier-v1.0.0) |
+| **Long Weekend** | Community events | Blogger / WordPress | [Files and guides](themes/longweekend) | [Long Weekend v1.0.0](https://github.com/gonkfun/themes/releases/tag/longweekend-v1.0.0) |
 
 ![Epoch — charcoal and blue editorial theme](themes/epoch/wordpress/epoch/screenshot.png)
 
@@ -59,12 +59,14 @@ build-site.py         # Builds the public catalogue and preview copies
 
 Colour-only variations are not listed as separate designs. No copied premium themes or unlicensed assets.
 
-The four WordPress collection themes share the builders in `scripts/` and use separate layouts. Run these commands from the repository root after editing their source:
+The four collection themes share the Blogger and WordPress builders in `scripts/` and use separate layouts. Run these commands from the repository root after editing their source:
 
 ```sh
 python3 scripts/build-wordpress-collection.py
 python3 scripts/package-wordpress-collection.py
 python3 scripts/validate-wordpress-collection.py
+python3 scripts/build-blogger-collection.py
+python3 scripts/validate-blogger-collection.py
 python3 build-site.py
 ```
 

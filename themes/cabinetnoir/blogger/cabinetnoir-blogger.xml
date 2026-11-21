@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection'
+      xmlns='http://www.w3.org/1999/xhtml'
+      xmlns:b='http://www.google.com/2005/gml/b'
+      xmlns:data='http://www.google.com/2005/gml/data'
+      xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta content='#f3eee5' name='theme-color'/>
+  <b:include data='blog' name='all-head-content'/>
+  <title><data:blog.pageTitle/></title>
+  <b:if cond='not data:blog.metaDescription'>
+    <b:if cond='data:blog.description'>
+      <meta expr:content='data:blog.description' name='description'/>
+    </b:if>
+  </b:if>
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+  <b:if cond='data:blog.postImageUrl'>
+    <meta content='summary_large_image' name='twitter:card'/>
+    <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+  <b:else/>
+    <meta content='summary' name='twitter:card'/>
+  </b:if>
+  <b:skin><![CDATA[
+:root { --paper: #f3eee5; --panel: #faf7f0; --ink: #2b211f; --muted: #63544e; --accent: #7c3035; --line: #d9c9bc; --on: #fff7f3; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+a { color: inherit; text-underline-offset: .24em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+img { max-width: 100%; height: auto; }
+h1, h2, h3 { line-height: 1.05; text-wrap: balance; }
+.gc-wrap { width: min(1152px, calc(100% - 3rem)); margin-inline: auto; }
+.gc-header { border-bottom: 1px solid var(--line); }
+.gc-header .gc-wrap { min-height: 82px; display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+.gc-brand, .gc-header .wp-block-site-title { font-size: 1.24rem; letter-spacing: -.04em; font-weight: 800; }
+.gc-brand, .gc-header a { text-decoration: none; }
+.gc-header nav { display: flex; align-items: center; gap: 1.25rem; font-size: .9rem; }
+.gc-header a, .gc-header button { display: inline-flex; align-items: center; min-height: 44px; }
+.gc-header .wp-block-navigation__responsive-container.is-menu-open { background: var(--paper); color: var(--ink); }
+.gc-hero { margin-block: 1.75rem 0; padding: clamp(2rem, 6vw, 5.5rem); display: grid; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; background: var(--panel); }
+.gc-hero h1 { font-size: clamp(3.2rem, 7.6vw, 7.2rem); margin: .2em 0; letter-spacing: -.071em; }
+.gc-label { margin: 0; font: 700 .75rem/1.35 ui-monospace, monospace; letter-spacing: .11em; text-transform: uppercase; color: var(--accent); }
+.gc-intro { max-width: 39ch; color: var(--muted); font-size: clamp(1.02rem, 1.8vw, 1.25rem); margin: 0 0 1.45rem; }
+.gc-action, .gc-action .wp-block-button__link { min-height: 46px; display: inline-flex; align-items: center; padding: .55rem 1.1rem; background: var(--accent); color: var(--on); text-decoration: none; font-weight: 700; }
+.wp-block-button.gc-action { background: none; padding: 0; }
+.gc-content { margin-block: clamp(2.9rem, 8vw, 6rem); scroll-margin-top: 1.5rem; }
+.gc-section-title { font-size: clamp(2.2rem, 4.8vw, 4.55rem); letter-spacing: -.063em; margin: 0 0 .55em; }
+.gc-card h3 { font-size: clamp(1.36rem, 2.7vw, 2.3rem); margin: .3em 0; letter-spacing: -.035em; }
+.gc-card p:not(.gc-label), .gc-item p { margin: .5rem 0 0; color: var(--muted); }
+.gc-art { overflow: hidden; min-height: 13rem; position: relative; background: var(--art-background, var(--accent)); }
+.gc-art::before, .gc-art::after { content: ""; position: absolute; }
+.gc-updates { border-top: 1px solid var(--line); padding-block: 3rem 4rem; }
+.gc-updates .wp-block-post-template, .gc-update-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5rem; list-style: none; padding: 0; }
+.gc-item, .gc-updates .wp-block-post { border-top: 1px solid var(--line); padding-top: 1rem; min-width: 0; overflow-wrap: anywhere; }
+.gc-item h3, .wp-block-post-title { margin: .5em 0; }
+.gc-updates img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; }
+.gc-footer { border-top: 1px solid var(--line); padding-block: 2rem; color: var(--muted); font-size: .9rem; }
+.gc-footer .gc-wrap { display: flex; flex-wrap: wrap; gap: .75rem 2rem; justify-content: space-between; }
+.gc-article { width: min(760px, calc(100% - 3rem)); margin: 4rem auto; overflow-wrap: anywhere; }
+.gc-article h1 { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -.06em; }
+.gc-article .wp-block-post-content { font-size: 1.12rem; }
+.gc-article pre { overflow: auto; }
+.gc-search { margin-block: 1.5rem; }
+.gc-search .wp-block-search__inside-wrapper { flex-wrap: wrap; }
+.gc-search input { min-width: 0; }
+.gc-search input, .gc-search button { min-height: 44px; }
+.gc-paging { margin-top: 2rem; }
+.gc-skip { position: absolute; top: 0; left: 1rem; transform: translateY(-110%); background: var(--accent); color: var(--on); padding: .75rem; z-index: 10; }
+.gc-skip:focus { transform: none; }
+@media(max-width: 720px) {
+  .gc-wrap, .gc-article { width: calc(100% - 2rem); }
+  .gc-header .gc-wrap { min-height: 66px; gap: .4rem; }
+  .gc-header nav { gap: .65rem; }
+  .gc-updates .wp-block-post-template, .gc-update-grid { grid-template-columns: 1fr; }
+  .gc-hero { margin-top: 1rem; padding: 1.65rem; }
+}
+@media print {
+  .gc-header nav, .gc-footer, .gc-action { display: none !important; }
+  body { background: white; color: black; }
+}
+.gc-brand, .gc-hero h1, .gc-section-title, .gc-card h3 { font-family: Georgia, serif; font-weight: 400; }
+.gc-hero { grid-template-columns: .86fr 1.14fr; padding: 0; gap: 0; border: 1px solid var(--line); }
+.gc-hero .gc-copy { padding: clamp(1.75rem,5vw,4.2rem); }
+.gc-hero h1 { font-size: clamp(3rem,6.3vw,6rem); letter-spacing: -.06em; }
+.gc-hero .gc-art { min-height: 100%; aspect-ratio: 5 / 4; background: radial-gradient(ellipse at 68% 24%,#ad7c67,#42272d 78%); }
+.gc-hero .gc-art::before { width: 43%; height: 58%; left: 28%; bottom: 17%; border-radius: 46% 41% 36% 39%; background: repeating-linear-gradient(98deg,#d3a38046 0 4px,#77384033 8px 14px), radial-gradient(ellipse at 38% 26%,#f5c49d,#582b34 80%); box-shadow:24px 29px 54px #21162099; }
+.gc-hero .gc-art::after { width:24%; height:8%; left:37%; top:22%; border-radius:50%; background:#3d2328; box-shadow:inset 0 6px 6px #1c1118,0 0 0 4px #c48d74; }
+.gc-deck { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.4rem; }
+.gc-card { border-bottom: 1px solid var(--line); padding-bottom: 1.4rem; }
+.gc-card .gc-art { aspect-ratio: 5 / 4; margin-bottom: 1rem; background: radial-gradient(ellipse at 70% 20%,#f3d8c2,#c49b83); }
+.gc-card .gc-art::before { inset: 20% 27%; background: linear-gradient(35deg,#b17055,#eacc91 72%,#a45c43 73%); box-shadow: 13px 17px 24px #4d211c77; transform: rotate(-19deg); }
+.gc-card:nth-child(2) .gc-art { background: radial-gradient(ellipse at 70% 20%,#e5b0a0,#7d4145); }
+.gc-card:nth-child(2) .gc-art::before { border-radius:47% 47% 38% 38%; background: repeating-linear-gradient(93deg,#dc999057 0 5px,#6e33397c 8px 11px),#9a3a40; }
+.gc-card:nth-child(3) .gc-art { background: radial-gradient(ellipse at 70% 20%,#c9d6da,#73838e); }
+.gc-card:nth-child(3) .gc-art::before { clip-path:polygon(18% 6%,84% 0,100% 74%,42% 100%,0 62%); background: conic-gradient(from 60deg,#334c63,#6c9bb4,#95b6c4,#334c63); }
+@media(max-width: 720px) { .gc-hero, .gc-deck { grid-template-columns:1fr; } .gc-hero {padding:0;} }
+
+/* Blogger publishing controls and native gadgets. */
+.gc-blogger .gc-header .gc-wrap { flex-wrap: wrap; }
+.gc-blogger .gc-brand { overflow-wrap: anywhere; }
+.gc-blogger .gc-copy h1 { overflow-wrap: anywhere; }
+.gc-blogger .gc-blog-search {
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.gc-blog-search input {
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  min-width: 0;
+  flex: 1 1 10rem;
+  padding: .5rem .75rem;
+}
+.gc-blog-search input, .gc-blog-search button { min-height: 44px; font: inherit; }
+.gc-blog-search button {
+  border: 0;
+  padding: .5rem 1rem;
+  color: var(--on);
+  background: var(--accent);
+  cursor: pointer;
+}
+.gc-blogger .gc-updates { overflow-wrap: anywhere; }
+.gc-blogger .gc-paging, .gc-tags { display: flex; flex-wrap: wrap; gap: .65rem 1rem; }
+.gc-blogger .gc-paging a, .gc-tags a { display: inline-flex; align-items: center; min-height: 44px; }
+.gc-tags a, .gc-byline { font-size: .88rem; color: var(--muted); }
+.gc-tags:empty { display: none; }
+.gc-blogger .post-body { font-size: 1.12rem; }
+.gc-blogger .post-body iframe, .gc-blogger .post-body video { max-width: 100%; }
+.gc-blogger .post-body pre { overflow: auto; }
+.gc-blogger .post-body table { display: block; max-width: 100%; overflow-x: auto; }
+.gc-comments { margin-top: 3rem; }
+.gc-comment { border-top: 1px solid var(--line); padding-block: .8rem; }
+.gc-blog-gadgets { flex: 1 0 100%; }
+.gc-blog-gadgets .section { display: flex; flex-wrap: wrap; gap: 1.5rem 2rem; margin: 0; }
+.gc-blog-gadgets li { margin-block: .45rem; }
+.gc-blogger .widget { margin: 0; }
+.gc-blogger #navbar, .gc-blogger #navbar-iframe, .gc-blogger .widget.Header,
+.gc-blogger .widget.Profile, .gc-blogger .widget.Attribution,
+.gc-blogger .widget.ReportAbuse, .gc-blogger .widget.BlogSearch { display: none; }
+body#layout .gc-hero, body#layout .gc-content { display: none; }
+body#layout .section { display: block; min-height: 75px; }
+body#layout .widget { display: block; }
+@media(max-width: 560px) {
+  .gc-blogger .gc-header .gc-wrap { justify-content: start; gap: 0 1rem; }
+  .gc-blogger .gc-header nav { flex-wrap: wrap; }
+}
+
+  ]]></b:skin>
+</head>
+<body class='gc-blogger'>
+  <a class='gc-skip' href='#content'>Skip to content</a>
+  <header class='gc-header'>
+    <div class='gc-wrap'>
+      <a class='gc-brand' expr:href='data:blog.homepageUrl'><data:blog.title/></a>
+      <nav aria-label='Main navigation'>
+        <a expr:href='data:blog.homepageUrl'>Home</a>
+        <a expr:href='data:blog.homepageUrl + "#overview"'>From the cabinet</a>
+        <a expr:href='data:blog.homepageUrl + "#updates"'>Posts</a>
+      </nav>
+    </div>
+  </header>
+  <main id='content' tabindex='-1'>
+    <b:if cond='data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl'>
+      <section class='gc-hero gc-wrap'>
+      <div class='gc-copy'>
+        <p class='gc-label'>The collection</p>
+        <h1><data:blog.title/></h1>
+        <b:if cond='data:blog.description'><p class='gc-intro'><data:blog.description/></p></b:if>
+        <a class='gc-action' href='#overview'>View the collection ↘</a>
+      </div>
+      <div class='gc-art' aria-hidden='true'></div>
+    </section>
+      <section class='gc-content gc-wrap' id='overview'>
+      <h2 class='gc-section-title'>From the cabinet</h2>
+      <div class='gc-deck'><article class='gc-card'>
+          <div class='gc-art' aria-hidden='true'></div>
+          <p class='gc-label'>01</p>
+          <h3>Folded form</h3>
+          <p>A study in edges, light and the space inside a folded object.</p>
+        </article>
+<article class='gc-card'>
+          <div class='gc-art' aria-hidden='true'></div>
+          <p class='gc-label'>02</p>
+          <h3>Red vessel</h3>
+          <p>An object shaped around one simple curve and a quiet glaze.</p>
+        </article>
+<article class='gc-card'>
+          <div class='gc-art' aria-hidden='true'></div>
+          <p class='gc-label'>03</p>
+          <h3>Blue fragment</h3>
+          <p>A small piece selected for its grain, colour and irregular edge.</p>
+        </article></div>
+    </section>
+    </b:if>
+    <b:if cond='data:blog.pageType != "item" and data:blog.pageType != "static_page"'>
+      <form class='gc-wrap gc-blog-search' expr:action='data:blog.homepageUrl + "search"' method='get' role='search'>
+        <label for='gc-search'>Search posts</label>
+        <input id='gc-search' name='q' type='search'/>
+        <button type='submit'>Search</button>
+      </form>
+    </b:if>
+    <b:section class='main' id='main' maxwidgets='1' showaddelement='no'>
+      <b:widget id='Blog1' locked='yes' mobile='yes' title='Blog Posts' type='Blog' version='1'>
+        <b:includable id='main' var='top'>
+          <b:if cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+            <b:loop values='data:posts' var='post'>
+              <article class='gc-article'>
+                <h1><data:post.title/></h1>
+                <b:if cond='data:blog.pageType == "item"'>
+                  <p class='gc-byline'><data:post.timestamp/> · <data:post.author/></p>
+                </b:if>
+                <div class='post-body entry-content' expr:id='"post-body-" + data:post.id'><data:post.body/></div>
+                <b:include data='post' name='collectionLabels'/>
+                <b:if cond='data:post.allowComments'>
+                  <b:include data='post' name='collectionComments'/>
+                </b:if>
+              </article>
+            </b:loop>
+          <b:else/>
+            <section class='gc-wrap gc-updates' id='updates'>
+              <b:if cond='data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl'>
+                <h2 class='gc-section-title'>Collection notes</h2>
+              <b:else/>
+                <h1 class='gc-section-title'>
+                  <b:if cond='data:blog.searchLabel'>
+                    <data:blog.searchLabel/>
+                  <b:elseif cond='data:blog.searchQuery'/>
+                    Search: <data:blog.searchQuery/>
+                  <b:else/>
+                    <data:blog.pageTitle/>
+                  </b:if>
+                </h1>
+              </b:if>
+              <div class='gc-update-grid'>
+                <b:loop values='data:posts' var='post'>
+                  <article class='gc-item'>
+                    <b:if cond='data:post.firstImageUrl'>
+                      <img alt='' expr:src='data:post.firstImageUrl' height='450' loading='lazy' width='600'/>
+                    </b:if>
+                    <h3><a expr:href='data:post.url'><data:post.title/></a></h3>
+                    <p class='gc-byline'><data:post.timestamp/></p>
+                    <p><b:eval expr='snippet(data:post.body, {length: 145, links: false, linebreaks: false})'/></p>
+                    <b:include data='post' name='collectionLabels'/>
+                  </article>
+                </b:loop>
+              </div>
+              <b:if cond='data:posts.empty'><p>No matching posts yet.</p></b:if>
+              <nav aria-label='Post pagination' class='gc-paging'>
+                <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl'>← Newer posts</a></b:if>
+                <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'>Older posts →</a></b:if>
+              </nav>
+            </section>
+          </b:if>
+        </b:includable>
+        <b:includable id='collectionLabels' var='post'>
+          <div class='gc-tags'>
+            <b:loop values='data:post.labels' var='label'>
+              <a expr:href='data:label.url'><data:label.name/></a>
+            </b:loop>
+          </div>
+        </b:includable>
+        <b:includable id='collectionComments' var='post'>
+          <section aria-label='Comments' class='gc-comments' id='comments'>
+            <h2>Comments</h2>
+            <b:loop values='data:post.comments' var='comment'>
+              <div class='gc-comment'>
+                <strong><data:comment.author/></strong>
+                <p class='gc-byline'><data:comment.timestamp/></p>
+                <div><data:comment.body/></div>
+              </div>
+            </b:loop>
+            <b:if cond='data:post.addCommentUrl'>
+              <a class='gc-action' expr:href='data:post.addCommentUrl'>Leave a comment</a>
+            </b:if>
+          </section>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </main>
+  <footer class='gc-footer'>
+    <div class='gc-wrap'>
+      <div class='gc-blog-gadgets'>
+        <b:section class='footer' id='footer' showaddelement='yes'>
+          <b:widget id='PageList1' locked='no' mobile='yes' title='Pages' type='PageList' version='1'/>
+          <b:widget id='Label1' locked='no' mobile='yes' title='Topics' type='Label' version='1'/>
+          <b:widget id='BlogArchive1' locked='no' mobile='yes' title='Archive' type='BlogArchive' version='1'/>
+        </b:section>
+      </div>
+      <div class='gc-blog-credit'>Powered by <a href='https://gonk.fun/' rel='nofollow'>gonk.fun</a></div>
+    </div>
+  </footer>
+</body>
+</html>

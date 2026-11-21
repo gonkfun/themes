@@ -1,1 +1,2 @@
+596c8c7625c31f269ba1d9b80eadb3229abfdff05d8df20a6a94c3b23dc5dd09  cabinetnoir-blogger-1.0.0.zip
 aac91520766577a4d16f51def35197e0697a05a30d41db3c7473959ce6425e2a  cabinetnoir-wordpress-1.0.0.zip

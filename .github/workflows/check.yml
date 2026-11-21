@@ -14,6 +14,8 @@ jobs:
         run: set -e; for t in themes/*/tests/validate.py; do python3 "$t"; done
       - name: Validate WordPress collection
         run: python3 scripts/validate-wordpress-collection.py
+      - name: Validate Blogger collection
+        run: python3 scripts/validate-blogger-collection.py
       - name: Check PHP syntax
         run: find themes/*/wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Validate release ZIPs

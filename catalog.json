@@ -30,6 +30,7 @@
     "description": "A lightweight project homepage with technical updates, a roadmap and a compact documentation layout.",
     "version": "1.0.0",
     "platforms": [
+      "Blogger",
       "WordPress"
     ],
     "cover": "assets/relaygrid.png"
@@ -41,6 +42,7 @@
     "description": "A museum-style gallery with an oversized exhibit lead, a specimen grid and dedicated collection notes.",
     "version": "1.0.0",
     "platforms": [
+      "Blogger",
       "WordPress"
     ],
     "cover": "assets/cabinetnoir.png"
@@ -52,6 +54,7 @@
     "description": "A bold studio portfolio with an oversized opening, a structured service list and case-study templates.",
     "version": "1.0.0",
     "platforms": [
+      "Blogger",
       "WordPress"
     ],
     "cover": "assets/signalatelier.png"
@@ -63,6 +66,7 @@
     "description": "A lively event theme with a poster-style entrance, an editable agenda and room for speaker or venue updates.",
     "version": "1.0.0",
     "platforms": [
+      "Blogger",
       "WordPress"
     ],
     "cover": "assets/longweekend.png"

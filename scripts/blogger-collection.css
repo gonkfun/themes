@@ -1,0 +1,53 @@
+/* Blogger publishing controls and native gadgets. */
+.gc-blogger .gc-header .gc-wrap { flex-wrap: wrap; }
+.gc-blogger .gc-brand { overflow-wrap: anywhere; }
+.gc-blogger .gc-copy h1 { overflow-wrap: anywhere; }
+.gc-blogger .gc-blog-search {
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.gc-blog-search input {
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  min-width: 0;
+  flex: 1 1 10rem;
+  padding: .5rem .75rem;
+}
+.gc-blog-search input, .gc-blog-search button { min-height: 44px; font: inherit; }
+.gc-blog-search button {
+  border: 0;
+  padding: .5rem 1rem;
+  color: var(--on);
+  background: var(--accent);
+  cursor: pointer;
+}
+.gc-blogger .gc-updates { overflow-wrap: anywhere; }
+.gc-blogger .gc-paging, .gc-tags { display: flex; flex-wrap: wrap; gap: .65rem 1rem; }
+.gc-blogger .gc-paging a, .gc-tags a { display: inline-flex; align-items: center; min-height: 44px; }
+.gc-tags a, .gc-byline { font-size: .88rem; color: var(--muted); }
+.gc-tags:empty { display: none; }
+.gc-blogger .post-body { font-size: 1.12rem; }
+.gc-blogger .post-body iframe, .gc-blogger .post-body video { max-width: 100%; }
+.gc-blogger .post-body pre { overflow: auto; }
+.gc-blogger .post-body table { display: block; max-width: 100%; overflow-x: auto; }
+.gc-comments { margin-top: 3rem; }
+.gc-comment { border-top: 1px solid var(--line); padding-block: .8rem; }
+.gc-blog-gadgets { flex: 1 0 100%; }
+.gc-blog-gadgets .section { display: flex; flex-wrap: wrap; gap: 1.5rem 2rem; margin: 0; }
+.gc-blog-gadgets li { margin-block: .45rem; }
+.gc-blogger .widget { margin: 0; }
+.gc-blogger #navbar, .gc-blogger #navbar-iframe, .gc-blogger .widget.Header,
+.gc-blogger .widget.Profile, .gc-blogger .widget.Attribution,
+.gc-blogger .widget.ReportAbuse, .gc-blogger .widget.BlogSearch { display: none; }
+body#layout .gc-hero, body#layout .gc-content { display: none; }
+body#layout .section { display: block; min-height: 75px; }
+body#layout .widget { display: block; }
+@media(max-width: 560px) {
+  .gc-blogger .gc-header .gc-wrap { justify-content: start; gap: 0 1rem; }
+  .gc-blogger .gc-header nav { flex-wrap: wrap; }
+}
