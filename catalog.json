@@ -70,5 +70,17 @@
       "WordPress"
     ],
     "cover": "assets/longweekend.png"
+  },
+  {
+    "id": "lumen",
+    "name": "Lumen",
+    "version": "1.0.0",
+    "category": "Literary journal",
+    "description": "Warm ivory and terracotta, a featured essay, a quiet reading column and a system-aware light or dark appearance.",
+    "platforms": [
+      "Blogger",
+      "WordPress"
+    ],
+    "cover": "assets/lumen.png"
   }
 ]

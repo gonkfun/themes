@@ -1,0 +1,54 @@
+<!-- wp:template-part {"slug":"header","area":"header"} /-->
+<!-- wp:group {"layout":{"type":"default"},"tagName":"main"} -->
+<main class="wp-block-group"><!-- wp:group {"layout":{"type":"default"},"className":"lm-read lm-library"} -->
+<div class="wp-block-group lm-read lm-library"><!-- wp:group {"layout":{"type":"default"},"className":"lm-archive-head"} -->
+<div class="wp-block-group lm-archive-head"><!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Journal</h1>
+<!-- /wp:heading -->
+<!-- wp:search {"label":"Search the journal","buttonText":"Search","className":"lm-search"} /-->
+<!-- wp:group {"layout":{"type":"default"},"className":"lm-topics"} -->
+<div class="wp-block-group lm-topics"><!-- wp:categories {"showPostCounts":true} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+<!-- wp:query {"queryId":0,"query":{"inherit":true}} -->
+<div class="wp-block-query"><!-- wp:post-template -->
+<!-- wp:group {"layout":{"type":"default"},"className":"lm-card"} -->
+<div class="wp-block-group lm-card"><!-- wp:group {"layout":{"type":"default"},"className":"lm-card-body"} -->
+<div class="wp-block-group lm-card-body"><!-- wp:html -->
+<span class="lm-kicker lm-feature-label">Featured essay</span>
+<!-- /wp:html -->
+<!-- wp:post-terms {"term":"category"} /-->
+<!-- wp:post-title {"level":2,"isLink":true} /-->
+<!-- wp:post-excerpt {"excerptLength":28} /-->
+<!-- wp:post-date {"className":"lm-meta","format":"F j, Y"} /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:post-featured-image /-->
+<!-- wp:html -->
+<div class="lm-art" aria-hidden="true"></div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+
+<!-- /wp:post-template -->
+<!-- wp:query-pagination {"className":"lm-paging","layout":{"type":"flex"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+
+<!-- /wp:query-pagination -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>No entries found.</p>
+<!-- /wp:paragraph -->
+
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+<!-- wp:template-part {"slug":"footer","area":"footer"} /-->

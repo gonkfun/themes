@@ -1,0 +1,56 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "700px",
+      "wideSize": "1040px"
+    },
+    "typography": {
+      "fluid": true
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "ivory",
+          "name": "Ivory",
+          "color": "#faf6ef"
+        },
+        {
+          "slug": "terracotta",
+          "name": "Terracotta",
+          "color": "#8e402c"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#2e211d"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "spacing": {
+      "blockGap": "0"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html b:version="2" class="v2" expr:dir="data:blog.languageDirection"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://www.google.com/2005/gml/b"
+      xmlns:data="http://www.google.com/2005/gml/data"
+      xmlns:expr="http://www.google.com/2005/gml/expr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <b:include data="blog" name="all-head-content"/>
+  <title><data:blog.pageTitle/></title>
+  <meta expr:content="data:blog.title" property="og:site_name"/>
+  <meta expr:content="data:blog.pageTitle" name="twitter:title"/>
+  <b:if cond="data:blog.postImageUrl">
+    <meta content="summary_large_image" name="twitter:card"/>
+    <meta expr:content="data:blog.postImageUrl" name="twitter:image"/>
+  <b:else/>
+    <meta content="summary" name="twitter:card"/>
+  </b:if>
+  <b:skin><![CDATA[
+:root {
+    color-scheme: light;
+    --lm-paper: #faf6ef;
+    --lm-card: #fffaf3;
+    --lm-hero: #f1e3d6;
+    --lm-ink: #2e211d;
+    --lm-muted: #67544c;
+    --lm-line: #d8c6b9;
+    --lm-accent: #8e402c;
+    --lm-glow: #f9e1b8;
+    --lm-rim: #ae6753;
+    --lm-serif: Georgia, 'Times New Roman', serif;
+    --lm-sans: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-lumen-mode]) {
+        color-scheme: dark;
+        --lm-paper: #201a17;
+        --lm-card: #2a221e;
+        --lm-hero: #382923;
+        --lm-ink: #f5e9df;
+        --lm-muted: #d0b8aa;
+        --lm-line: #625047;
+        --lm-accent: #f2a98f;
+        --lm-glow: #c78359;
+        --lm-rim: #714537;
+    }
+}
+:root[data-lumen-mode='dark'] {
+    color-scheme: dark;
+    --lm-paper: #201a17;
+    --lm-card: #2a221e;
+    --lm-hero: #382923;
+    --lm-ink: #f5e9df;
+    --lm-muted: #d0b8aa;
+    --lm-line: #625047;
+    --lm-accent: #f2a98f;
+    --lm-glow: #c78359;
+    --lm-rim: #714537;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 1rem; }
+body, body.lumen-journal { margin: 0; background: var(--lm-paper); color: var(--lm-ink); font: 16px/1.65 var(--lm-sans); }
+[hidden] { display: none !important; }
+a { color: inherit; text-underline-offset: .22em; }
+a:hover { color: var(--lm-accent); }
+:focus-visible { outline: 2px solid var(--lm-accent); outline-offset: 4px; }
+img { max-width: 100%; height: auto; }
+input, select, button { font: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--lm-serif); font-weight: 400; line-height: 1.12; text-wrap: balance; overflow-wrap: anywhere; }
+h1 { font-size: clamp(2.7rem, 6.2vw, 5.1rem); letter-spacing: -.061em; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.85rem); letter-spacing: -.047em; }
+h3 { font-size: 1.45rem; letter-spacing: -.028em; }
+.lm-wrap { width: min(1040px, calc(100% - 3rem)); margin-inline: auto; }
+.lm-read { width: min(700px, calc(100% - 3rem)); margin-inline: auto; }
+.lm-skip, .lm-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.lm-skip:focus { top: .5rem; left: .5rem; width: auto; height: auto; clip-path: none; z-index: 4; padding: .65rem 1rem; background: var(--lm-card); }
+.lm-header { border-bottom: 1px solid var(--lm-line); }
+.lm-header .lm-wrap { display: flex; min-height: 74px; align-items: center; gap: .6rem 1.55rem; }
+.lm-brand, .lm-header .wp-block-site-title { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; font: 1.64rem/1.15 var(--lm-serif); letter-spacing: -.055em; }
+.lm-brand::before, .lm-header .wp-block-site-title::before { content: ''; display: inline-block; width: 10px; height: 10px; flex: 0 0 10px; background: var(--lm-accent); border-radius: 50%; margin-right: .55rem; }
+.lm-header nav { margin-left: auto; }
+.lm-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.2rem; }
+.lm-nav a, .lm-header .wp-block-navigation-item__content { display: inline-flex; align-items: center; min-height: 44px; font-size: .88rem; text-decoration: none; }
+.lm-header .wp-block-navigation__responsive-container.is-menu-open { background: var(--lm-paper); color: var(--lm-ink); }
+.lm-header .wp-block-navigation__responsive-container-open, .lm-header .wp-block-navigation__responsive-container-close { min-width: 44px; min-height: 44px; justify-content: center; }
+.lm-appearance { display: inline-flex; align-items: center; flex-shrink: 0; }
+.lm-appearance select { min-height: 44px; border: 1px solid var(--lm-line); border-radius: 999px; padding: .45rem .6rem .45rem .85rem; background: var(--lm-card); color: var(--lm-ink); font-size: .84rem; }
+.lm-masthead { padding-block: clamp(2.65rem, 6vw, 5.65rem) 2.5rem; }
+.lm-masthead h1 { max-width: 16ch; }
+.lm-masthead p { max-width: 53ch; margin: .9rem 0 0; color: var(--lm-muted); font-size: clamp(1rem, 1.9vw, 1.2rem); }
+.lm-kicker, .lm-meta { color: var(--lm-muted); font-size: .8rem; }
+.lm-kicker { letter-spacing: .10em; text-transform: uppercase; font-weight: 700; color: var(--lm-accent); }
+.lm-home-list, .lm-home .wp-block-post-template { display: grid; gap: 1rem; list-style: none; padding: 0; margin: 0; }
+.lm-home-list { margin-inline: auto; }
+.lm-home-list > .lm-card, .lm-home .wp-block-post { padding: 1.35rem 1.5rem; border: 1px solid var(--lm-line); border-radius: 1.15rem; background: var(--lm-card); }
+.lm-card-title, .lm-card .wp-block-post-title { margin: .2rem 0; font-size: clamp(1.5rem, 3vw, 2.15rem); }
+.lm-card-title a, .lm-card .wp-block-post-title a { text-decoration: none; }
+.lm-card-title a:hover, .lm-card .wp-block-post-title a:hover { text-decoration: underline; }
+.lm-card p, .lm-card .wp-block-post-excerpt { margin: .6rem 0 0; color: var(--lm-muted); }
+.lm-card .lm-meta { margin: .65rem 0 0; }
+.lm-card-body { min-width: 0; }
+.lm-card .wp-block-post-excerpt__excerpt { margin: 0; }
+.lm-card .wp-block-post-terms { font-size: .78rem; color: var(--lm-accent); }
+.lm-card .lm-art, .lm-card .wp-block-post-featured-image, .lm-card .lm-feature-label { display: none; }
+.lm-card.lm-featured, body:not(.paged) .lm-home .wp-block-post:first-child {
+    background: var(--lm-hero);
+    padding: clamp(1.4rem, 4vw, 3rem);
+}
+.lm-card.lm-featured, body:not(.paged) .lm-home .wp-block-post:first-child > .lm-card {
+    display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: center; gap: 1.4rem 2.5rem;
+}
+.lm-card.lm-featured .lm-card-title, body:not(.paged) .lm-home .wp-block-post:first-child .wp-block-post-title { font-size: clamp(2.3rem, 5.3vw, 4.25rem); letter-spacing: -.055em; }
+.lm-card.lm-featured .lm-feature-label, body:not(.paged) .lm-home .wp-block-post:first-child .lm-feature-label { display: block; }
+.lm-card.lm-featured .lm-art, body:not(.paged) .lm-home .wp-block-post:first-child .lm-art {
+    display: grid; place-items: center; min-height: 210px; aspect-ratio: 1.35;
+    border: 1px solid var(--lm-line); border-radius: .86rem; overflow: hidden;
+    background: radial-gradient(ellipse at 55% 46%, var(--lm-glow), var(--lm-rim));
+}
+.lm-art::before {
+    content: ''; width: 65%; aspect-ratio: 1; border-radius: 50%;
+    background: repeating-radial-gradient(circle, transparent 0 10px, #fff7 11px 12px, transparent 13px 17px),
+                radial-gradient(ellipse at 40% 32%, var(--lm-glow), var(--lm-rim));
+    box-shadow: 0 20px 42px #381d1940, inset 0 0 34px #ffa98155;
+    transform: rotate(-24deg) scaleX(.8);
+}
+body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { grid-area: 1 / 2; }
+body:not(.paged) .lm-home .wp-block-post:first-child .wp-block-post-featured-image {
+    display: block; margin: 0; grid-area: 1 / 2; z-index: 1; border-radius: .86rem; overflow: hidden;
+}
+.lm-home .wp-block-post-featured-image img, .lm-art img { display: block; width: 100%; height: 100%; aspect-ratio: 1.35; object-fit: cover; }
+.lm-art:has(img)::before { display: none; }
+.lm-archive-head { padding-block: 3.7rem 1.65rem; }
+.lm-archive-head h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); }
+.lm-library { margin-bottom: 4rem; }
+.lm-library .wp-block-post-template { list-style: none; padding: 0; }
+.lm-library .wp-block-post, .lm-library .lm-card { padding: 1.55rem 0; border-top: 1px solid var(--lm-line); }
+.lm-library .wp-block-post-featured-image { display: none; }
+.lm-paging, .lm-paging .wp-block-query-pagination-numbers { display: flex; flex-wrap: wrap; gap: .9rem; margin-block: 1.2rem; }
+.lm-paging a, .lm-tags a { display: inline-flex; align-items: center; min-height: 44px; }
+.lm-search, .lm-search .wp-block-search__inside-wrapper { display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; }
+.lm-search input, .lm-search button { min-height: 44px; padding: .45rem .75rem; border: 1px solid var(--lm-line); border-radius: .65rem; background: var(--lm-card); color: var(--lm-ink); }
+.lm-search input { min-width: 0; flex: 1 1 12rem; }
+.lm-search button { cursor: pointer; }
+.lm-topics, .lm-tags { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; }
+.lm-topics ul, .lm-topics .widget ul { display: flex; flex-wrap: wrap; gap: .25rem .9rem; list-style: none; padding: 0; margin: 0; }
+.lm-topics a { display: inline-flex; align-items: center; min-height: 44px; }
+.lm-article { padding-block: clamp(2.7rem, 7vw, 5.5rem) 4.2rem; overflow-wrap: anywhere; }
+.lm-article h1 { font-size: clamp(2.7rem, 6.3vw, 4.75rem); }
+.lm-article .lm-meta, .lm-article .wp-block-post-date { margin: 1rem 0 1.9rem; }
+.lm-prose { font: clamp(1.14rem, 2vw, 1.29rem)/1.8 var(--lm-serif); }
+.lm-prose p, .lm-prose ul, .lm-prose ol { margin-block: 1.1em; }
+.lm-prose h2, .lm-prose h3 { margin-block: 1.35em .45em; }
+.lm-prose a { color: var(--lm-accent); }
+.lm-prose .wp-block-quote, .lm-prose blockquote { margin: 1.35em 0; padding: .5em 1em; border-inline-start: 3px solid var(--lm-accent); color: var(--lm-muted); }
+.lm-prose pre { overflow: auto; padding: .85em; border-radius: .5em; background: var(--lm-card); }
+.lm-prose table { display: block; overflow: auto; }
+.lm-prose iframe { max-width: 100%; }
+.lm-article .wp-block-post-featured-image img { display: block; border-radius: .8rem; }
+.lm-comments { border-top: 1px solid var(--lm-line); margin-top: 3.25rem; padding-top: 1.4rem; }
+.lm-footer { margin-top: 4.4rem; border-top: 1px solid var(--lm-line); color: var(--lm-muted); font-size: .85rem; }
+.lm-footer .lm-wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .8rem 1.7rem; padding-block: 1.4rem; }
+.lm-footer a { color: inherit; }
+.lm-blogger .widget { margin: 0; }
+.lm-blogger .widget.Header, .lm-blogger .widget.Profile, .lm-blogger .widget.Attribution,
+.lm-blogger .widget.ReportAbuse, .lm-blogger .widget.BlogSearch, .lm-blogger #navbar, .lm-blogger #navbar-iframe { display: none; }
+body#layout .lm-masthead { display: none; }
+body#layout .section { min-height: 70px; }
+@media (max-width: 650px) {
+    .lm-wrap, .lm-read { width: calc(100% - 2rem); }
+    .lm-header .lm-wrap { min-height: 68px; gap: .45rem .7rem; flex-wrap: wrap; }
+    .lm-header .lm-nav { gap: .4rem .65rem; }
+    .lm-card.lm-featured, body:not(.paged) .lm-home .wp-block-post:first-child > .lm-card { grid-template-columns: 1fr; }
+    body:not(.paged) .lm-home .wp-block-post:first-child .wp-block-post-featured-image,
+    body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { grid-area: 2 / 1; }
+    .lm-card.lm-featured .lm-art, body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { min-height: 0; max-height: 225px; }
+}
+@media (max-width: 430px) {
+    .lm-header .lm-nav { order: 3; width: 100%; margin-left: 0; }
+    .lm-header .lm-brand + .lm-nav + .lm-appearance { margin-left: auto; }
+}
+@media print {
+    :root { color-scheme: light; --lm-ink: #171717; --lm-paper: #fff; }
+    .lm-header, .lm-footer, .lm-comments, .lm-paging { display: none !important; }
+    body, body.lumen-journal { background: #fff; color: #171717; }
+}
+
+  ]]></b:skin>
+  <script type="text/javascript">//<![CDATA[
+(() => {
+    const key = 'gonk-lumen-appearance';
+    const root = document.documentElement;
+    const choices = ['system', 'light', 'dark'];
+    let current = 'system';
+
+    try {
+        const saved = localStorage.getItem(key);
+        if (choices.includes(saved)) current = saved;
+    } catch {
+        // The preference still works for this page when storage is unavailable.
+    }
+
+    function apply(value) {
+        if (!choices.includes(value)) return;
+        current = value;
+        if (value === 'system') {
+            root.removeAttribute('data-lumen-mode');
+        } else {
+            root.setAttribute('data-lumen-mode', value);
+        }
+    }
+
+    apply(current);
+
+    function connectControls() {
+        const controls = document.querySelectorAll('select[data-lumen-appearance]');
+        controls.forEach(control => {
+            control.value = current;
+            control.closest('.lm-appearance').hidden = false;
+            control.addEventListener('change', () => {
+                apply(control.value);
+                controls.forEach(other => { other.value = current; });
+                try {
+                    localStorage.setItem(key, current);
+                } catch {
+                    // The current page does not require storage.
+                }
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', connectControls, { once: true });
+    } else {
+        connectControls();
+    }
+})();
+
+  //]]></script>
+</head>
+<body class="lm-blogger">
+  <a class="lm-skip" href="#content">Skip to content</a>
+  <header class="lm-header"><div class="lm-wrap">
+    <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
+    <nav class="lm-nav" aria-label="Main">
+      <a expr:href="data:blog.homepageUrl">Journal</a>
+      <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
+    </nav>
+    <label class="lm-appearance" hidden="hidden">
+  <span class="lm-sr-only">Appearance</span>
+  <select aria-label="Appearance" data-lumen-appearance="">
+    <option value="system">System</option>
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+</label>
+  </div></header>
+  <main id="content" tabindex="-1">
+    <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
+      <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
+        <b:includable id="main" var="top">
+          <b:if cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+            <b:loop values="data:posts" var="post">
+              <article class="lm-read lm-article">
+                <b:include name="lumenLabels" data="post"/>
+                <h1><data:post.title/></h1>
+                <b:if cond='data:blog.pageType == "item"'>
+                  <p class="lm-meta"><data:post.timestamp/> · <data:post.author/></p>
+                </b:if>
+                <div class="lm-prose post-body entry-content" expr:id='"post-body-" + data:post.id'><data:post.body/></div>
+                <b:if cond="data:post.allowComments"><b:include name="lumenComments" data="post"/></b:if>
+              </article>
+            </b:loop>
+          <b:elseif cond="data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl"/>
+            <section class="lm-wrap lm-masthead">
+              <h1><data:blog.title/></h1>
+              <b:if cond="data:blog.description"><p><data:blog.description/></p></b:if>
+            </section>
+            <div class="lm-wrap lm-home-list">
+              <b:loop values="data:posts" var="post" index="position">
+                <b:if cond="data:position == 0">
+                  <article class="lm-card lm-featured">
+                    <div class="lm-card-body">
+                      <span class="lm-kicker lm-feature-label">Featured essay</span>
+                      <b:include name="lumenEntry" data="post"/>
+                    </div>
+                    <b:if cond="data:post.firstImageUrl">
+                      <div class="lm-art"><img alt="" expr:src="data:post.firstImageUrl" width="640" height="474"/></div>
+                    <b:else/>
+                      <div class="lm-art" aria-hidden="true"></div>
+                    </b:if>
+                  </article>
+                <b:else/>
+                  <article class="lm-card"><b:include name="lumenEntry" data="post"/></article>
+                </b:if>
+              </b:loop>
+              <b:if cond="data:posts.empty"><p>No entries found.</p></b:if>
+              <b:include name="lumenPagination"/>
+            </div>
+          <b:else/>
+            <section class="lm-read lm-library">
+              <header class="lm-archive-head">
+                <h1><b:if cond="data:blog.searchLabel"><data:blog.searchLabel/>
+                  <b:elseif cond="data:blog.searchQuery"/>Search: <data:blog.searchQuery/>
+                  <b:elseif cond='data:blog.pageType == "error_page"'/>This page wandered off.
+                  <b:else/>The archive
+                </b:if></h1>
+                <form method="get" class="lm-search" role="search" expr:action='data:blog.homepageUrl + "search"'>
+                  <label class="lm-sr-only" for="lumen-search">Search the journal</label>
+                  <input id="lumen-search" name="q" type="search" placeholder="Search the journal"/>
+                  <button type="submit">Search</button>
+                </form>
+              </header>
+              <b:loop values="data:posts" var="post">
+                <article class="lm-card"><b:include name="lumenEntry" data="post"/></article>
+              </b:loop>
+              <b:if cond="data:posts.empty"><p>No entries found.</p></b:if>
+              <b:include name="lumenPagination"/>
+            </section>
+          </b:if>
+        </b:includable>
+        <b:includable id="lumenEntry" var="post">
+          <b:include name="lumenLabels" data="post"/>
+          <h2 class="lm-card-title"><a expr:href="data:post.url"><data:post.title/></a></h2>
+          <p><b:eval expr="snippet(data:post.body, {length: 165, links: false, linebreaks: false})"/></p>
+          <p class="lm-meta"><data:post.timestamp/></p>
+        </b:includable>
+        <b:includable id="lumenLabels" var="post">
+          <div class="lm-tags"><b:loop values="data:post.labels" var="label">
+            <a expr:href="data:label.url"><data:label.name/></a>
+          </b:loop></div>
+        </b:includable>
+        <b:includable id="lumenPagination">
+          <nav class="lm-paging" aria-label="Post pagination">
+            <b:if cond="data:newerPageUrl"><a expr:href="data:newerPageUrl">← Newer entries</a></b:if>
+            <b:if cond="data:olderPageUrl"><a expr:href="data:olderPageUrl">Older entries →</a></b:if>
+          </nav>
+        </b:includable>
+        <b:includable id="lumenComments" var="post">
+          <section class="lm-comments" id="comments">
+            <h2>Comments</h2>
+            <b:loop values="data:post.comments" var="comment">
+              <p><strong><data:comment.author/></strong> <span class="lm-meta"><data:comment.timestamp/></span></p>
+              <div><data:comment.body/></div>
+            </b:loop>
+            <b:if cond="data:post.addCommentUrl"><a expr:href="data:post.addCommentUrl">Leave a comment</a></b:if>
+          </section>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </main>
+  <footer class="lm-footer"><div class="lm-wrap">
+    <div class="lm-topics">
+      <b:section id="footer" class="footer" showaddelement="yes">
+        <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+        <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+      </b:section>
+    </div>
+    <span>Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></span>
+  </div></footer>
+</body>
+</html>

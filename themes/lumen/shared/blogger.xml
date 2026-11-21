@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html b:version="2" class="v2" expr:dir="data:blog.languageDirection"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://www.google.com/2005/gml/b"
+      xmlns:data="http://www.google.com/2005/gml/data"
+      xmlns:expr="http://www.google.com/2005/gml/expr">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <b:include data="blog" name="all-head-content"/>
+  <title><data:blog.pageTitle/></title>
+  <meta expr:content="data:blog.title" property="og:site_name"/>
+  <meta expr:content="data:blog.pageTitle" name="twitter:title"/>
+  <b:if cond="data:blog.postImageUrl">
+    <meta content="summary_large_image" name="twitter:card"/>
+    <meta expr:content="data:blog.postImageUrl" name="twitter:image"/>
+  <b:else/>
+    <meta content="summary" name="twitter:card"/>
+  </b:if>
+  <b:skin><![CDATA[
+$styles
+  ]]></b:skin>
+  <script type="text/javascript">//<![CDATA[
+$script
+  //]]></script>
+</head>
+<body class="lm-blogger">
+  <a class="lm-skip" href="#content">Skip to content</a>
+  <header class="lm-header"><div class="lm-wrap">
+    <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
+    <nav class="lm-nav" aria-label="Main">
+      <a expr:href="data:blog.homepageUrl">Journal</a>
+      <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
+    </nav>
+    $appearance
+  </div></header>
+  <main id="content" tabindex="-1">
+    <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
+      <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
+        <b:includable id="main" var="top">
+          <b:if cond='data:blog.pageType == "item" or data:blog.pageType == "static_page"'>
+            <b:loop values="data:posts" var="post">
+              <article class="lm-read lm-article">
+                <b:include name="lumenLabels" data="post"/>
+                <h1><data:post.title/></h1>
+                <b:if cond='data:blog.pageType == "item"'>
+                  <p class="lm-meta"><data:post.timestamp/> · <data:post.author/></p>
+                </b:if>
+                <div class="lm-prose post-body entry-content" expr:id='"post-body-" + data:post.id'><data:post.body/></div>
+                <b:if cond="data:post.allowComments"><b:include name="lumenComments" data="post"/></b:if>
+              </article>
+            </b:loop>
+          <b:elseif cond="data:blog.url == data:blog.homepageUrl or data:blog.canonicalUrl == data:blog.homepageUrl"/>
+            <section class="lm-wrap lm-masthead">
+              <h1><data:blog.title/></h1>
+              <b:if cond="data:blog.description"><p><data:blog.description/></p></b:if>
+            </section>
+            <div class="lm-wrap lm-home-list">
+              <b:loop values="data:posts" var="post" index="position">
+                <b:if cond="data:position == 0">
+                  <article class="lm-card lm-featured">
+                    <div class="lm-card-body">
+                      <span class="lm-kicker lm-feature-label">Featured essay</span>
+                      <b:include name="lumenEntry" data="post"/>
+                    </div>
+                    <b:if cond="data:post.firstImageUrl">
+                      <div class="lm-art"><img alt="" expr:src="data:post.firstImageUrl" width="640" height="474"/></div>
+                    <b:else/>
+                      $artwork
+                    </b:if>
+                  </article>
+                <b:else/>
+                  <article class="lm-card"><b:include name="lumenEntry" data="post"/></article>
+                </b:if>
+              </b:loop>
+              <b:if cond="data:posts.empty"><p>No entries found.</p></b:if>
+              <b:include name="lumenPagination"/>
+            </div>
+          <b:else/>
+            <section class="lm-read lm-library">
+              <header class="lm-archive-head">
+                <h1><b:if cond="data:blog.searchLabel"><data:blog.searchLabel/>
+                  <b:elseif cond="data:blog.searchQuery"/>Search: <data:blog.searchQuery/>
+                  <b:elseif cond='data:blog.pageType == "error_page"'/>This page wandered off.
+                  <b:else/>The archive
+                </b:if></h1>
+                <form method="get" class="lm-search" role="search" expr:action='data:blog.homepageUrl + "search"'>
+                  <label class="lm-sr-only" for="lumen-search">Search the journal</label>
+                  <input id="lumen-search" name="q" type="search" placeholder="Search the journal"/>
+                  <button type="submit">Search</button>
+                </form>
+              </header>
+              <b:loop values="data:posts" var="post">
+                <article class="lm-card"><b:include name="lumenEntry" data="post"/></article>
+              </b:loop>
+              <b:if cond="data:posts.empty"><p>No entries found.</p></b:if>
+              <b:include name="lumenPagination"/>
+            </section>
+          </b:if>
+        </b:includable>
+        <b:includable id="lumenEntry" var="post">
+          <b:include name="lumenLabels" data="post"/>
+          <h2 class="lm-card-title"><a expr:href="data:post.url"><data:post.title/></a></h2>
+          <p><b:eval expr="snippet(data:post.body, {length: 165, links: false, linebreaks: false})"/></p>
+          <p class="lm-meta"><data:post.timestamp/></p>
+        </b:includable>
+        <b:includable id="lumenLabels" var="post">
+          <div class="lm-tags"><b:loop values="data:post.labels" var="label">
+            <a expr:href="data:label.url"><data:label.name/></a>
+          </b:loop></div>
+        </b:includable>
+        <b:includable id="lumenPagination">
+          <nav class="lm-paging" aria-label="Post pagination">
+            <b:if cond="data:newerPageUrl"><a expr:href="data:newerPageUrl">← Newer entries</a></b:if>
+            <b:if cond="data:olderPageUrl"><a expr:href="data:olderPageUrl">Older entries →</a></b:if>
+          </nav>
+        </b:includable>
+        <b:includable id="lumenComments" var="post">
+          <section class="lm-comments" id="comments">
+            <h2>Comments</h2>
+            <b:loop values="data:post.comments" var="comment">
+              <p><strong><data:comment.author/></strong> <span class="lm-meta"><data:comment.timestamp/></span></p>
+              <div><data:comment.body/></div>
+            </b:loop>
+            <b:if cond="data:post.addCommentUrl"><a expr:href="data:post.addCommentUrl">Leave a comment</a></b:if>
+          </section>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </main>
+  <footer class="lm-footer"><div class="lm-wrap">
+    <div class="lm-topics">
+      <b:section id="footer" class="footer" showaddelement="yes">
+        <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+        <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+      </b:section>
+    </div>
+    <span>$credit</span>
+  </div></footer>
+</body>
+</html>
