@@ -88,7 +88,7 @@
     "name": "Panelwork",
     "version": "1.1.0",
     "category": "Publishing dashboard",
-    "description": "A detailed React publishing workspace with a hideable sidebar, charts, calendar and sortable library. Also available for Blogger and WordPress.",
+    "description": "A detailed React publishing workspace with a compact sidebar rail, charts, calendar and sortable library. Also available for Blogger and WordPress.",
     "platforms": [
       "Blogger",
       "WordPress",
@@ -96,7 +96,7 @@
     ],
     "cover": "assets/panelwork.png",
     "platformVersions": {
-      "React": "1.2.0"
+      "React": "1.2.1"
     },
     "previewPath": "react/",
     "coverSource": "react/screenshot.png"

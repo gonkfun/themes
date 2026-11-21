@@ -1,6 +1,6 @@
 # Panelwork React
 
-A dashboard starter built with React and Vite. It includes Overview, Post Library, Topics, Calendar, Activity and Settings. Charts drill into a date range, and the library supports sorting, filters, pagination and CSV export. Use Hide sidebar in the desktop toolbar to expand the workspace, and Show sidebar to restore it. The desktop choice, appearance and row density are saved. On mobile the sidebar opens through Menu.
+A dashboard starter built with React and Vite. It includes Overview, Post Library, Topics, Calendar, Activity and Settings. Charts drill into a date range, and the library supports sorting, filters, pagination and CSV export. Use the icon next to the logo to collapse the desktop sidebar. The compact rail keeps the logo, navigation icons, and expand control. The desktop choice, appearance and row density are saved. On mobile the sidebar opens through Menu.
 
 Use Node 22.12+ (or Node 20.19+).
 

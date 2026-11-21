@@ -31,20 +31,27 @@ try {
                 const content = await page.locator('main').boundingBox();
                 assert(side.x + side.width <= content.x);
                 if (target) {
-                    const toggle = page.getByRole('button', { name: 'Hide sidebar' });
+                    const sidebar = page.locator('.pw-sidebar');
+                    const toggle = sidebar.getByRole('button', { name: 'Collapse sidebar' });
+                    assert.equal((await toggle.textContent()).trim(), '');
+                    assert.equal(await page.locator('.pw-chrome .pw-desktop-toggle').count(), 0);
                     await toggle.click();
-                    assert.equal(await page.locator('.pw-sidebar').isVisible(), false);
+                    assert((await sidebar.boundingBox()).width < side.width);
                     const expanded = await page.locator('main').boundingBox();
                     assert(expanded.width > content.width);
+                    assert(await sidebar.getByRole('link', { name: 'Post library', exact: true }).isVisible());
+                    assert.equal(await sidebar.locator('.pw-nav-text').first().isVisible(), false);
                     await page.reload();
-                    await page.getByRole('button', { name: 'Show sidebar' }).waitFor();
-                    assert.equal(await page.locator('.pw-sidebar').isVisible(), false);
+                    const expand = sidebar.getByRole('button', { name: 'Expand sidebar' });
+                    await expand.waitFor();
+                    assert.equal((await expand.textContent()).trim(), '');
+                    assert.equal(await expand.getAttribute('aria-expanded'), 'false');
                     await page.setViewportSize({ width: 390, height: 900 });
                     assert(await page.getByRole('button', { name: 'Menu', exact: true }).isVisible());
                     await page.setViewportSize({ width, height: 900 });
-                    await page.getByRole('button', { name: 'Show sidebar' }).click();
-                    assert(await page.locator('.pw-sidebar').isVisible());
-                    assert.equal(await page.getByRole('button', { name: 'Hide sidebar' }).getAttribute('aria-expanded'), 'true');
+                    await expand.click();
+                    assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
+                    assert(await sidebar.locator('.pw-nav-text').first().isVisible());
                 }
             }
             await page.getByLabel('Appearance', { exact: true }).selectOption('dark');

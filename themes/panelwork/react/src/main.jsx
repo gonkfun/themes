@@ -28,7 +28,7 @@ function usePreference(key, choices, fallback) {
     return [value, setValue];
 }
 
-function Sidebar({ route, mode, setMode }) {
+function Sidebar({ route, mode, setMode, railOpen, onToggleRail }) {
     const [open, setOpen] = useState(false);
     function closeWithEscape(event) {
         if (event.key === 'Escape' && open) {
@@ -36,17 +36,22 @@ function Sidebar({ route, mode, setMode }) {
             event.currentTarget.querySelector('button').focus();
         }
     }
+    const railLabel = railOpen ? 'Collapse sidebar' : 'Expand sidebar';
     return <header id="panelwork-sidebar" className="pw-sidebar" data-pw-collapsible="" data-pw-open={open ? '' : undefined} onKeyDown={closeWithEscape}>
         <div className="pw-brand-line">
-            <a className="pw-brand" href="#overview" onClick={() => setOpen(false)}>Panelwork</a>
+            <a className="pw-brand" href="#overview" aria-label="Panelwork" onClick={() => setOpen(false)}><span>Panelwork</span></a>
+            <button type="button" className="pw-desktop-toggle" aria-label={railLabel} title={railLabel}
+                aria-expanded={railOpen} aria-controls="panelwork-mobile-nav" onClick={onToggleRail}>
+                <span className="pw-toggle-icon" aria-hidden="true" />
+            </button>
             <button className="pw-menu" type="button" aria-expanded={open} aria-controls="panelwork-mobile-nav" onClick={() => setOpen(!open)}>Menu</button>
         </div>
         <div className="pw-rail-panel" id="panelwork-mobile-nav">
             <nav className="pw-nav" aria-label="Main navigation">
                 {Object.entries(links).map(([group, items]) => <Fragment key={group}>
                     <p className="pw-rail-label pw-nav-label">{group === 'Overview' ? 'Publishing' : group}</p>
-                    {items.map(([id, label, glyph]) => <a key={id} className="pw-nav-link" href={`#${id}`} aria-current={id === route ? 'page' : undefined} onClick={() => setOpen(false)}>
-                        <span className="pw-nav-glyph" aria-hidden="true">{glyph}</span>{label}
+                    {items.map(([id, label, glyph]) => <a key={id} className="pw-nav-link" href={`#${id}`} aria-label={label} title={label} aria-current={id === route ? 'page' : undefined} onClick={() => setOpen(false)}>
+                        <span className="pw-nav-glyph" aria-hidden="true">{glyph}</span><span className="pw-nav-text">{label}</span>
                     </a>)}
                 </Fragment>)}
             </nav>
@@ -160,15 +165,10 @@ function App({ posts }) {
     return <Fragment>
         <a className="pw-skip" href="#content" onClick={event => { event.preventDefault(); document.getElementById('content').focus(); }}>Skip to content</a>
         <div className="pw-shell pw-react" data-pw-density={density} data-pw-rail={rail}>
-            <Sidebar route={screen} mode={mode} setMode={setMode} />
+            <Sidebar route={screen} mode={mode} setMode={setMode} railOpen={railOpen} onToggleRail={() => setRail(railOpen ? 'hidden' : 'open')} />
             <main id="content" tabIndex={-1}><div className="pw-wrap pw-content">
                 <div className="pw-chrome">
                     <div className="pw-chrome-group">
-                        <button type="button" className="pw-quiet-link pw-desktop-toggle" aria-expanded={railOpen}
-                            aria-controls="panelwork-sidebar" onClick={() => setRail(railOpen ? 'hidden' : 'open')}>
-                            <span className="pw-toggle-icon" aria-hidden="true" />
-                            {railOpen ? 'Hide sidebar' : 'Show sidebar'}
-                        </button>
                         <p className="pw-chrome-text">{screenLabel}</p>
                     </div>
                     <div className="pw-chrome-actions">
