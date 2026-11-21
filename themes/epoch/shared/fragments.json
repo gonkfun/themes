@@ -1,0 +1,14 @@
+{
+  "hero": "<section class=\"ep-hero\" aria-labelledby=\"ep-hero-title\"><div><div class=\"ep-eyebrow\"><span class=\"ep-dot\"></span>A journal for the Solana curious</div><h1 id=\"ep-hero-title\">The next block<br/>starts <span>here.</span></h1><p class=\"ep-lead\">Ideas worth exploring. People worth following. A clearer view of the world being built on Solana.</p><div class=\"ep-actions\"><a class=\"ep-button\" href=\"#latest\">Explore the journal <span aria-hidden=\"true\">\u2197</span></a><a class=\"ep-text-link\" href=\"GUIDES\">New here? Start small <span aria-hidden=\"true\">\u2197</span></a></div></div><div><div class=\"ep-cover\"><div class=\"ep-cover-top\"><span>INDEPENDENT PERSPECTIVES</span><span>EST. 2026</span></div><div class=\"ep-cover-bottom\"><div><small>TECHNOLOGY / CULTURE / COMMUNITY</small><strong>Built one<br/>block at a time.</strong></div><span>Keep looking<br/>a little closer \u2197</span></div></div><div class=\"ep-caption\">Original artwork \u00b7 a different perspective on the ecosystem</div></div></section>",
+  "notes": "<section class=\"ep-note\"><div class=\"ep-eyebrow\">The starting point</div><h2>Less noise.<br/>More understanding.</h2><p>You don\u2019t need to know every acronym. Start with one good explanation, then follow your curiosity.</p><a class=\"ep-text-link\" href=\"GUIDES\">Open the beginner\u2019s guide \u2197</a></section>",
+  "banner": "<section class=\"ep-banner\"><div><div class=\"ep-eyebrow\">Good questions come first</div><h2>Stay curious. Keep your keys yours.</h2><p>Learn how wallets, permissions and transactions work before you put them to use.</p></div><a class=\"ep-button secondary\" href=\"SECURITY\">Explore wallet safety \u2197</a></section>",
+  "toggle": "<button class=\"ep-icon\" data-epoch-toggle=\"\" aria-label=\"Switch to paper theme\" aria-pressed=\"false\" hidden=\"hidden\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2\"/></svg></button>",
+  "topics": [
+    "Guides",
+    "Ecosystem",
+    "DeFi",
+    "Builders",
+    "Culture",
+    "Security"
+  ]
+}

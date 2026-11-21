@@ -1,0 +1,11 @@
+[
+  {
+    "id": "epoch",
+    "name": "Epoch",
+    "version": "1.0.0",
+    "category": "Solana editorial",
+    "description": "A charcoal-and-blue journal for Solana communities, with native publishing, responsive reading layouts and original artwork.",
+    "platforms": ["Blogger", "WordPress"],
+    "cover": "assets/epoch.png"
+  }
+]

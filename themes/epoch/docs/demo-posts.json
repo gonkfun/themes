@@ -1,0 +1,50 @@
+[
+  [
+    "security",
+    "Security",
+    "The wallet check you should make before every connection",
+    "Permissions are small decisions with real consequences. Here\u2019s how to read them without getting lost.",
+    "Maya Chen",
+    "MC"
+  ],
+  [
+    "builders",
+    "Builders",
+    "Behind the build: shipping something people actually use",
+    "A field guide to listening, simplifying and finding the first useful version of an idea.",
+    "Arun Rao",
+    "AR"
+  ],
+  [
+    "defi",
+    "DeFi",
+    "Liquidity pools, explained without the spreadsheet",
+    "What happens when two tokens share a pool\u2014and why the price changes when someone trades.",
+    "Alex Rivera",
+    "AX"
+  ],
+  [
+    "wallets",
+    "Guides",
+    "Your first Solana wallet: a calmer place to start",
+    "Addresses, recovery phrases and your first transaction. A practical introduction to the basics.",
+    "Maya Chen",
+    "MC"
+  ],
+  [
+    "community",
+    "Culture",
+    "Communities are more than a scrolling chat",
+    "The small habits that help an online group become a place people want to return to.",
+    "Alex Rivera",
+    "AX"
+  ],
+  [
+    "orbital",
+    "Ecosystem",
+    "A better way to explore the Solana ecosystem",
+    "Start with the problem you want to understand, rather than the loudest project in your feed.",
+    "Arun Rao",
+    "AR"
+  ]
+]

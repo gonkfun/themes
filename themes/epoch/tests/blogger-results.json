@@ -1,0 +1,38 @@
+{
+  "url": "https://epochblogdemo.blogspot.com/",
+  "results": [
+    {
+      "width": 1366,
+      "passed": true,
+      "checks": [
+        "no JavaScript errors",
+        "no horizontal overflow",
+        "platform chrome hidden",
+        "Gonk credit visible",
+        "one canonical",
+        "one description",
+        "one Twitter card",
+        "custom favicon",
+        "site microdata",
+        "colour toggle"
+      ]
+    },
+    {
+      "width": 390,
+      "passed": true,
+      "checks": [
+        "no JavaScript errors",
+        "no horizontal overflow",
+        "platform chrome hidden",
+        "Gonk credit visible",
+        "one canonical",
+        "one description",
+        "one Twitter card",
+        "custom favicon",
+        "site microdata",
+        "colour toggle"
+      ]
+    }
+  ],
+  "postAndCommentPagesTested": false
+}

@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "surface": "static",
+      "path": "index.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "article.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "archive.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "about.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "404.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "index.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "article.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "archive.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "about.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "static",
+      "path": "404.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/category/security/",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/the-wallet-check-you-should-make-before-every-connection/",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/?s=wallet",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/about/",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/not-a-real-page/",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "surface": "wordpress",
+      "path": "/",
+      "width": 390,
+      "status": "pass"
+    }
+  ],
+  "interactionChecks": [
+    "reader mode persists",
+    "mobile menu Escape",
+    "search empty state",
+    "category filter"
+  ],
+  "noFinancialRequests": true
+}

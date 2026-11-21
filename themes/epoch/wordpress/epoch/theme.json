@@ -1,0 +1,147 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "780px",
+      "wideSize": "1240px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "canvas",
+          "name": "Canvas",
+          "color": "#101216"
+        },
+        {
+          "slug": "surface",
+          "name": "Surface",
+          "color": "#191c22"
+        },
+        {
+          "slug": "ink",
+          "name": "Text",
+          "color": "#f2f4f8"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted",
+          "color": "#aab3c2"
+        },
+        {
+          "slug": "mint",
+          "name": "Blue",
+          "color": "#8fbaff"
+        },
+        {
+          "slug": "violet",
+          "name": "Ice",
+          "color": "#b5cfff"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "system",
+          "name": "System sans",
+          "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+        },
+        {
+          "slug": "mono",
+          "name": "System mono",
+          "fontFamily": "ui-monospace, SFMono-Regular, Consolas, monospace"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "0.875rem"
+        },
+        {
+          "slug": "medium",
+          "name": "Body",
+          "size": "1rem"
+        },
+        {
+          "slug": "large",
+          "name": "Large",
+          "size": "1.5rem"
+        },
+        {
+          "slug": "x-large",
+          "name": "Heading",
+          "size": "2rem"
+        }
+      ]
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%",
+        "vw"
+      ],
+      "blockGap": true
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|canvas",
+      "text": "var:preset|color|ink"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|system",
+      "fontSize": "16px",
+      "lineHeight": "1.65"
+    },
+    "spacing": {
+      "blockGap": "0px"
+    },
+    "blocks": {
+      "core/navigation": {
+        "spacing": {
+          "blockGap": "24px"
+        }
+      }
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|mint",
+          "text": "#101b30"
+        },
+        "border": {
+          "radius": "999px"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    },
+    {
+      "name": "sidebar",
+      "title": "Reading sidebar",
+      "area": "uncategorized"
+    }
+  ]
+}
