@@ -17,7 +17,7 @@
 - No WordPress.org theme directory submission or approval is claimed.
 - A full accessibility certification, exhaustive plugin compatibility matrix and translated-language QA have not been performed.
 - The static preview is representative HTML; the native WordPress and Blogger outputs use their platform's real posts and widgets.
-- No Gonk production code was edited. No financial action, deployment or GitHub publication was performed for this theme.
+- The theme has no dependency on Gonk’s production backend, and no financial action was performed. Source and packages are published in gonkfun/themes; the catalogue and static preview use GitHub Pages.
 
 ## Repeat checks
 
