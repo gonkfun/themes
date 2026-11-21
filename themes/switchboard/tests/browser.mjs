@@ -83,16 +83,23 @@ await route('forms','Forms');
 await page.getByLabel('Full name').fill('Demo user');
 await page.getByLabel('Email address').fill('sample@example.test');
 await role('button','Continue').click();
-await page.getByLabel('Team').selectOption('Support');
+await page.getByRole('combobox',{name:'Team'}).selectOption('Support');
 await role('button','Continue').click();
 await role('button','Save setup').click();
 await page.getByText('Setup saved in this browser.').waitFor();
 await role('button','Appearance settings').click();
 await role('button','Reset appearance').click();
 await role('button','Close dialog').click();
+await route('team','Team Admin');
+await role('button','Invite member').click();
+await page.getByRole('dialog').getByLabel('Email').fill('static-invite@example.test');
+await role('button','Create invitation').click();
+await page.getByText('static-invite@example.test',{exact:true}).waitFor();
+await role('button','Activity').click();
+await page.getByText('Created a sample invitation',{exact:true}).waitFor();
 const screens = {
     'catalog/product-1':'Desk lamp','orders/SW-3021':'Order SW-3021','invoices/SW-3021':'Invoice SW-3021',
-    overview:'Operations overview',sales:'Commerce dashboard',calendar:'Calendar',board:'Kanban',chat:'Chat',mail:'Inbox',
+    team:'Team Admin',overview:'Operations overview',sales:'Commerce dashboard',calendar:'Calendar',board:'Kanban',chat:'Chat',mail:'Inbox',
     contacts:'Contacts',notes:'Notes',tickets:'Tickets',profile:'Profile',catalog:'Catalogue',cart:'Cart',orders:'Orders',
     invoices:'Invoices',charts:'Chart gallery',tables:'Data table examples',forms:'Forms',components:'Component library',
     tree:'Tree view',editor:'Content editor',blog:'Studio journal','blog/notes':'What belongs on an operations dashboard?',

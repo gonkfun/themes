@@ -13,37 +13,46 @@ const specs = {
     tickets: {title:'Tickets',single:'Ticket',seed:tickets,fields:[title,owner,priority,{key:'status',label:'Status',options:['Open','In progress','Resolved']}]}
 };
 
-function RecordEditor({spec,record,onSave,onDelete,close}) {
+function RecordEditor({spec,record,onSave,onDelete,close,busy,error,refresh}) {
     return <Dialog title={(record.id?'Edit ':'New ')+spec.single.toLowerCase()} close={close}>
         <form className="stack" onSubmit={event=>{
             event.preventDefault();
             onSave({...record,...Object.fromEntries(new FormData(event.currentTarget))});
         }}>
             {spec.fields.map(({key,label,type,options})=><Field key={key} label={label}>{options
-                ? <select name={key} defaultValue={record[key]||options[0]}>{options.map(option=><option key={option}>{option}</option>)}</select>
+                ? <select name={key} defaultValue={record[key]??(options[0]?.value??options[0])}>{options.filter(option=>!option.inactive||option.value===record[key]).map(option=><option key={option.value??option} value={option.value??option}>{option.label??option}</option>)}</select>
                 : type==='textarea' ? <textarea required name={key} defaultValue={record[key]||''} rows="5" />
                     : <input required name={key} type={type||'text'} defaultValue={record[key]||''}/>}</Field>)}
-            <div className="toolbar"><button className="primary">Save {spec.single.toLowerCase()}</button>{record.id&&<button className="danger" type="button" onClick={()=>onDelete(record.id)}>Delete</button>}</div>
+            {error&&<p role="alert">{error}</p>}
+            <div className="toolbar"><button className="primary" disabled={busy}>Save {spec.single.toLowerCase()}</button>{record.id&&onDelete&&<button className="danger" type="button" disabled={busy} onClick={()=>onDelete(record)}>Delete</button>}
+                {error&&refresh&&<button type="button" disabled={busy} onClick={refresh}>Close and refresh</button>}</div>
         </form>
     </Dialog>;
 }
 
-export function Records({kind}) {
-    const spec=specs[kind];
-    const [records,setRecords]=useLocal(kind,spec.seed);
+export function Records({kind,shared}) {
+    const base=specs[kind];
+    const spec=shared?{...base,fields:base.fields.map(field=>field.key!=='owner'?field:{...field,key:'ownerId',options:[
+        {value:'',label:'Unassigned'},...shared.assignees.map(person=>({value:person.id,label:person.name+(!person.active?' (inactive)':''),inactive:!person.active}))
+    ]})}:base;
+    const [local,setRecords]=useLocal(kind,base.seed);
+    const records=shared?.records??local;
     const [editor,setEditor]=useState(null);
     const [query,setQuery]=useState('');
     const [month,setMonth]=useState(()=>dayOf(sampleDay));
     const filtered=records.filter(record=>Object.values(record).some(value=>String(value).toLowerCase().includes(query.trim().toLowerCase())));
-    const update=(record)=>setRecords(items=>items.map(item=>item.id===record.id?record:item));
+    const update=(record)=>shared?shared.change('PATCH',record):setRecords(items=>items.map(item=>item.id===record.id?record:item));
     function moveTask(key,stage) {
         const task=records.find(record=>record.id===key);
-        if(task) update({...task,stage});
+        if(task&&!shared?.busy) update({...task,stage});
     }
     const dayCount=date(month.getUTCFullYear(),month.getUTCMonth()+1,0).getUTCDate();
     const offset=(date(month.getUTCFullYear(),month.getUTCMonth(),1).getUTCDay()+6)%7;
     const changeMonth=delta=>setMonth(date(month.getUTCFullYear(),month.getUTCMonth()+delta,1));
-    return <Page title={spec.title} actions={<button className="primary" onClick={()=>setEditor(kind==='calendar'?{date:iso(month),time:'09:00'}:{})}>+ New {spec.single.toLowerCase()}</button>}>
+    return <Page title={spec.title} description={shared?'Shared with your workspace.':undefined} actions={<>
+        {shared&&<button disabled={shared.busy} onClick={shared.refresh}>Refresh</button>}
+        <button className="primary" disabled={shared?.busy} onClick={()=>setEditor(kind==='calendar'?{date:iso(month),time:'09:00'}:{})}>+ New {spec.single.toLowerCase()}</button></>}>
+        {!editor&&shared?.error&&<p role="alert">{shared.error}</p>}
         {kind!=='calendar'&&kind!=='tickets'&&<Field label={'Find '+spec.title.toLowerCase()}><input type="search" value={query} onChange={event=>setQuery(event.target.value)}/></Field>}
         {kind==='calendar'&&<Card className="calendar" title={Intl.DateTimeFormat('en',{month:'long',year:'numeric',timeZone:'UTC'}).format(month)}
             action={<div className="toolbar"><button onClick={()=>changeMonth(-1)} aria-label="Previous month">←</button><button onClick={()=>setMonth(dayOf(sampleDay))}>Demo month</button><button onClick={()=>changeMonth(1)} aria-label="Next month">→</button></div>}>
@@ -59,7 +68,7 @@ export function Records({kind}) {
             <h2>{stage} <Badge>{filtered.filter(task=>task.stage===stage).length}</Badge></h2>
             {filtered.filter(task=>task.stage===stage).map(task=><article className="card task" key={task.id} draggable onDragStart={event=>event.dataTransfer.setData('text/plain',task.id)}>
                 <button className="text-button" onClick={()=>setEditor(task)}>{task.title}</button><p>{task.owner} · {dateLabel(task.date)}</p><Badge>{task.priority}</Badge>
-                <select aria-label={'Move '+task.title} value={task.stage} onChange={event=>moveTask(task.id,event.target.value)}>{stageNames.map(option=><option key={option}>{option}</option>)}</select>
+                <select aria-label={'Move '+task.title} value={task.stage} disabled={shared?.busy} onChange={event=>moveTask(task.id,event.target.value)}>{stageNames.map(option=><option key={option}>{option}</option>)}</select>
             </article>)}
         </section>)}</div>}
         {kind==='contacts'&&<div className="cards-three">{filtered.map(person=><Card key={person.id}>
@@ -68,14 +77,18 @@ export function Records({kind}) {
         {kind==='notes'&&<div className="cards-three">{[...filtered].sort((a,b)=>Number(Boolean(b.pinned))-Number(Boolean(a.pinned))).map(note=><Card key={note.id} className={'tint '+note.tone} title={note.title}>
             <p className="preserve">{note.body}</p><div className="toolbar"><button onClick={()=>setEditor(note)}>Edit note</button><button aria-pressed={Boolean(note.pinned)} onClick={()=>update({...note,pinned:!note.pinned})}>{note.pinned?'Unpin':'Pin'}</button></div>
         </Card>)}</div>}
-        {kind==='tickets'&&<DataTable rows={records} columns={spec.fields} title="Support tickets" filename="switchboard-tickets.csv" onEdit={setEditor}/>}
+        {kind==='tickets'&&<DataTable rows={records} columns={base.fields} title="Support tickets" filename="switchboard-tickets.csv" onEdit={setEditor}/>}
         {!['calendar','tickets'].includes(kind)&&!filtered.length&&<Blank/>}
-        {editor&&<RecordEditor spec={spec} record={editor} close={()=>setEditor(null)} onSave={record=>{
+        {editor&&<RecordEditor spec={spec} record={editor} close={()=>setEditor(null)} busy={shared?.busy} error={shared?.error} refresh={shared?()=>{setEditor(null);shared.refresh();}:null} onSave={async record=>{
+            if(shared){if(await shared.change(record.id?'PATCH':'POST',record))setEditor(null);return;}
             if(record.id) update(record);
             else setRecords(items=>[...items,{...record,id:id()}]);
             if(kind==='calendar') setMonth(dayOf(record.date));
             setEditor(null);
-        }} onDelete={key=>{setRecords(items=>items.filter(item=>item.id!==key));setEditor(null);}}/>}
+        }} onDelete={shared&&!shared.canDelete?null:async record=>{
+            if(shared){if(await shared.change('DELETE',record))setEditor(null);return;}
+            setRecords(items=>items.filter(item=>item.id!==record.id));setEditor(null);
+        }}/>}
     </Page>;
 }
 

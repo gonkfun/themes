@@ -6,9 +6,14 @@ import {Overview,Charts,Tables} from './dashboards';
 import {Records,Chat,Inbox,Profile} from './apps';
 import {Commerce} from './commerce';
 import {Examples,Pages,AuthDemo} from './examples';
+import {Access,Team,SharedRecords,connected,request} from './team';
 import './style.css';
 
-const links=navigation.flatMap(([,items])=>items);
+const workspaceNavigation=[
+    ['Workspace',[['team','Team Admin','◎'],['board','Kanban','▥'],['tickets','Tickets','◈'],['settings','Settings','⚙']]]
+];
+const navigationGroups=connected?workspaceNavigation:navigation;
+const links=navigationGroups.flatMap(([,items])=>items);
 const layouts=['Horizontal','Sidebar','Compact'];
 const modes=['System','Light','Dark'];
 const accents={Pine:'#23745d',Cobalt:'#3e61ad',Plum:'#8150aa',Brick:'#aa4b42',Amber:'#8d640c',Slate:'#526777'};
@@ -23,7 +28,7 @@ function Icon({name}) {
 function Navigation({route,horizontal=false,close}) {
     const [group,setGroup]=useState(null);
     return <nav className={horizontal?'horizontal-nav':'side-nav'} aria-label="Main navigation" onKeyDown={event=>{if(event.key==='Escape'){document.getElementById('nav-'+group)?.focus();setGroup(null);}}}>
-        {navigation.map(([name,items])=><div className="nav-group" key={name} onBlur={event=>{if(horizontal&&!event.currentTarget.contains(event.relatedTarget))setGroup(null);}}>
+        {navigationGroups.map(([name,items])=><div className="nav-group" key={name} onBlur={event=>{if(horizontal&&!event.currentTarget.contains(event.relatedTarget))setGroup(null);}}>
             {horizontal?<button className="nav-trigger" id={'nav-'+name} aria-expanded={group===name} onClick={()=>setGroup(group===name?null:name)}>{name} <span aria-hidden="true">⌄</span></button>:<p>{name}</p>}
             {(!horizontal||group===name)&&<div className="nav-links">{items.map(([path,label,mark])=><a key={path} href={'#/'+path} title={label} aria-label={label} aria-current={route===path?'page':undefined} onClick={()=>{setGroup(null);close?.();}}><span aria-hidden="true">{mark}</span><span>{label}</span></a>)}</div>}
         </div>)}
@@ -42,7 +47,23 @@ function Appearance({settings,setSettings}) {
 }
 
 function App() {
-    const [[route='overview',detail],setRoute]=useState(readRoute);
+    const [[route=connected?'team':'overview',detail],setRoute]=useState(readRoute);
+    const [member,setMember]=useState(null);
+    const [sessionReady,setSessionReady]=useState(!connected);
+    const [sessionError,setSessionError]=useState('');
+    async function loadSession(){
+        setSessionError('');
+        try{setMember((await request('session')).member);setSessionReady(true);}
+        catch{setSessionError('Could not reach the workspace.');}
+    }
+    useEffect(()=>{if(connected)loadSession();},[]);
+    function signedIn(value){setMember(value);location.hash='/team';}
+    function expired(){setMember(null);location.hash='/sign-in';}
+    async function signOut(){
+        setSessionError('');
+        try{await request('sign-out','POST',{});expired();}
+        catch(error){if(error.status===401)expired();else setSessionError(error.message);}
+    }
     const [settings,setSettings]=useLocal('appearance',defaults);
     const [cart,setCart]=useLocal('cart',{});
     const [menu,setMenu]=useState(false);
@@ -68,9 +89,18 @@ function App() {
     },[dark,settings.accent,settings.direction]);
     useEffect(()=>{document.title=(page?.[1]||'Page unavailable')+' · Switchboard';},[page]);
     const appearance=<Appearance settings={settings} setSettings={setSettings}/>;
-    const brand=<a className="brand" href="#/overview" aria-label="Switchboard home"><span className="brand-mark" aria-hidden="true"><i/><i/><i/><i/></span><span>Switchboard</span></a>;
+    const brand=<a className="brand" href={connected?'#/team':'#/overview'} aria-label="Switchboard home"><span className="brand-mark" aria-hidden="true"><i/><i/><i/><i/></span><span>Switchboard</span></a>;
     let content;
-    if(route==='overview'||route==='sales') content=<Overview commerce={route==='sales'}/>;
+    if(connected&&(!sessionReady||!member||route==='accept'||route==='sign-in')){
+        return <div className="access-shell"><header className="masthead"><div className="masthead-inner">{brand}</div></header><main>
+            {!sessionReady?<Page title="Switchboard workspace">{sessionError?<><p role="alert">{sessionError}</p><button onClick={loadSession}>Retry</button></>:<p role="status">Checking your session…</p>}</Page>:
+                <Access key={route+'/'+(detail||'')} invite={route==='accept'?detail:undefined} onSuccess={signedIn}/>}
+        </main></div>;
+    }
+    if(route==='team')content=<Team member={member} onExpired={expired}/>;
+    else if(connected&&['board','tickets'].includes(route))content=<SharedRecords kind={route} member={member} onExpired={expired}/>;
+    else if(connected&&route!=='settings')content=<Page title="Page unavailable"><Blank text="Choose a destination from the workspace navigation."/><a href="#/team">Open Team Admin</a></Page>;
+    else if(route==='overview'||route==='sales') content=<Overview commerce={route==='sales'}/>;
     else if(route==='charts') content=<Charts/>;
     else if(route==='tables') content=<Tables/>;
     else if(['board','calendar','contacts','notes','tickets'].includes(route)) content=<Records kind={route}/>;
@@ -90,18 +120,19 @@ function App() {
             {horizontal&&brand}<button className="icon-button mobile-menu" type="button" aria-label={menu?'Close navigation':'Open navigation'} aria-expanded={menu} aria-controls="app-sidebar" onClick={()=>setMenu(!menu)}><Icon name="menu"/></button>
             {!horizontal&&<span className="workspace-name">Studio workspace</span>}
             <button className="mast-search" onClick={()=>{setQuery('');setDialog('search');}} aria-label="Find a page"><Icon name="search"/><span>Find a page</span></button>
-            <div className="header-tools"><Badge>Demo workspace</Badge>
+            <div className="header-tools"><Badge>{connected?member.role:'Demo workspace'}</Badge>
+                {connected?<><button onClick={signOut}>Sign out</button><button className="icon-button" aria-label="Appearance settings" onClick={()=>setDialog('appearance')}><Icon name="settings"/></button></>:<>
                 <button className="icon-button" aria-label="Notifications" onClick={()=>setDialog('notifications')}><Icon name="bell"/></button>
                 <a className="icon-button" aria-label={'Cart ('+cartCount+')'} href="#/cart"><Icon name="bag"/>{cartCount>0&&<sup>{cartCount}</sup>}</a>
                 <button className="icon-button" aria-label="Appearance settings" onClick={()=>setDialog('appearance')}><Icon name="settings"/></button>
-                <a className="icon-button user-link" aria-label="Profile" href="#/profile"><Avatar name={profile.name}/></a>
+                <a className="icon-button user-link" aria-label="Profile" href="#/profile"><Avatar name={profile.name}/></a></>}
             </div>
         </div>{horizontal&&<Navigation route={route} horizontal/>}</header>
         <aside className="sidebar" id="app-sidebar"><div className="side-top">{brand}
             {!horizontal&&<button className="icon-button collapse" title={settings.layout==='Compact'?'Expand sidebar':'Collapse sidebar'} aria-label={settings.layout==='Compact'?'Expand sidebar':'Collapse sidebar'} aria-expanded={settings.layout!=='Compact'} onClick={()=>setSettings(previous=>({...previous,layout:previous.layout==='Compact'?'Sidebar':'Compact'}))}><Icon name="panel"/></button>}
         </div><Navigation route={route} close={()=>setMenu(false)}/></aside>
         {menu&&<button className="sidebar-overlay" aria-label="Dismiss navigation" onClick={()=>setMenu(false)}/>}
-        <main id="main" tabIndex={-1} key={route+'/'+(detail||'')}>{content}
+        <main id="main" tabIndex={-1} key={route+'/'+(detail||'')}>{sessionError&&<p role="alert">{sessionError}</p>}{content}
             <footer className="footer"><span>Switchboard</span><span>Powered by <a href="https://gonk.fun" rel="nofollow">gonk.fun</a></span></footer>
         </main>
         {dialog&&<Dialog title={dialog==='appearance'?'Appearance':dialog==='search'?'Find a page':'Notifications'} close={()=>setDialog('')}>

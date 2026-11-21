@@ -1,1 +1,1 @@
-ea6a12253b7e898af0f6725a6750a300b3686adcb360333c0dd8c039aa99f269  switchboard-react-1.0.0.zip
+37c958f075564db2c6fe54f885bc6570328058bba3c8f6bde7d8afbc649d7af7  switchboard-react-1.1.0.zip

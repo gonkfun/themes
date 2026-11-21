@@ -268,3 +268,21 @@ blockquote {border-inline-start:3px solid var(--accent);padding-inline-start:.6r
 .column-option button {min-height:30px;min-width:29px;padding:.15rem}
 .skip-link {position:absolute;z-index:9;inset-block-start:.5rem;inset-inline-start:.5rem;background:var(--surface);padding:.6rem;border-radius:8px;transform:translateY(-200%)}
 .skip-link:focus {transform:none}
+.team-summary {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-block-end:1.15rem}
+.team-count {background:var(--mint);display:grid;gap:.3rem}
+.team-count span {font-size:.82rem;color:var(--muted)}
+.team-count strong {font-size:2rem;font-variant-numeric:tabular-nums}
+.team-tabs {margin-block-end:1rem}
+.team-list {list-style:none;padding:0;margin:1rem 0 0}
+.team-row,.activity-row {display:grid;align-items:center;gap:.75rem;padding:.8rem 0;border-block-start:1px solid var(--line)}
+.team-row {grid-template-columns:minmax(0,1fr) 6rem 5rem 4rem}
+.team-row .badge {justify-self:start}
+.activity-row {grid-template-columns:minmax(0,1fr) auto}
+.activity-row p,.activity-row time {font-size:.81rem;color:var(--muted);margin:.15rem 0 0}
+[role='alert'] {color:var(--text);background:var(--peach);border-radius:8px;padding:.7rem}
+@media(max-width:600px) {
+    .team-summary {gap:.5rem}
+    .team-row {grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+    .team-row .contact-card {grid-column:1/-1}
+    .activity-row {grid-template-columns:1fr}
+}

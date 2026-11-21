@@ -93,7 +93,7 @@ export function exportCsv(filename, rows) {
 export const navigation = [
     ['Dashboards',[['overview','Analytics','▦'],['sales','Commerce','▤']]],
     ['Applications',[['calendar','Calendar','▧'],['board','Kanban','▥'],['chat','Chat','◫'],['mail','Inbox','▱'],
-        ['contacts','Contacts','◎'],['notes','Notes','▤'],['tickets','Tickets','◈'],['profile','Profile','◉']]],
+        ['contacts','Contacts','◎'],['notes','Notes','▤'],['tickets','Tickets','◈'],['team','Team Admin','◇'],['profile','Profile','◉']]],
     ['Commerce',[['catalog','Catalogue','◇'],['cart','Cart','▣'],['orders','Orders','≡'],['invoices','Invoices','▤']]],
     ['Examples',[['charts','Charts','∿'],['tables','Tables','≡'],['forms','Forms','□'],['components','Components','◇'],
         ['tree','Tree view','⌘'],['editor','Content editor','✎'],['blog','Blog','▱']]],

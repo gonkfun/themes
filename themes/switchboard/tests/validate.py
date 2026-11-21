@@ -21,8 +21,10 @@ with zipfile.ZipFile(archive) as package:
         path = PurePosixPath(name)
         assert not path.is_absolute() and ".." not in path.parts
         assert "node_modules" not in path.parts and not any(part.startswith(".env") for part in path.parts)
-    for path in (source / "src").glob("*"):
-        assert package.read(f"src/{path.name}") == path.read_bytes(), path
+    for directory in ("src", "server", "public"):
+        for path in (source / directory).rglob("*"):
+            if path.is_file():
+                assert package.read(path.relative_to(source).as_posix()) == path.read_bytes(), path
     for asset in ("package.json", "package-lock.json", "index.html"):
         assert package.read(asset) == (source / asset).read_bytes(), asset
     assert package.read("public/art/switchboard-art.webp").startswith(b"RIFF")
