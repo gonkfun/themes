@@ -40,9 +40,37 @@
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', connectControls, { once: true });
-    } else {
+    function connectNavigation() {
+        document.querySelectorAll('button[data-lumen-menu]').forEach(button => {
+            const sidebar = button.closest('.lm-sidebar');
+            const panel = document.getElementById(button.getAttribute('aria-controls'));
+            if (!sidebar || !panel || !sidebar.contains(panel)) return;
+
+            function setOpen(open) {
+                sidebar.toggleAttribute('data-lumen-open', open);
+                button.setAttribute('aria-expanded', String(open));
+            }
+
+            sidebar.setAttribute('data-lumen-enhanced', '');
+            button.hidden = false;
+            button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+            sidebar.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && sidebar.hasAttribute('data-lumen-open')) {
+                    setOpen(false);
+                    button.focus();
+                }
+            });
+        });
+    }
+
+    function connect() {
         connectControls();
+        connectNavigation();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', connect, { once: true });
+    } else {
+        connect();
     }
 })();

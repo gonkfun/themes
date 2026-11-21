@@ -10,9 +10,19 @@
 </head>
 <body>
 <a class="lm-skip" href="#content">Skip to content</a>
-<header class="lm-header"><div class="lm-wrap">
-<a class="lm-brand" href="./">Lumen</a>
-<nav class="lm-nav" aria-label="Main"><a href="./">Journal</a><a href="archive.html">Archive</a></nav>
+<div class="lm-shell">
+<header class="lm-sidebar">
+<div class="lm-rail-heading"><a class="lm-brand" href="./">Lumen</a><button class="lm-menu-button" type="button" aria-expanded="false" aria-controls="lumen-navigation" data-lumen-menu="" hidden="hidden">Menu</button></div>
+<div class="lm-rail-content" id="lumen-navigation">
+<nav class="lm-nav" aria-label="Journal navigation">
+<a href="./" aria-current="page">Journal</a><a href="archive.html">Archive</a>
+</nav>
+<nav class="lm-rail-topics lm-nav" aria-label="Topics">
+<h2>Topics</h2>
+<a href="topic-essays.html">Essays</a>
+<a href="topic-reading-notes.html">Reading notes</a>
+<a href="topic-field-notes.html">Field notes</a>
+</nav>
 <label class="lm-appearance" hidden="hidden">
   <span class="lm-sr-only">Appearance</span>
   <select aria-label="Appearance" data-lumen-appearance="">
@@ -36,5 +46,6 @@
 <h2 class="lm-card-title"><a href="unfinished.html">A note on unfinished work</a></h2>
 <p>How a drawer of drafts can become a way to see what your thinking is still circling.</p></div></article></div></main>
 <footer class="lm-footer"><div class="lm-wrap"><span>Lumen · Theme preview</span><span>Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></span></div></footer>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
-const base = process.env.LUMEN_WP_URL || 'http://127.0.0.1:9458/';
+const base = process.env.LUMEN_WP_URL || 'http://127.0.0.1:9460/';
 const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN });
 try {
     for (const width of [390, 1440]) {
@@ -22,13 +22,24 @@ try {
             if (!path) {
                 assert(await page.locator('.lm-feature-label:visible').count() === 1);
                 assert(await page.locator('.wp-block-post-title').count() >= 2);
+                const panel = page.locator('#lumen-navigation');
+                const menu = page.getByRole('button', { name: 'Menu', exact: true });
                 if (width === 390) {
-                    await page.locator('.wp-block-navigation__responsive-container-open').click();
-                    assert(await page.locator('.wp-block-navigation__responsive-container.is-menu-open').isVisible());
+                    assert.equal(await panel.isVisible(), false);
+                    await menu.click();
+                    assert(await panel.isVisible());
                     await page.keyboard.press('Escape');
+                    assert.equal(await panel.isVisible(), false);
+                    await menu.click();
+                } else {
+                    const sidebar = await page.locator('.lm-sidebar').boundingBox();
+                    const content = await page.locator('main').boundingBox();
+                    assert(sidebar.x + sidebar.width <= content.x);
+                    assert(await panel.isVisible());
                 }
                 await mode.selectOption('light');
                 await page.reload({ waitUntil: 'domcontentloaded' });
+                if (width === 390) await menu.click();
                 assert.equal(await mode.inputValue(), 'light');
                 assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(250, 246, 239)');
                 await mode.selectOption('system');

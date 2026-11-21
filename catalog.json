@@ -74,9 +74,9 @@
   {
     "id": "lumen",
     "name": "Lumen",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "category": "Literary journal",
-    "description": "Warm ivory and terracotta, a featured essay, a quiet reading column and a system-aware light or dark appearance.",
+    "description": "A literary journal with a left navigation sidebar, a focused reading pane and a system-aware light or dark appearance.",
     "platforms": [
       "Blogger",
       "WordPress"

@@ -27,14 +27,31 @@ $script
 </head>
 <body class="lm-blogger">
   <a class="lm-skip" href="#content">Skip to content</a>
-  <header class="lm-header"><div class="lm-wrap">
-    <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
-    <nav class="lm-nav" aria-label="Main">
-      <a expr:href="data:blog.homepageUrl">Journal</a>
-      <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
-    </nav>
-    $appearance
-  </div></header>
+  <div class="lm-shell">
+  <header class="lm-sidebar">
+    <div class="lm-rail-heading">
+      <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
+      $menu
+    </div>
+    <div class="lm-rail-content" id="lumen-navigation">
+      <nav class="lm-nav" aria-label="Journal navigation">
+        <a expr:href="data:blog.homepageUrl">Journal</a>
+        <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
+      </nav>
+      <form class="lm-rail-search" method="get" role="search" expr:action='data:blog.homepageUrl + "search"'>
+        <label class="lm-sr-only" for="lumen-sidebar-search">Search the journal</label>
+        <input id="lumen-sidebar-search" name="q" type="search" placeholder="Search the journal"/>
+        <button type="submit">Search</button>
+      </form>
+      <div class="lm-rail-topics">
+        <b:section id="sidebar" class="sidebar" showaddelement="yes">
+          <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+          <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+        </b:section>
+      </div>
+      $appearance
+    </div>
+  </header>
   <main id="content" tabindex="-1">
     <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
       <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
@@ -130,13 +147,8 @@ $script
     </b:section>
   </main>
   <footer class="lm-footer"><div class="lm-wrap">
-    <div class="lm-topics">
-      <b:section id="footer" class="footer" showaddelement="yes">
-        <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
-        <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
-      </b:section>
-    </div>
     <span>$credit</span>
   </div></footer>
+  </div>
 </body>
 </html>

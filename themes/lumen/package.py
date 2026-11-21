@@ -9,9 +9,9 @@ RELEASES.mkdir(exist_ok=True)
 WORDPRESS = ROOT / "wordpress/lumen"
 assert (WORDPRESS / "screenshot.png").is_file(), "Capture the 1200x900 preview first."
 packages = {
-    "lumen-wordpress-1.0.0.zip": [(p, Path("lumen") / p.relative_to(WORDPRESS))
+    "lumen-wordpress-1.1.0.zip": [(p, Path("lumen") / p.relative_to(WORDPRESS))
                                 for p in sorted(WORDPRESS.rglob("*")) if p.is_file()],
-    "lumen-blogger-1.0.0.zip": [(ROOT / "blogger/lumen-blogger.xml", "lumen-blogger.xml"),
+    "lumen-blogger-1.1.0.zip": [(ROOT / "blogger/lumen-blogger.xml", "lumen-blogger.xml"),
                               (ROOT / "docs/BLOGGER.md", "INSTALL.md"),
                               (ROOT.parents[1] / "LICENSE", "LICENSE")],
 }

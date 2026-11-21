@@ -22,6 +22,7 @@
 :root {
     color-scheme: light;
     --lm-paper: #faf6ef;
+    --lm-rail: #f0e8dc;
     --lm-card: #fffaf3;
     --lm-hero: #f1e3d6;
     --lm-ink: #2e211d;
@@ -37,6 +38,7 @@
     :root:not([data-lumen-mode]) {
         color-scheme: dark;
         --lm-paper: #201a17;
+        --lm-rail: #261e1a;
         --lm-card: #2a221e;
         --lm-hero: #382923;
         --lm-ink: #f5e9df;
@@ -50,6 +52,7 @@
 :root[data-lumen-mode='dark'] {
     color-scheme: dark;
     --lm-paper: #201a17;
+    --lm-rail: #261e1a;
     --lm-card: #2a221e;
     --lm-hero: #382923;
     --lm-ink: #f5e9df;
@@ -76,16 +79,85 @@ h3 { font-size: 1.45rem; letter-spacing: -.028em; }
 .lm-read { width: min(700px, calc(100% - 3rem)); margin-inline: auto; }
 .lm-skip, .lm-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .lm-skip:focus { top: .5rem; left: .5rem; width: auto; height: auto; clip-path: none; z-index: 4; padding: .65rem 1rem; background: var(--lm-card); }
-.lm-header { border-bottom: 1px solid var(--lm-line); }
-.lm-header .lm-wrap { display: flex; min-height: 74px; align-items: center; gap: .6rem 1.55rem; }
-.lm-brand, .lm-header .wp-block-site-title { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; font: 1.64rem/1.15 var(--lm-serif); letter-spacing: -.055em; }
-.lm-brand::before, .lm-header .wp-block-site-title::before { content: ''; display: inline-block; width: 10px; height: 10px; flex: 0 0 10px; background: var(--lm-accent); border-radius: 50%; margin-right: .55rem; }
-.lm-header nav { margin-left: auto; }
-.lm-nav { display: flex; flex-wrap: wrap; gap: .25rem 1.2rem; }
-.lm-nav a, .lm-header .wp-block-navigation-item__content { display: inline-flex; align-items: center; min-height: 44px; font-size: .88rem; text-decoration: none; }
-.lm-header .wp-block-navigation__responsive-container.is-menu-open { background: var(--lm-paper); color: var(--lm-ink); }
-.lm-header .wp-block-navigation__responsive-container-open, .lm-header .wp-block-navigation__responsive-container-close { min-width: 44px; min-height: 44px; justify-content: center; }
-.lm-appearance { display: inline-flex; align-items: center; flex-shrink: 0; }
+/* The rail and journal occupy separate columns. The footer stays with the journal. */
+.lm-shell {
+    display: grid;
+    grid-template: "rail content" 1fr "rail footer" auto / 238px minmax(0, 1fr);
+    min-height: 100vh;
+}
+.lm-shell > :first-child { grid-area: rail; min-width: 0; background: var(--lm-rail); }
+.lm-shell > main { grid-area: content; min-width: 0; }
+.lm-shell > :last-child { grid-area: footer; min-width: 0; }
+.lm-sidebar { position: sticky; top: 0; height: 100vh; height: 100svh; align-self: start; overflow-y: auto; padding: 1.4rem 1.05rem; border-inline-end: 1px solid var(--lm-line); background: var(--lm-rail); }
+.lm-rail-heading { display: flex; align-items: center; gap: .75rem; justify-content: space-between; }
+.lm-brand, .lm-sidebar .wp-block-site-title {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    overflow-wrap: anywhere;
+    color: var(--lm-ink);
+    text-decoration: none;
+    font: 1.64rem/1.15 var(--lm-serif);
+    letter-spacing: -.055em;
+}
+.lm-brand::before, .lm-sidebar .wp-block-site-title::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    background: var(--lm-accent);
+    border-radius: 50%;
+    margin-inline-end: .55rem;
+}
+.lm-sidebar .wp-block-site-title a { text-decoration: none; }
+.lm-rail-content { display: grid; gap: 1rem; padding-top: 1.45rem; }
+.lm-nav, .lm-sidebar .wp-block-navigation__container,
+.lm-sidebar .wp-block-page-list, .lm-rail-topics ul {
+    display: grid;
+    width: 100%;
+    gap: .18rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.lm-nav a, .lm-sidebar .wp-block-navigation-item__content, .lm-rail-topics a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: .4rem .65rem;
+    border: 1px solid transparent;
+    border-radius: .6rem;
+    color: var(--lm-ink);
+    font-size: .88rem;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+.lm-nav a:hover, .lm-sidebar .wp-block-navigation-item__content:hover, .lm-rail-topics a:hover {
+    background: var(--lm-card);
+    color: var(--lm-accent);
+}
+.lm-nav a[aria-current='page'], .lm-sidebar a[aria-current='page'] { border-color: var(--lm-line); background: var(--lm-card); }
+.lm-rail-topics { border-top: 1px solid var(--lm-line); padding-top: .8rem; }
+.lm-rail-topics h2 { padding: .2rem .65rem .3rem; color: var(--lm-muted); font: 600 .73rem/1.3 var(--lm-sans); text-transform: uppercase; letter-spacing: .09em; }
+.lm-rail-search, .lm-rail-search .wp-block-search__inside-wrapper { display: flex; gap: .3rem; }
+.lm-rail-search input {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    padding-inline: .6rem;
+    font-size: .84rem;
+}
+.lm-rail-search input, .lm-rail-search button, .lm-menu-button {
+    min-height: 44px;
+    border: 1px solid var(--lm-line);
+    border-radius: .6rem;
+    background: var(--lm-card);
+    color: var(--lm-ink);
+}
+.lm-rail-search button { min-width: 44px; margin: 0; padding: .3rem .5rem; font-size: .78rem; cursor: pointer; }
+.lm-menu-button { display: none; padding: .4rem .75rem; font-size: .85rem; cursor: pointer; }
+.lm-appearance { display: inline-flex; align-items: center; justify-self: start; }
 .lm-appearance select { min-height: 44px; border: 1px solid var(--lm-line); border-radius: 999px; padding: .45rem .6rem .45rem .85rem; background: var(--lm-card); color: var(--lm-ink); font-size: .84rem; }
 .lm-masthead { padding-block: clamp(2.65rem, 6vw, 5.65rem) 2.5rem; }
 .lm-masthead h1 { max-width: 16ch; }
@@ -167,22 +239,29 @@ body:not(.paged) .lm-home .wp-block-post:first-child .wp-block-post-featured-ima
 .lm-blogger .widget.ReportAbuse, .lm-blogger .widget.BlogSearch, .lm-blogger #navbar, .lm-blogger #navbar-iframe { display: none; }
 body#layout .lm-masthead { display: none; }
 body#layout .section { min-height: 70px; }
+@media (max-width: 1000px) and (min-width: 761px) {
+    .lm-shell { grid-template-columns: 202px minmax(0, 1fr); }
+    .lm-card.lm-featured, body:not(.paged) .lm-home .wp-block-post:first-child > .lm-card { gap: 1.25rem; }
+    .lm-card.lm-featured .lm-art, body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { min-height: 170px; }
+}
+@media (max-width: 760px) {
+    .lm-shell { grid-template: "rail" auto "content" 1fr "footer" auto / minmax(0, 1fr); }
+    .lm-sidebar { position: static; height: auto; overflow: visible; border-inline-end: 0; border-bottom: 1px solid var(--lm-line); padding: .65rem 1rem; }
+    .lm-rail-content { padding-top: .85rem; padding-bottom: .35rem; gap: .75rem; }
+    .lm-menu-button { display: inline-flex; align-items: center; }
+    .lm-sidebar[data-lumen-enhanced]:not([data-lumen-open]) .lm-rail-content { display: none; }
+}
 @media (max-width: 650px) {
     .lm-wrap, .lm-read { width: calc(100% - 2rem); }
-    .lm-header .lm-wrap { min-height: 68px; gap: .45rem .7rem; flex-wrap: wrap; }
-    .lm-header .lm-nav { gap: .4rem .65rem; }
     .lm-card.lm-featured, body:not(.paged) .lm-home .wp-block-post:first-child > .lm-card { grid-template-columns: 1fr; }
     body:not(.paged) .lm-home .wp-block-post:first-child .wp-block-post-featured-image,
     body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { grid-area: 2 / 1; }
     .lm-card.lm-featured .lm-art, body:not(.paged) .lm-home .wp-block-post:first-child .lm-art { min-height: 0; max-height: 225px; }
 }
-@media (max-width: 430px) {
-    .lm-header .lm-nav { order: 3; width: 100%; margin-left: 0; }
-    .lm-header .lm-brand + .lm-nav + .lm-appearance { margin-left: auto; }
-}
 @media print {
     :root { color-scheme: light; --lm-ink: #171717; --lm-paper: #fff; }
-    .lm-header, .lm-footer, .lm-comments, .lm-paging { display: none !important; }
+    .lm-shell { display: block; }
+    .lm-shell > :first-child, .lm-footer, .lm-comments, .lm-paging { display: none !important; }
     body, body.lumen-journal { background: #fff; color: #171717; }
 }
 
@@ -230,10 +309,38 @@ body#layout .section { min-height: 70px; }
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', connectControls, { once: true });
-    } else {
+    function connectNavigation() {
+        document.querySelectorAll('button[data-lumen-menu]').forEach(button => {
+            const sidebar = button.closest('.lm-sidebar');
+            const panel = document.getElementById(button.getAttribute('aria-controls'));
+            if (!sidebar || !panel || !sidebar.contains(panel)) return;
+
+            function setOpen(open) {
+                sidebar.toggleAttribute('data-lumen-open', open);
+                button.setAttribute('aria-expanded', String(open));
+            }
+
+            sidebar.setAttribute('data-lumen-enhanced', '');
+            button.hidden = false;
+            button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+            sidebar.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && sidebar.hasAttribute('data-lumen-open')) {
+                    setOpen(false);
+                    button.focus();
+                }
+            });
+        });
+    }
+
+    function connect() {
         connectControls();
+        connectNavigation();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', connect, { once: true });
+    } else {
+        connect();
     }
 })();
 
@@ -241,13 +348,29 @@ body#layout .section { min-height: 70px; }
 </head>
 <body class="lm-blogger">
   <a class="lm-skip" href="#content">Skip to content</a>
-  <header class="lm-header"><div class="lm-wrap">
-    <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
-    <nav class="lm-nav" aria-label="Main">
-      <a expr:href="data:blog.homepageUrl">Journal</a>
-      <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
-    </nav>
-    <label class="lm-appearance" hidden="hidden">
+  <div class="lm-shell">
+  <header class="lm-sidebar">
+    <div class="lm-rail-heading">
+      <a class="lm-brand" expr:href="data:blog.homepageUrl"><data:blog.title/></a>
+      <button class="lm-menu-button" type="button" aria-expanded="false" aria-controls="lumen-navigation" data-lumen-menu="" hidden="hidden">Menu</button>
+    </div>
+    <div class="lm-rail-content" id="lumen-navigation">
+      <nav class="lm-nav" aria-label="Journal navigation">
+        <a expr:href="data:blog.homepageUrl">Journal</a>
+        <a expr:href='data:blog.homepageUrl + "search"'>Archive</a>
+      </nav>
+      <form class="lm-rail-search" method="get" role="search" expr:action='data:blog.homepageUrl + "search"'>
+        <label class="lm-sr-only" for="lumen-sidebar-search">Search the journal</label>
+        <input id="lumen-sidebar-search" name="q" type="search" placeholder="Search the journal"/>
+        <button type="submit">Search</button>
+      </form>
+      <div class="lm-rail-topics">
+        <b:section id="sidebar" class="sidebar" showaddelement="yes">
+          <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
+          <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
+        </b:section>
+      </div>
+      <label class="lm-appearance" hidden="hidden">
   <span class="lm-sr-only">Appearance</span>
   <select aria-label="Appearance" data-lumen-appearance="">
     <option value="system">System</option>
@@ -255,7 +378,8 @@ body#layout .section { min-height: 70px; }
     <option value="dark">Dark</option>
   </select>
 </label>
-  </div></header>
+    </div>
+  </header>
   <main id="content" tabindex="-1">
     <b:section id="main" class="main" maxwidgets="1" showaddelement="no">
       <b:widget id="Blog1" locked="yes" mobile="yes" title="Blog Posts" type="Blog" version="1">
@@ -351,13 +475,8 @@ body#layout .section { min-height: 70px; }
     </b:section>
   </main>
   <footer class="lm-footer"><div class="lm-wrap">
-    <div class="lm-topics">
-      <b:section id="footer" class="footer" showaddelement="yes">
-        <b:widget id="Label1" locked="no" mobile="yes" title="Topics" type="Label" version="1"/>
-        <b:widget id="PageList1" locked="no" mobile="yes" title="Pages" type="PageList" version="1"/>
-      </b:section>
-    </div>
     <span>Powered by <a href="https://gonk.fun/" rel="nofollow">gonk.fun</a></span>
   </div></footer>
+  </div>
 </body>
 </html>

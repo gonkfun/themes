@@ -33,6 +33,9 @@ assert {node.attrib["type"] for node in widgets} == {"Blog", "Label", "PageList"
 assert blog.find(".//b:include[@name='all-head-content']", ns) is not None
 assert blog.find(".//h:a[@rel='nofollow']", ns) is not None
 assert "data:position == 0" in xml.read_text()
+assert blog.find(".//h:div[@id='lumen-navigation']", ns) is not None
+assert 'id="lumen-navigation"' in (wp / "parts/header.html").read_text()
+assert 'lm-shell' in (wp / "templates/home.html").read_text()
 assert (root / "shared/lumen.js").read_text() in xml.read_text()
 assert "prefers-color-scheme: dark" in (root / "shared/lumen.css").read_text()
 

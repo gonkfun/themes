@@ -20,6 +20,7 @@ APPEARANCE = """<label class="lm-appearance" hidden="hidden">
     <option value="dark">Dark</option>
   </select>
 </label>"""
+MENU = '<button class="lm-menu-button" type="button" aria-expanded="false" aria-controls="lumen-navigation" data-lumen-menu="" hidden="hidden">Menu</button>'
 ART = '<div class="lm-art" aria-hidden="true"></div>'
 STORIES = [
     ("attention", "On keeping a place for attention", "Essays", "June 12",
@@ -45,14 +46,18 @@ def block(name, attrs=None, content=None):
     return f"<!-- wp:{name}{options} -->\n{content}\n<!-- /wp:{name} -->\n"
 
 
-def group(content, cls="", tag="div"):
+def group(content, cls="", tag="div", anchor=None):
     attrs = {"layout": {"type": "default"}}
     if cls:
         attrs["className"] = cls
     if tag != "div":
         attrs["tagName"] = tag
     classes = f"wp-block-group {cls}".rstrip()
-    return block("group", attrs, f'<{tag} class="{classes}">{content}</{tag}>')
+    identifier = ""
+    if anchor:
+        attrs["anchor"] = anchor
+        identifier = f' id="{anchor}"'
+    return block("group", attrs, f'<{tag}{identifier} class="{classes}">{content}</{tag}>')
 
 
 def raw(content):
@@ -80,9 +85,9 @@ def listing():
 
 
 def template(name, body):
-    head = block("template-part", {"slug": "header", "area": "header"})
-    foot = block("template-part", {"slug": "footer", "area": "footer"})
-    write(WP / "templates" / f"{name}.html", head + group(body, tag="main") + foot)
+    head = block("template-part", {"slug": "header", "area": "header", "tagName": "div"})
+    foot = block("template-part", {"slug": "footer", "area": "footer", "tagName": "div"})
+    write(WP / "templates" / f"{name}.html", group(head + group(body, tag="main") + foot, "lm-shell"))
 
 
 def wordpress():
@@ -92,7 +97,7 @@ Theme URI: https://gonkfun.github.io/themes/lumen/
 Author: Gonk Themes
 Author URI: https://gonk.fun/
 Description: A warm literary journal with a featured essay, a narrow reading column and a system-aware appearance control.
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -150,9 +155,15 @@ add_action( 'init', 'lumen_pattern_category' );
         "templateParts": [{"name": name, "title": name.title(), "area": name} for name in ("header", "footer")]
     }
     write(WP / "theme.json", json.dumps(settings, indent=2) + "\n")
-    nav = block("navigation", {"overlayMenu": "mobile"}, block("home-link", {"label": "Journal"}) + block("page-list"))
-    head = group(block("site-title", {"level": 0}) + nav + raw(APPEARANCE), "lm-wrap")
-    write(WP / "parts/header.html", group(head, "lm-header", "header"))
+    nav = block("navigation", {"overlayMenu": "never", "layout": {"type": "flex", "orientation": "vertical"}},
+                block("home-link", {"label": "Journal"}) + block("page-list"))
+    sidebar_search = block("search", {"label": "Search the journal", "showLabel": False,
+                                     "placeholder": "Search the journal", "buttonText": "Search",
+                                     "buttonUseIcon": True, "className": "lm-rail-search"})
+    rail_heading = group(block("site-title", {"level": 0}) + raw(MENU), "lm-rail-heading")
+    topics = group(heading("Topics", 2) + block("categories", {"showPostCounts": False}), "lm-rail-topics")
+    rail_links = group(nav + sidebar_search + topics + raw(APPEARANCE), "lm-rail-content", anchor="lumen-navigation")
+    write(WP / "parts/header.html", group(rail_heading + rail_links, "lm-sidebar", "header"))
     write(WP / "parts/footer.html", group(group(block("site-title", {"level": 0}) + raw(f'<span>{CREDIT}</span>'), "lm-wrap"), "lm-footer", "footer"))
     intro = group(block("site-title", {"level": 1, "isLink": False}) + block("site-tagline"), "lm-wrap lm-masthead")
     template("home", intro + group(listing(), "lm-wrap lm-home"))
@@ -197,7 +208,7 @@ Contributors: amoghacloud
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -222,11 +233,14 @@ Source: https://github.com/gonkfun/themes/tree/main/themes/lumen
 
 def blogger():
     xml = Template((SHARED / "blogger.xml").read_text()).substitute(
-        styles=CSS, script=JS, appearance=APPEARANCE, credit=CREDIT, artwork=ART)
+        styles=CSS, script=JS, appearance=APPEARANCE, menu=MENU, credit=CREDIT, artwork=ART)
     write(ROOT / "blogger/lumen-blogger.xml", xml)
 
 
 def preview_page(title, main):
+    current = ' aria-current="page"'
+    journal = current if title == "Journal" else ""
+    archive = current if title == "The archive" else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -239,13 +253,24 @@ def preview_page(title, main):
 </head>
 <body>
 <a class="lm-skip" href="#content">Skip to content</a>
-<header class="lm-header"><div class="lm-wrap">
-<a class="lm-brand" href="./">Lumen</a>
-<nav class="lm-nav" aria-label="Main"><a href="./">Journal</a><a href="archive.html">Archive</a></nav>
+<div class="lm-shell">
+<header class="lm-sidebar">
+<div class="lm-rail-heading"><a class="lm-brand" href="./">Lumen</a>{MENU}</div>
+<div class="lm-rail-content" id="lumen-navigation">
+<nav class="lm-nav" aria-label="Journal navigation">
+<a href="./"{journal}>Journal</a><a href="archive.html"{archive}>Archive</a>
+</nav>
+<nav class="lm-rail-topics lm-nav" aria-label="Topics">
+<h2>Topics</h2>
+<a href="topic-essays.html">Essays</a>
+<a href="topic-reading-notes.html">Reading notes</a>
+<a href="topic-field-notes.html">Field notes</a>
+</nav>
 {APPEARANCE}
 </div></header>
 <main id="content" tabindex="-1">{main}</main>
 <footer class="lm-footer"><div class="lm-wrap"><span>Lumen · Theme preview</span><span>{CREDIT}</span></div></footer>
+</div>
 </body>
 </html>
 """

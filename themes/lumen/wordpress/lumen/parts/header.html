@@ -1,11 +1,25 @@
-<!-- wp:group {"layout":{"type":"default"},"className":"lm-header","tagName":"header"} -->
-<header class="wp-block-group lm-header"><!-- wp:group {"layout":{"type":"default"},"className":"lm-wrap"} -->
-<div class="wp-block-group lm-wrap"><!-- wp:site-title {"level":0} /-->
-<!-- wp:navigation {"overlayMenu":"mobile"} -->
+<!-- wp:group {"layout":{"type":"default"},"className":"lm-sidebar","tagName":"header"} -->
+<header class="wp-block-group lm-sidebar"><!-- wp:group {"layout":{"type":"default"},"className":"lm-rail-heading"} -->
+<div class="wp-block-group lm-rail-heading"><!-- wp:site-title {"level":0} /-->
+<!-- wp:html -->
+<button class="lm-menu-button" type="button" aria-expanded="false" aria-controls="lumen-navigation" data-lumen-menu="" hidden="hidden">Menu</button>
+<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"layout":{"type":"default"},"className":"lm-rail-content","anchor":"lumen-navigation"} -->
+<div id="lumen-navigation" class="wp-block-group lm-rail-content"><!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"}} -->
 <!-- wp:home-link {"label":"Journal"} /-->
 <!-- wp:page-list /-->
 
 <!-- /wp:navigation -->
+<!-- wp:search {"label":"Search the journal","showLabel":false,"placeholder":"Search the journal","buttonText":"Search","buttonUseIcon":true,"className":"lm-rail-search"} /-->
+<!-- wp:group {"layout":{"type":"default"},"className":"lm-rail-topics"} -->
+<div class="wp-block-group lm-rail-topics"><!-- wp:heading -->
+<h2 class="wp-block-heading">Topics</h2>
+<!-- /wp:heading -->
+<!-- wp:categories {"showPostCounts":false} /-->
+</div>
+<!-- /wp:group -->
 <!-- wp:html -->
 <label class="lm-appearance" hidden="hidden">
   <span class="lm-sr-only">Appearance</span>
