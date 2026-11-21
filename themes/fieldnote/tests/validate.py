@@ -45,6 +45,6 @@ for svg in (R/'shared/assets').glob('*.svg'):
     t = svg.read_text(); ok('Artwork is plain SVG (no scripts/links) ' + svg.name, '<script' not in t and 'href' not in t)
 for page in ['index', 'archive', 'article', 'about', '404']:
     h = (R/'preview'/f'{page}.html').read_text(); ok('Preview has exactly one h1 ' + page, len(re.findall(r'<h1[\s>]', h)) == 1)
-report = {'checks': len(checks), 'result': 'passed', 'items': checks, 'bloggerLiveVerified': False, 'wordpressLiveVerified': False}
+report = {'checks': len(checks), 'result': 'passed', 'items': checks, 'scope': 'Structural checks only; native runtime results are documented in docs/TESTING.md'}
 (R/'tests/validation-results.json').write_text(json.dumps(report, indent=2))
-print(f'{len(checks)} structural, privacy and distribution checks passed. Live Blogger/WordPress installs are not yet verified.')
+print(f'{len(checks)} structural, privacy and distribution checks passed. See docs/TESTING.md for separate native runtime verification.')

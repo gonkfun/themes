@@ -1,0 +1,55 @@
+{
+  "environment": "WordPress 6.8 / PHP 8.3 Playground",
+  "results": [
+    {
+      "width": 390,
+      "route": "/",
+      "status": "pass"
+    },
+    {
+      "width": 390,
+      "route": "/a-house-sparrow-learns-the-feeder/",
+      "status": "pass"
+    },
+    {
+      "width": 390,
+      "route": "/?s=sparrow",
+      "status": "pass"
+    },
+    {
+      "width": 390,
+      "route": "/category/birds/",
+      "status": "pass"
+    },
+    {
+      "width": 390,
+      "route": "/not-a-real-fieldnote-page/",
+      "status": "pass"
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "status": "pass"
+    },
+    {
+      "width": 1440,
+      "route": "/a-house-sparrow-learns-the-feeder/",
+      "status": "pass"
+    },
+    {
+      "width": 1440,
+      "route": "/?s=sparrow",
+      "status": "pass"
+    },
+    {
+      "width": 1440,
+      "route": "/category/birds/",
+      "status": "pass"
+    },
+    {
+      "width": 1440,
+      "route": "/not-a-real-fieldnote-page/",
+      "status": "pass"
+    }
+  ]
+}

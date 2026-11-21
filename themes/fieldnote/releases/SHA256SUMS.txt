@@ -1,2 +1,2 @@
-aa230661d9a4ef47ca3087d949f0e2b4a3a0d14e271dc485defe3ae2f6f0d92b  fieldnote-blogger-1.0.0.zip
-3fef717b4851195759da9fbadbdb8ebed6f77941e90a038571dd689b7e041d65  fieldnote-wordpress-1.0.0.zip
+dbfa2268dd9dc159e61fa0cc3fb90fb828d8fadebae60e35565455fc188b295e  fieldnote-blogger-1.0.0.zip
+8fc248baf6701407bb2ea5d342d1750f8a927901600e95598f495b0f849f0293  fieldnote-wordpress-1.0.0.zip
