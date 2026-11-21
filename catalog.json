@@ -100,5 +100,17 @@
     },
     "previewPath": "react/",
     "coverSource": "react/screenshot.png"
+  },
+  {
+    "id": "switchboard",
+    "name": "Switchboard",
+    "version": "1.0.0",
+    "category": "React admin suite",
+    "description": "Operations and commerce dashboards, horizontal and sidebar navigation, team apps, chart and table galleries, and public pages.",
+    "platforms": [
+      "React"
+    ],
+    "cover": "assets/switchboard.png",
+    "coverSource": "react/screenshot.png"
   }
 ]
