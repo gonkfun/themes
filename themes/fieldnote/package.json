@@ -1,0 +1,16 @@
+{
+  "name": "fieldnote-by-gonk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "python3 build.py && python3 build-wordpress.py && python3 build-blogger.py",
+    "test": "python3 tests/validate.py",
+    "test:browser": "node tests/browser.mjs",
+    "package": "python3 package-release.py"
+  },
+  "devDependencies": {
+    "playwright": "1.65.0"
+  }
+}

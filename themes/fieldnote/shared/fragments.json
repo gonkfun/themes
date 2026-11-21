@@ -1,0 +1,17 @@
+{
+  "lead": "<section class=\"fn-lead-entry\" aria-labelledby=\"fn-lead-title\"><div><div class=\"fn-kicker\">Today’s observation</div><h1 id=\"fn-lead-title\">Look closely.<br/><em>Write it down.</em></h1><p class=\"fn-intro\">A field journal for the birds at the feeder, the fern in the shade and the weather rolling in. Small notes, gathered patiently, become a record of a place.</p><div class=\"fn-actions\"><a class=\"fn-button\" href=\"#entries\">Open the journal <span aria-hidden=\"true\">→</span></a><a class=\"fn-text-link\" href=\"NOTES\">How to keep a field notebook</a></div></div><figure class=\"fn-plate\"><span class=\"fn-tape\" aria-hidden=\"true\"></span><img src=\"ART/fern.svg\" alt=\"Line drawing of a fern unfurling beside a small note\" width=\"400\" height=\"300\"/><figcaption><span>Plate I · Polypodium</span><span>Shade garden</span></figcaption></figure></section>",
+  "banner": "<section class=\"fn-banner\"><div><div class=\"fn-kicker\">An invitation</div><h2>Start your own field notebook.</h2><p>Date, place, weather, what you saw. Four lines a day is enough to begin noticing more.</p></div><a class=\"fn-button\" href=\"NOTES\">Read the beginner’s guide →</a></section>",
+  "notebook": "<section class=\"fn-notebook\"><h2>The notebook</h2><p>Fieldnote is a place to record what you notice outdoors: carefully, slowly and in your own words.</p><a class=\"fn-text-link\" href=\"ABOUT\">About this journal →</a></section>",
+  "rss": "<section class=\"fn-rss\"><h2>Follow along</h2><p>New entries in your RSS reader, in the order they were written.</p><a class=\"fn-button ghost\" href=\"FEED\">Subscribe by RSS</a></section>",
+  "season": "<div class=\"fn-season\" aria-label=\"Season\"><span>FIELD SEASON</span><span class=\"fn-now\" data-fieldnote-season=\"\">This season</span><span class=\"fn-sep\" aria-hidden=\"true\"></span><span>OBSERVE · RECORD · RETURN</span></div>",
+  "toggle": "<button class=\"fn-icon\" data-fieldnote-toggle=\"\" aria-label=\"Switch to dusk reading mode\" aria-pressed=\"false\" hidden=\"hidden\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z\"/></svg></button>",
+  "brand": "<span class=\"fn-mark\"><svg aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 19 C5 11 10 5 19 5 C19 13 14 19 5 19 Z\"/><path d=\"M5 19 L14 10\"/></svg></span><span class=\"fn-brand-text\"><b>Fieldnote</b><small>Notes from the outside</small></span>",
+  "topics": [
+    "Birds",
+    "Plants",
+    "Fungi",
+    "Weather",
+    "Trails",
+    "Notes"
+  ]
+}

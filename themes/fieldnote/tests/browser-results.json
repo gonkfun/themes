@@ -1,0 +1,55 @@
+{
+  "checked": 10,
+  "results": [
+    {
+      "path": "index.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "path": "article.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "path": "archive.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "path": "about.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "path": "404.html",
+      "width": 390,
+      "status": "pass"
+    },
+    {
+      "path": "index.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "path": "article.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "path": "archive.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "path": "about.html",
+      "width": 1440,
+      "status": "pass"
+    },
+    {
+      "path": "404.html",
+      "width": 1440,
+      "status": "pass"
+    }
+  ]
+}

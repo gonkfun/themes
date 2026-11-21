@@ -1,0 +1,152 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "740px",
+      "wideSize": "1180px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "paper",
+          "name": "Paper",
+          "color": "#f3eee2"
+        },
+        {
+          "slug": "card",
+          "name": "Card",
+          "color": "#fbf8f0"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#23261f"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted",
+          "color": "#5b604f"
+        },
+        {
+          "slug": "moss",
+          "name": "Moss",
+          "color": "#3d5a36"
+        },
+        {
+          "slug": "rust",
+          "name": "Rust",
+          "color": "#a9512c"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "serif",
+          "name": "Book serif",
+          "fontFamily": "\"Iowan Old Style\", \"Palatino Linotype\", Palatino, \"Book Antiqua\", Georgia, serif"
+        },
+        {
+          "slug": "sans",
+          "name": "System sans",
+          "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+        },
+        {
+          "slug": "mono",
+          "name": "System mono",
+          "fontFamily": "ui-monospace, SFMono-Regular, Consolas, monospace"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "0.9rem"
+        },
+        {
+          "slug": "medium",
+          "name": "Body",
+          "size": "1.0625rem"
+        },
+        {
+          "slug": "large",
+          "name": "Large",
+          "size": "1.5rem"
+        },
+        {
+          "slug": "x-large",
+          "name": "Heading",
+          "size": "2.2rem"
+        }
+      ]
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%",
+        "vw"
+      ],
+      "blockGap": true
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|paper",
+      "text": "var:preset|color|ink"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|serif",
+      "fontSize": "17px",
+      "lineHeight": "1.7"
+    },
+    "spacing": {
+      "blockGap": "0px"
+    },
+    "blocks": {
+      "core/navigation": {
+        "spacing": {
+          "blockGap": "26px"
+        }
+      }
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|moss",
+          "text": "#fbf8f0"
+        },
+        "border": {
+          "radius": "4px"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    },
+    {
+      "name": "kit",
+      "title": "Field kit sidebar",
+      "area": "uncategorized"
+    }
+  ]
+}

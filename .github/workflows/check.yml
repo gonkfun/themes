@@ -11,8 +11,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate theme structure
-        run: python3 themes/epoch/tests/validate.py
+        run: for t in themes/*/tests/validate.py; do python3 "$t"; done
       - name: Check PHP syntax
-        run: find themes/epoch/wordpress/epoch -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find themes/*/wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Validate release ZIPs
         run: python3 -c "from pathlib import Path; import zipfile; [zipfile.ZipFile(p).testzip() for p in Path('themes').glob('*/releases/*.zip')]"
